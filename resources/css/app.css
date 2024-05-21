@@ -1,0 +1,193 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* vertical line to the left of the comments */
+.comments-container::before {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: -40px;
+    content: "";
+    width: 3px;
+    height: 100%;
+    background: #edf0f5;
+}
+
+/* horizontal line to the left of the comments */
+.comment-container:not(.pinned-comment):not(.is-status-update)::before {
+    position: absolute;
+    display: block;
+    top: 57px;
+    content: "";
+    width: 23px;
+    height: 3px;
+    background: #edf0f5;
+    left: -40px;
+}
+
+/* remove last vertical line */
+.comment-container:last-child::after {
+    position: absolute;
+    display: block;
+    top: 60px;
+    left: -40px;
+    content: "";
+    width: 3px;
+    height: calc(100% - 60px);
+    background: theme('colors.gray-background');
+}
+
+.filepond--credits {
+    display: none;
+}
+
+.is-status-update.comment-container:last-child::after {
+    left: -41px;
+}
+
+.is-status-update::before {
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: 38px;
+    border: 7px solid white;
+    box-shadow: 4px 4px 15px 0 rgba(36, 37, 38, 0.08);
+    left: -58px;
+    background: theme('colors.purple-base');
+    opacity: 1;
+    z-index: 1;
+}
+
+.is-status-update {
+    border-width: 1px;
+    border-image-source: linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
+    background-image: linear-gradient(to bottom, #ffffff, #ffffff), linear-gradient(266deg, #21c8f6 98%, #637bff -52%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.status-underconsideration, .comment-status-underconsideration:before {
+    @apply bg-gray-700 text-white;
+}
+.status-undefined, .comment-status-undefined:before {
+    @apply bg-gray-300 text-white;
+}
+.status-considering, .comment-status-considering:before {
+    @apply bg-purple-base text-white;
+}
+.status-declined, .comment-status-declined:before {
+    @apply bg-yellow-base text-white;
+}
+.status-inplanning, .comment-status-inplanning:before {
+    @apply bg-blue-base text-white;
+}
+.status-indevelopment, .comment-status-indevelopment:before {
+    @apply bg-pink-500 text-white;
+}
+.status-completed, .comment-status-completed:before {
+    @apply bg-green-base text-white;
+}
+.status-awaitingconsideration, .comment-status-awaitingconsideration:before {
+    @apply bg-red-base text-white;
+}
+
+.status-checkbox-underconsideration {
+    @apply text-gray-700 border-2 border-gray-700;
+}
+.status-checkbox-considering {
+    @apply text-purple-base border-2 border-purple-base;
+}
+.status-checkbox-declined {
+    @apply text-yellow-base border-2 border-yellow-base;
+}
+.status-checkbox-inplanning {
+    @apply text-blue-base border-2 border-blue-base;
+}
+.status-checkbox-indevelopment {
+    @apply text-pink-500 border-2 border-pink-500;
+}
+.status-checkbox-completed {
+    @apply text-green-base border-2 border-green-base;
+}
+.status-checkbox-awaitingconsideration {
+    @apply text-red-base border-2 border-red-base;
+}
+
+.vote-existing::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -9px;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    border-top: solid 16px theme('colors.blue-base');;
+    border-left: solid 9px transparent;
+    border-right: solid 9px transparent;
+}
+
+.filepond--cred-baseits {
+    display: none;
+}
+
+/* CHECKBOX TOGGLE SWITCH */
+.toggle-checkbox:checked {
+    @apply: right-0 border-green-base-400;
+    right: 0;
+    border-color: #68D391;
+}
+.toggle-checkbox {
+    border-width: 2px;
+    --tw-border-opacity: 1;
+    border-color: rgba(212, 212, 212, var(--tw-border-opacity));
+    --tw-text-opacity: 1;
+    color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.toggle-checkbox:checked + .toggle-label {
+    @apply: bg-green-base-400;
+    background-color: #68D391;
+}
+
+.toggle-checkbox:checked:hover,
+.toggle-checkbox:checked:focus {
+    border-color: #68D391;
+
+}
+
+.table-sticky thead tr .sticky-col {
+    @apply bg-gray-50;
+    z-index: 10;
+}
+
+.table-sticky .sticky-col {
+    @apply bg-white;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0px;
+}
+
+.table-sticky thead tr .sticky-col:nth-child(2),
+.table-sticky tbody tr .sticky-col:nth-child(2) {
+    @apply border-r-2 border-gray-400;
+    @apply border-l border-gray-100;
+    left: 64px;
+}
+
+.table-sticky thead tr .sticky-col:nth-child(3),
+.table-sticky tbody tr .sticky-col:nth-child(3) {
+    @apply border-r-4 border-gray-400;
+    @apply border-l border-gray-100;
+    left: 141px;
+}
+
+
+.table-sticky thead tr th {
+    @apply sticky top-0 px-6 py-3 bg-gray-50 border-gray-100 border-b-4;
+}
