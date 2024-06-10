@@ -4,8 +4,6 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Tag;
-use App\Models\Product;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Frontend\SearchController;

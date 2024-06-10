@@ -21,15 +21,21 @@ class CheckAppSettings
      */
     public function handle(Request $request, Closure $next)
     {
+        try {
+            $forcelogin = app(GeneralSettings::class)->forcelogin;
+        } catch (Exception $e) {
+            $forcelogin = false;
+        }
+
+        // Redirect login to AAD login when aad_only was enabled
+        try {
+            $aadOnly = app(AzureADSettings::class)->aad_only;
+        } catch (Exception $e) {
+            $aadOnly = false;
+        }
+
         if (!auth()->check()) { // Check if user was authenticated
-            try {
-                $forcelogin = app(GeneralSettings::class)->forcelogin;
-            } catch (Exception $e) {
-                $forcelogin = false;
-            }
-
             // Redirect to /login if forcelogin was enabled
-
             $exclude = collect([
                 'auth.*',
                 'login',
@@ -38,19 +44,17 @@ class CheckAppSettings
                 'register',
                 'register.*'
             ]);
+            if ($request->routeIs('login') && $request->get('login') === 'show') {
+                return $next($request);
+            } else {
+                if (!$request->routeIs($exclude) && $forcelogin) {
+                    return $this->redirectToLogin();
+                }
 
-            if (!$request->routeIs($exclude) && $forcelogin) {
-                return $this->redirectToLogin();
-            }
-
-            // Redirect login to AAD login when aad_only was enabled
-            try {
-                $aadOnly = app(AzureADSettings::class)->aad_only;
-            } catch (Exception $e) {
-                $aadOnly = false;
-            }
-            if ($request->routeIs('login') && $request->isMethod('get') && $aadOnly) {
-                return $this->redirectToAzureLogin();
+                if ($request->routeIs('login') && $request->isMethod('get') && $aadOnly &&  !session()->get('logged_out', false)) {
+                    return $this->redirectToAzureLogin();
+                }
+                session()->pull('logged_out');
             }
         }
         return $next($request);
