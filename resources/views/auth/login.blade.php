@@ -69,7 +69,9 @@
 
         <x-slot name="other">
             @if ($aadSettings->aad_enable)
-                <div class="my-4">OR</div>
+                @if (!$aadSettings->aad_only || request()->get('login') == 'show')
+                    <div class="my-4">OR</div>
+                @endif
                 <div class="w-full px-1">
                     <x-button
                         info
