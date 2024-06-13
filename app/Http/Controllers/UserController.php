@@ -21,16 +21,4 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
-
-    public function loginAs()
-    {
-        $adminUser = session()->get('admin_user');
-        $user = User::find($adminUser->id);
-        $redirect = loginAsUser($user, true);
-
-        return redirect($redirect)->with('notify', [
-            'message' => __('text.loginassucess', ['user' => $user->name]),
-            'type' => 'success'
-        ]);
-    }
 }

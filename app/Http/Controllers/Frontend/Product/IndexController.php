@@ -57,19 +57,6 @@ class IndexController extends Controller
     }
 
     /**
-     * View Product's ideas progress(by status)
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function progress(Product $product)
-    {
-        return view('frontend.product.progress', [
-            'product' => $product
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Product  $product
