@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -10,7 +10,7 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
-class ProductController extends Controller
+class IndexController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -57,34 +57,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Display product ideas by tag.
-     *
-     * @param  \App\Models\Product  $product
-     * @param  \App\Models\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function tag(Product $product, Tag $tag)
-    {
-        return view('frontend.product.tag', [
-            'product' => $product,
-            'tag' => $tag
-        ]);
-    }
-
-    /**
-     * Suggest idea for the current Product
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function suggestIdea(Product $product)
-    {
-        return view('frontend.product.suggest-idea', [
-            'product' => $product
-        ]);
-    }
-
-    /**
      * View Product's ideas progress(by status)
      *
      * @param  \App\Models\Product  $product
@@ -92,7 +64,7 @@ class ProductController extends Controller
      */
     public function progress(Product $product)
     {
-        return view('frontend.product.progress', [ 
+        return view('frontend.product.progress', [
             'product' => $product
         ]);
     }
