@@ -13,7 +13,7 @@ class ProgressController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function progress(Product $product)
+    public function show(Product $product)
     {
         return view('frontend.product.progress', [
             'product' => $product
