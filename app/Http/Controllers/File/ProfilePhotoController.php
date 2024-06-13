@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 
 /**
@@ -33,6 +32,6 @@ class ProfilePhotoController extends Controller
         $type = Storage::mimeType($path);
 
         // Return the file as a response
-        return Response::make($file, 200)->header("Content-Type", $type);
+        return response($file, 200)->header("Content-Type", $type);
     }
 }
