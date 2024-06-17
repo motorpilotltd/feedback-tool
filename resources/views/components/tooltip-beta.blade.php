@@ -9,8 +9,7 @@
 >
     <x-icon :name="$icon" />
     <div x-show="tooltip"
-        class="text-sm text-white absolute bg-gray-800 rounded-lg
-        p-2 transform -translate-y-16 -translate-x-24 z-10"
+        class="text-sm text-white absolute bg-gray-800 rounded-lg p-2 transform -translate-y-16 -translate-x-24 z-10"
         x-cloak
     >
         {{$slot}}

@@ -1,6 +1,6 @@
 @unless ($breadcrumbs->isEmpty())
     <nav class="container mx-auto mb-4 shadow-md rounded-xl bg-white">
-        <ol class="p-4 flex flex-wrap text-sm text-gray-800 ">
+        <ol class="p-4 flex flex-wrap text-sm text-gray-800">
             @foreach ($breadcrumbs as $breadcrumb)
                 @php
                     $breadcrumbtitle = Str::limit($breadcrumb->title, 25, '...');
