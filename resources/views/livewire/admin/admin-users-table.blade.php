@@ -17,7 +17,7 @@
     <div class="space-y-8">
         @can(config('const.PERMISSION_SYSTEM_MANAGE'))
             {{-- Only super admins can see superadmin tab --}}
-            <x-card title="Super Admin" class="flex flex-col space-y-4 ">
+            <x-card title="Super Admin" class="flex flex-col space-y-4">
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
                     <x-input
                         id="searchSuperUser"
@@ -92,7 +92,7 @@
                 </div>
             </x-card>
         @endif
-        <x-card title="Product Admin" class="flex flex-col space-y-4 ">
+        <x-card title="Product Admin" class="flex flex-col space-y-4">
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
                 <x-input
                     id="searchUser"
