@@ -2,7 +2,10 @@
     "name": "motorpilotltd/feedback-tool",
     "type": "project",
     "description": "Feedback Tool.",
-    "keywords": ["feedback", "laravel"],
+    "keywords": [
+        "feedback",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.0|^8.1",
@@ -11,7 +14,7 @@
         "dyrynda/laravel-cascade-soft-deletes": "^4.4",
         "guzzlehttp/guzzle": "^7.5",
         "itsgoingd/clockwork": "^5.1",
-        "laravel/framework": "^11.0",
+        "laravel/framework": "^11.11",
         "laravel/jetstream": "^5.0",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.5",
