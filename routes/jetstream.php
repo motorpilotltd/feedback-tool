@@ -19,7 +19,7 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
     Route::group(['middleware' => ['auth', 'verified']], function () {
         // User & Profile...
         Route::get('/user/profile', [UserProfileController::class, 'show'])
-                    ->name('profile.show');
+            ->name('profile.show');
 
         // API...
         if (Jetstream::hasApiFeatures()) {
@@ -33,8 +33,8 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
             Route::put('/current-team', [CurrentTeamController::class, 'update'])->name('current-team.update');
 
             Route::get('/team-invitations/{invitation}', [TeamInvitationController::class, 'accept'])
-                        ->middleware(['signed'])
-                        ->name('team-invitations.accept');
+                ->middleware(['signed'])
+                ->name('team-invitations.accept');
         }
     });
 });

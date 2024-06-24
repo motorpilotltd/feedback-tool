@@ -10,7 +10,7 @@ class ProductFilterService
     /**
      * Filter products based on the provided search title.
      *
-     * @param string $searchTitle The search term for filtering products by name.
+     * @param  string  $searchTitle  The search term for filtering products by name.
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
     public function filter($searchTitle = '')
@@ -20,7 +20,7 @@ class ProductFilterService
                 'query' => Product::with(['user'])->leftJoin('users', 'users.id', '=', 'products.user_id'),
                 'search_field' => [
                     'field' => 'products.name',
-                    'value' => $searchTitle
+                    'value' => $searchTitle,
                 ],
             ])
             ->through([

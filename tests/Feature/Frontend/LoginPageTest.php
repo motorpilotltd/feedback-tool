@@ -1,7 +1,5 @@
 <?php
 
-use phpDocumentor\Reflection\Types\Boolean;
-
 it('can show login form page with default settings', function () {
     $this->get(route('login'))
         ->assertSee('login-form')
@@ -21,7 +19,7 @@ it('can show/hide login with org for aad_enable settings', function (bool $isEna
     }
 })->with([
     'enabled' => true,
-    'disabled' => false
+    'disabled' => false,
 ]);
 
 it('redirects/not redirect to Azure AD login when aad_only', function ($isEnable) {
@@ -36,5 +34,5 @@ it('redirects/not redirect to Azure AD login when aad_only', function ($isEnable
     }
 })->with([
     'enabled' => true,
-    'disabled' => false
+    'disabled' => false,
 ]);

@@ -1,17 +1,17 @@
 <?php
 
-use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Livewire\Admin\Dashboard as AdminDashboard;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\Frontend\SearchController;
-use App\Http\Controllers\Frontend\ProductController;
-use App\Http\Controllers\Frontend\IdeaController;
-use App\Http\Controllers\Frontend\CategoryController;
-use App\Http\Controllers\FileController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\FileController;
+use App\Http\Controllers\Frontend\CategoryController;
+use App\Http\Controllers\Frontend\IdeaController;
+use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\UserController;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +37,6 @@ Route::prefix('idea')->group(function () {
     Route::get('{idea:slug}', [IdeaController::class, 'show'])->name('idea.show');
     Route::get('{idea:slug}/edit', [IdeaController::class, 'edit'])->can('update', 'idea')->name('idea.edit');
 });
-
 
 Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
 
@@ -71,7 +70,7 @@ Route::get('/auth/microsoft/callback', function () {
             'name' => $azureUser->name,
             'email' => $azureUser->email,
             'provider_token' => $azureUser->token ?? '',
-            'provider_platform' => 'azure'
+            'provider_platform' => 'azure',
         ]);
 
         Auth::login($user);
@@ -100,4 +99,4 @@ Route::get('/attachments/{action}/{media:file_name}', [FileController::class, 's
     ->middleware(['authFile'])
     ->name('file.attachments.show');
 
-Route::get('/profile-photos/{filename}', [FileController::class, 'showProfilePhoto'])->name('file.profilephoto.show');;
+Route::get('/profile-photos/{filename}', [FileController::class, 'showProfilePhoto'])->name('file.profilephoto.show');

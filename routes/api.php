@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\Api\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-Route::middleware('auth:sanctum', 'can:' . config('const.PERMISSION_PRODUCTS_MANAGE'))->group(function () {
+Route::middleware('auth:sanctum', 'can:'.config('const.PERMISSION_PRODUCTS_MANAGE'))->group(function () {
     Route::get('/users', Users\Index::class)->name('api.users.index');
 });

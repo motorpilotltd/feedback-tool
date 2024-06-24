@@ -2,13 +2,9 @@
 
 use App\Livewire\Admin\ProductsTable;
 use App\Models\Product;
-use function Pest\Faker\fake;
-use function Pest\Livewire\livewire;
-
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\MediaLibrary;
-use Laravel\Jetstream\Http\Livewire\NavigationMenu;
+
+use function Pest\Faker\fake;
 
 beforeEach(function () {
     setupData();
@@ -32,7 +28,6 @@ it('can display products table', function () {
         ->assertSeeLivewire('admin.products-table');
 });
 
-
 it('can lists products in the table', function () {
     login($this->userSuperAdmin)
         ->livewire(ProductsTable::class)
@@ -49,7 +44,7 @@ it('can search for products by title and return results', function () {
         ->set('search', $this->product1->name)
         ->assertSee($this->product1->name)
         ->assertDontSee($this->product2->name)
-        ->assertViewHas('products', function($products) {
+        ->assertViewHas('products', function ($products) {
             return $products->count() === 1;
         });
 });
@@ -60,7 +55,7 @@ it('doesn\'t return search result when no match found', function () {
         ->set('search', fake()->md5())
         ->assertDontSee($this->product1->name)
         ->assertDontSee($this->product2->name)
-        ->assertViewHas('products', function($products) {
+        ->assertViewHas('products', function ($products) {
             return $products->count() === 0;
         });
 });
@@ -91,7 +86,7 @@ it('saves the new product\'s logo', function () {
         ->set('editing.description', fake()->text(20))
         ->set('newLogo', UploadedFile::fake()->image('new_logo.png'))
         ->call('save')
-        ->assertDispatched('filepreview:App\Models\Product:' . Product::latest('id')->first()->id);
+        ->assertDispatched('filepreview:App\Models\Product:'.Product::latest('id')->first()->id);
 
     // Get the latest product from the database
     $product = Product::latest('id')->first();

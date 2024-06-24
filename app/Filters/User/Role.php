@@ -3,7 +3,6 @@
 namespace App\Filters\User;
 
 use App\Filters\BaseFilter;
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class Role extends BaseFilter
@@ -14,6 +13,7 @@ class Role extends BaseFilter
         if ($this->builderState) {
             return $builder->role($this->builderState);
         }
+
         return $builder;
 
     }

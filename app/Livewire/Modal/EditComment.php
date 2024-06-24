@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Modal;
 
-use App\Models\Comment;
 use App\Models\Idea;
 use Livewire\Component;
 
 class EditComment extends Component
 {
     public $idea;
+
     public $action;
+
     public $test;
+
     public $commentId;
 
     protected $listeners = ['setEditComment'];

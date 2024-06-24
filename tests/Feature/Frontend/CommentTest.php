@@ -1,19 +1,16 @@
 <?php
 
-use function Pest\Livewire\livewire;
-use function Pest\Faker\fake;
-
-
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
-use Illuminate\Http\UploadedFile;
-
-use App\Models\User;
-use App\Models\Idea;
-use App\Models\Comment;
-use App\Livewire\Idea\CommentsContainer;
-use App\Livewire\Idea\Card as IdeaCard;
 use App\Livewire\Forms\CommentForm;
+use App\Livewire\Idea\Card as IdeaCard;
+use App\Livewire\Idea\CommentsContainer;
+use App\Models\Comment;
+use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+
+use function Pest\Faker\fake;
+use function Pest\Livewire\livewire;
 
 beforeEach(function () {
     setupData();
@@ -21,19 +18,19 @@ beforeEach(function () {
         'user_id' => User::factory()->create()->id,
         'idea_id' => $this->idea1->id,
         'content' => fake()->text(20),
-        'created_at' => Carbon::now()->subDays(2)
+        'created_at' => Carbon::now()->subDays(2),
     ]);
 
     $this->comment2 = Comment::create([
         'user_id' => User::factory()->create()->id,
         'idea_id' => $this->idea2->id,
-        'content' => fake()->text(20)
+        'content' => fake()->text(20),
     ]);
 });
 
 it('can see comments count in the idea card rendered for idea listing', function () {
     livewire(IdeaCard::class, ['idea' => $this->idea1->id])
-        ->assertSee(Str::plural(__('general.commentcount', ['count' => 1]),  1));
+        ->assertSee(Str::plural(__('general.commentcount', ['count' => 1]), 1));
 });
 
 it('can see comment in the idea page', function () {
@@ -104,7 +101,7 @@ it('can show newly added comment as the latest', function () {
     $this->assertEquals(1, $component->comments->count());
 
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
-        ->set('content',$testContent)
+        ->set('content', $testContent)
         ->call('addComment')
         ->assertHasNoErrors(['content']);
 
@@ -114,12 +111,11 @@ it('can show newly added comment as the latest', function () {
     $this->assertEquals($comments->first()->content, $testContent);
 });
 
-
 it('can show newly added comment\'s attachment', function () {
     $testContent = fake()->text(50);
     $imageFile = UploadedFile::fake()->image('testimage', 2, 2);
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
-        ->set('content',$testContent)
+        ->set('content', $testContent)
         ->set('attachments', [$imageFile])
         ->call('addComment')
         ->assertHasNoErrors(['content', 'attachments']);

@@ -3,17 +3,17 @@
 namespace App\Notifications;
 
 use App\Models\User;
+use App\Settings\GeneralSettings;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Settings\GeneralSettings;
 
 class AccountCreated extends Notification
 {
     use Queueable;
 
     public $user;
+
     public $generalSettings;
 
     /**
@@ -47,15 +47,15 @@ class AccountCreated extends Notification
     public function toMail($notifiable)
     {
         // Send emails to divert test email if enabled
-        if ($this->generalSettings->enable_divert_email && !empty($this->generalSettings->divert_email)) {
+        if ($this->generalSettings->enable_divert_email && ! empty($this->generalSettings->divert_email)) {
             // Modify the notifiable's email address
             $notifiable->email = $this->generalSettings->divert_email;
         }
 
         return (new MailMessage)
-            ->subject(config('app.name', 'Feedback App') . ': ' . $this->user->email . ' account created')
+            ->subject(config('app.name', 'Feedback App').': '.$this->user->email.' account created')
             ->markdown('emails.account-created', [
-                'user' => $this->user
+                'user' => $this->user,
             ]);
     }
 

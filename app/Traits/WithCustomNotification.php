@@ -5,6 +5,7 @@ namespace App\Traits;
 trait WithCustomNotification
 {
     public $customType;
+
     /**
      * Get the type of the notification being broadcast.
      *

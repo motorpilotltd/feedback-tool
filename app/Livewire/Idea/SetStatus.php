@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Idea;
 
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\Comment;
 use App\Models\Idea;
 use App\Models\Status;
+use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 
@@ -15,9 +15,13 @@ class SetStatus extends Component
         WithDispatchNotify;
 
     public $idea;
+
     public $comment;
+
     public $statuses;
+
     public $status;
+
     public $notifyAllVoters;
 
     protected $listeners = ['openSetStatus'];
@@ -27,15 +31,16 @@ class SetStatus extends Component
         $status = $this->status;
         $idea = $this->idea;
         $statuses = $this->statuses->pluck('slug')->toArray();
+
         return [
             'status' => ['required', 'string', function ($attribute, $value, $fail) use ($status, $idea, $statuses) {
-                if (!in_array($status, $statuses)) {
+                if (! in_array($status, $statuses)) {
                     $fail(__('error.invalidstatus'));
                 }
                 if ($idea->status === $status) {
                     $fail(__('error.statusthesame'));
                 }
-            }]
+            }],
         ];
     }
 
@@ -54,10 +59,11 @@ class SetStatus extends Component
 
     public function setStatus()
     {
-        if (! auth()->check() || !auth()->user()->can('manage', $this->idea)) {
+        if (! auth()->check() || ! auth()->user()->can('manage', $this->idea)) {
             $this->notification()->success(
                 $description = __('general.actionnotallowed')
             );
+
             return;
         }
 

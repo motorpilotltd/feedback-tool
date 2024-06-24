@@ -2,26 +2,30 @@
 
 namespace App\Livewire\Idea;
 
-use WireUi\Traits\Actions;
-use Livewire\Component;
-use App\Services\Comment\CommentSpamService;
-use App\Models\Idea;
 use App\Models\Comment as CommentModel;
+use App\Models\Idea;
+use App\Services\Comment\CommentSpamService;
+use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class Comment extends Component
 {
     use Actions;
 
     public $comment;
+
     public $parentIdea;
+
     public $authUser;
+
     public $isPinned;
+
     public $pinnedCommentId;
 
     protected function getListeners()
     {
         return [
-            "comment:refresh:{$this->comment->id}" => 'refreshComment'
+            "comment:refresh:{$this->comment->id}" => 'refreshComment',
         ];
     }
 
@@ -41,16 +45,16 @@ class Comment extends Component
                 $description = __('error.actionnotpermitted'),
             );
         } else {
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->dialog()->confirm([
-                    'title'       => __('text.areyousure'),
+                    'title' => __('text.areyousure'),
                     'description' => __('text.deletethiscommentconfirm'),
-                    'accept'      => [
-                        'label'  => __('text.yes_confirm'),
+                    'accept' => [
+                        'label' => __('text.yes_confirm'),
                         'method' => 'deleteConfirm',
                         'params' => [
                             $comment,
-                            true
+                            true,
                         ],
                     ],
                 ]);
@@ -73,18 +77,18 @@ class Comment extends Component
                 $description = __('error.actionnotpermitted'),
             );
         } else {
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon'          => 'exclamation',
-                    'title'         => $hasMarkedSpam ? __('text.unmarkcommentspam') : __('text.markcommentspam'),
-                    'description'   => $hasMarkedSpam ? __('text.unmarksommentspamconfirm') : __('text.marksommentspamconfirm'),
-                    'accept'        => [
-                        'label'     => __('text.yes_confirm'),
-                        'method'    => 'markSpamConfirm',
-                        'params'    => [
+                    'icon' => 'exclamation',
+                    'title' => $hasMarkedSpam ? __('text.unmarkcommentspam') : __('text.markcommentspam'),
+                    'description' => $hasMarkedSpam ? __('text.unmarksommentspamconfirm') : __('text.marksommentspamconfirm'),
+                    'accept' => [
+                        'label' => __('text.yes_confirm'),
+                        'method' => 'markSpamConfirm',
+                        'params' => [
                             $comment,
                             $hasMarkedSpam,
-                            true
+                            true,
                         ],
                     ],
                 ]);
@@ -108,17 +112,17 @@ class Comment extends Component
                 $description = __('error.actionnotpermitted'),
             );
         } else {
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon'          => 'exclamation',
-                    'title'         => __('text.commentnotspam'),
-                    'description'   => __('text.commentremovespamconfirm'),
-                    'accept'        => [
-                        'label'     => __('text.yes_confirm'),
-                        'method'    => 'commentNotSpamConfirm',
-                        'params'    => [
+                    'icon' => 'exclamation',
+                    'title' => __('text.commentnotspam'),
+                    'description' => __('text.commentremovespamconfirm'),
+                    'accept' => [
+                        'label' => __('text.yes_confirm'),
+                        'method' => 'commentNotSpamConfirm',
+                        'params' => [
                             $comment,
-                            true
+                            true,
                         ],
                     ],
                 ]);
@@ -137,12 +141,12 @@ class Comment extends Component
     {
         $idea = $this->parentIdea;
         $prevPinned = $idea->sticky_comment_id;
-        $idea->sticky_comment_id = !$isPinned ? $commentId : 0;
+        $idea->sticky_comment_id = ! $isPinned ? $commentId : 0;
         $this->pinnedCommentId = $idea->sticky_comment_id;
         $idea->save();
         $this->dispatch('refreshIdeaShow');
         $this->dispatch("comment:refresh:{$prevPinned}");
-        if (!$isPinned) {
+        if (! $isPinned) {
             $this->dispatch('scroll-to-pinned-comment', true);
         }
     }

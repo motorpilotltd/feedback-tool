@@ -17,30 +17,44 @@ use Livewire\WithPagination;
 
 class IdeasTable extends Component
 {
-    use WithPagination, WithDispatchNotify, WithProductSelection, WithTableSorting, WithModelEditing;
+    use WithDispatchNotify, WithModelEditing, WithPagination, WithProductSelection, WithTableSorting;
 
     public $showCalculateModal = false;
+
     public $selectCategories = [];
+
     public $selectedProduct = 0;
+
     public $selectedCategory = 0;
+
     public $selectProducts = [];
+
     public $showEditModal = false;
+
     public $showMoveModal = false;
+
     public $showFilters = false;
+
     public $calcNumbers = [0, 1, 2, 3, 5, 8, 13, 21];
+
     public $modalTitle;
+
     public $selectAll = false;
+
     public $selected = [];
+
     public $calcData = [
         'business_value' => 0,
         'time_criticality' => 0,
         'complexity' => 0,
     ];
+
     public $filters = [
         'search' => '',
         'statuses' => [],
         'categories' => [],
     ];
+
     public $wsjf = 0;
 
     public Idea $editing; // Wire model binding to model data
@@ -48,9 +62,8 @@ class IdeasTable extends Component
     protected $queryString = [];
 
     protected $listeners = [
-        'productUpdated' => 'resetCheckbox'
+        'productUpdated' => 'resetCheckbox',
     ];
-
 
     public function mount()
     {
@@ -63,14 +76,15 @@ class IdeasTable extends Component
     protected function rules()
     {
         $categories = $this->moveCategories->pluck('id');
+
         return [
             'calcData.*' => [function ($attribute, $value, $fail) {
-                if (!in_array($value, $this->calcNumbers)) {
+                if (! in_array($value, $this->calcNumbers)) {
                     $fail(__('error.invalidvalue'));
                 }
             }],
             'selectedCategory' => ['required', 'integer', function ($attribute, $value, $fail) use ($categories) {
-                if (!in_array($value, $categories->toArray())) {
+                if (! in_array($value, $categories->toArray())) {
                     $fail(__('error.invalidcategoryvalue'));
                 }
             }],
@@ -92,7 +106,7 @@ class IdeasTable extends Component
     public function updatedSelectAll($value)
     {
         $this->selected = $value
-            ? $this->ideas->pluck('id')->map(fn($id) => (string) $id)
+            ? $this->ideas->pluck('id')->map(fn ($id) => (string) $id)
             : [];
     }
 
@@ -103,6 +117,7 @@ class IdeasTable extends Component
         foreach ($data as $val) {
             if (empty($val)) {
                 $this->wsjf = 0;
+
                 return;
             }
         }
@@ -118,6 +133,7 @@ class IdeasTable extends Component
     public function exportCsv()
     {
         $ideas = $this->ideas;
+
         return response()->streamDownload(function () use ($ideas) {
             $ideasTable = $ideas->get()->map(function ($item) {
                 return [
@@ -140,12 +156,12 @@ class IdeasTable extends Component
                 ];
             });
 
-            if (!empty($this->selected)) {
-                echo $ideasTable->whereIn('id',$this->selected)->toCsv();
+            if (! empty($this->selected)) {
+                echo $ideasTable->whereIn('id', $this->selected)->toCsv();
             } else {
                 echo $ideasTable->toCsv();
             }
-        }, 'Export-ideas_'. strtolower(now()->format('m-d-Y')). '.csv');
+        }, 'Export-ideas_'.strtolower(now()->format('m-d-Y')).'.csv');
     }
 
     public function hydrate()
@@ -167,10 +183,10 @@ class IdeasTable extends Component
     public function saveCalculate()
     {
         $this->validateOnly('calcData.*');
-        $this->editing->business_value =  $this->calcData['business_value'];
-        $this->editing->time_criticality =  $this->calcData['time_criticality'];
-        $this->editing->complexity =  $this->calcData['complexity'];
-        $this->editing->wsjf =  $this->wsjf;
+        $this->editing->business_value = $this->calcData['business_value'];
+        $this->editing->time_criticality = $this->calcData['time_criticality'];
+        $this->editing->complexity = $this->calcData['complexity'];
+        $this->editing->wsjf = $this->wsjf;
         $this->editing->save();
 
         $this->dispatchNotifySuccess(__('text.successfullysaved'));
@@ -192,7 +208,7 @@ class IdeasTable extends Component
         $this->calcData['complexity'] = $idea->complexity;
         $this->wsjf = $idea->wsjf;
 
-        $this->modalTitle = __('Calculate') . ' - ' . $idea->title;
+        $this->modalTitle = __('Calculate').' - '.$idea->title;
         $this->showCalculateModal = true;
     }
 
@@ -205,7 +221,7 @@ class IdeasTable extends Component
     {
         $this->setEditing($idea);
 
-        $this->modalTitle = __('Move') . ' - ' . $idea->title;
+        $this->modalTitle = __('Move').' - '.$idea->title;
         $this->showMoveModal = true;
         $this->selectedProduct = $idea->category->product_id;
         $this->selectedCategory = $idea->category_id;

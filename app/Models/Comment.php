@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\CommentSpam;
-use App\Models\Idea;
-use App\Models\User;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,8 +11,9 @@ use Spatie\MediaLibrary\HasMedia;
 class Comment extends Model implements HasMedia
 {
     use HasFactory,
-        WithPerPage,
-        HasMediaCollectionsTrait;
+        HasMediaCollectionsTrait,
+        WithPerPage;
+
     protected $guarded = [];
 
     protected $touches = ['idea'];
@@ -53,6 +51,4 @@ class Comment extends Model implements HasMedia
     {
         return $this->belongsToMany(User::class, 'comment_spam')->withTimestamps();
     }
-
-
 }

@@ -10,7 +10,7 @@ class CategoryFilterService
     /**
      * Filter categories based on the provided search name.
      *
-     * @param string $searchName The search term for filtering categories by name.
+     * @param  string  $searchName  The search term for filtering categories by name.
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
     public function filter($searchName = '')
@@ -20,15 +20,16 @@ class CategoryFilterService
                 'query' => Category::with(['user']),
                 'search_field' => [
                     'field' => 'categories.name',
-                    'value' => $searchName
+                    'value' => $searchName,
                 ],
             ])
             ->through([
                 \App\Filters\Common\SearchField::class,
             ])
             ->thenReturn();
+
         return $category['query']
             ->with(['product'])
             ->withCount('ideas');
-        }
+    }
 }

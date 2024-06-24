@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Admin;
 
-use App\Traits\Livewire\WithProductSelection;
 use App\Models\Tag;
 use App\Models\TagGroup;
+use App\Traits\Livewire\WithProductSelection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,18 +12,26 @@ use WireUi\Traits\Actions;
 
 class TagsTable extends Component
 {
-    use WithProductSelection,
-        Actions,
-        WithPagination;
+    use Actions,
+        WithPagination,
+        WithProductSelection;
 
     public $showModal = false;
+
     public $tagGroup;
+
     public $tagsOptions = [];
+
     public $tagsSelected = [];
+
     public $tagGroupName;
+
     public $isManaged;
+
     public $adminOrUser;
+
     public $managed;
+
     public $unmanaged;
 
     public $searchTag = '';
@@ -40,11 +48,11 @@ class TagsTable extends Component
             'tagGroupName' => [
                 'required',
                 Rule::unique('tag_groups', 'name')
-                ->where(fn ($query) => $query->where('product_id', $this->productId))
-                ->when(
-                    isset($this->tagGroup->id),
-                    fn($query) => $query->ignore($this->tagGroup->id, 'id')
-                )
+                    ->where(fn ($query) => $query->where('product_id', $this->productId))
+                    ->when(
+                        isset($this->tagGroup->id),
+                        fn ($query) => $query->ignore($this->tagGroup->id, 'id')
+                    ),
             ],
             'isManaged' => 'required',
             'adminOrUser' => 'required',
@@ -79,10 +87,10 @@ class TagsTable extends Component
 
     public function addToTagsSelected($tag)
     {
-        if (!in_array($tag, $this->tagsOptions)) {
+        if (! in_array($tag, $this->tagsOptions)) {
             $this->tagsOptions[] = $tag;
         }
-        if (!in_array($tag, $this->tagsSelected)) {
+        if (! in_array($tag, $this->tagsSelected)) {
             $this->tagsSelected[] = $tag;
         }
     }
@@ -95,14 +103,14 @@ class TagsTable extends Component
         $data = [
             'name' => $this->tagGroupName,
             'is_managed' => $this->isManaged,
-            'admin_or_user' => $this->adminOrUser
+            'admin_or_user' => $this->adminOrUser,
         ];
         if (empty($tagGroup)) {
             // save new
             $tagGroup = TagGroup::create([
                 'added_by' => auth()->id(),
                 'product_id' => $this->productId,
-                ...$data
+                ...$data,
             ]);
             $message = __('text.successfullysaved');
         } else {
@@ -112,20 +120,20 @@ class TagsTable extends Component
         }
 
         // Save new tag(s)
-        if (!empty($this->tagsSelected) && isset($tagGroup->id)) {
+        if (! empty($this->tagsSelected) && isset($tagGroup->id)) {
             collect($this->tagsSelected)->each(function ($tag) use ($tagGroup) {
                 Tag::firstOrCreate(['tag_group_id' => $tagGroup->id, 'name' => $tag], [
                     'tag_group_id' => $tagGroup->id,
                     'name' => $tag,
-                    'added_by' => auth()->id()
+                    'added_by' => auth()->id(),
                 ]);
             });
         }
 
         // Delete removed tag(s) from the selected
-        if (!empty($tagGroup->tags)) {
+        if (! empty($tagGroup->tags)) {
             $tagGroup->tags->each(function ($tag) {
-                if (!in_array($tag->name, $this->tagsSelected)) {
+                if (! in_array($tag->name, $this->tagsSelected)) {
                     $tag->delete();
                 }
             });
@@ -140,21 +148,21 @@ class TagsTable extends Component
 
     public function deleteDialog(TagGroup $tagGroup, bool $confirm = false)
     {
-        if (!$confirm) {
+        if (! $confirm) {
             $this->dialog()->confirm([
-                'title'       => __('text.areyousure'),
+                'title' => __('text.areyousure'),
                 'description' => __('text.tags:delete:taggroup', ['taggroupname' => $tagGroup->name]),
-                'icon'        => 'trash',
-                'accept'      => [
-                    'label'  => __('text.yes_confirm'),
+                'icon' => 'trash',
+                'accept' => [
+                    'label' => __('text.yes_confirm'),
                     'method' => 'deleteDialog',
                     'params' => [
                         $tagGroup,
-                        true
+                        true,
                     ],
                 ],
                 'reject' => [
-                    'label'  => __('text.no_cancel'),
+                    'label' => __('text.no_cancel'),
                 ],
             ]);
         } else {
@@ -176,7 +184,7 @@ class TagsTable extends Component
     public function render()
     {
         return view('livewire.admin.tags-table', [
-            'tagGroups' => $this->tagGroups
+            'tagGroups' => $this->tagGroups,
         ]);
     }
 }

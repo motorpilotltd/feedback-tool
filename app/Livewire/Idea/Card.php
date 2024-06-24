@@ -9,10 +9,12 @@ use Livewire\Component;
 class Card extends Component
 {
     public $idea;
-    public $hasVoted;
-    public $isViewOnly;
-    public $searchKeywords;
 
+    public $hasVoted;
+
+    public $isViewOnly;
+
+    public $searchKeywords;
 
     public function mount(IdeaVoteService $ideaVoteService, Idea $idea, $isViewOnly = false, $searchKeywords = null)
     {

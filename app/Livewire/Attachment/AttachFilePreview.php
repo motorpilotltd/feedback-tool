@@ -2,14 +2,10 @@
 
 namespace App\Livewire\Attachment;
 
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\Comment;
-use App\Models\FileAttachments;
 use App\Models\Idea;
-use Illuminate\Support\Facades\Storage;
+use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
-use Livewire\WithFileUploads;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use WireUi\Traits\Actions;
 
 class AttachFilePreview extends Component
@@ -18,11 +14,17 @@ class AttachFilePreview extends Component
         WithDispatchNotify;
 
     public $attachments = [];
+
     public $hasdelete;
+
     public ?Idea $idea;
+
     public ?Comment $comment;
+
     public $model = null;
+
     public $modelType = null;
+
     public $hasAuthCheck = false;
 
     public function mount($model, $hasdelete = null, $hasAuthCheck = false)
@@ -36,34 +38,34 @@ class AttachFilePreview extends Component
     protected function getListeners()
     {
         return [
-            "filepreview:{$this->modelType}:{$this->model->id}" => 'setFilesPreview'
+            "filepreview:{$this->modelType}:{$this->model->id}" => 'setFilesPreview',
         ];
     }
 
     public function setFilesPreview()
     {
-        if (!empty($this->model)) {
+        if (! empty($this->model)) {
             $this->attachments = $this->model->getMedia('attachments');
         }
     }
 
     public function deleteFile($fileIndex, bool $confirm = false)
     {
-        if (!$confirm) {
+        if (! $confirm) {
             $this->dialog()->confirm([
-                'title'       => __('text.areyousure'),
+                'title' => __('text.areyousure'),
                 'description' => __('text.deletethisattachmentconfirm'),
-                'icon'        => 'trash',
-                'accept'      => [
-                    'label'  => __('text.yes_confirm'),
+                'icon' => 'trash',
+                'accept' => [
+                    'label' => __('text.yes_confirm'),
                     'method' => 'deleteFile',
                     'params' => [
                         $fileIndex,
-                        true
+                        true,
                     ],
                 ],
                 'reject' => [
-                    'label'  => __('text.no_cancel'),
+                    'label' => __('text.no_cancel'),
                 ],
             ]);
         } else {

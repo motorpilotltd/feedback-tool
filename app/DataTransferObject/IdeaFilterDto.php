@@ -2,7 +2,8 @@
 
 namespace App\DataTransferObject;
 
-class IdeaFilterDto {
+class IdeaFilterDto
+{
     public function __construct(
         public int $productId,
         public mixed $categorySlug,
@@ -10,9 +11,10 @@ class IdeaFilterDto {
         public array $statuses,
         public string $title,
         public string $otherFilter
-    ) { }
+    ) {
+    }
 
-    public static function fromArray(Array $filters): IdeaFilterDto
+    public static function fromArray(array $filters): IdeaFilterDto
     {
         return new self(
             productId: $filters['productId'] ?? 0,

@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Modal;
 
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\Comment;
+use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
 
 class CommentNotSpam extends Component
@@ -11,6 +11,7 @@ class CommentNotSpam extends Component
     use WithDispatchNotify;
 
     public $comment;
+
     protected $listeners = ['commentNotSpamModal'];
 
     public function commentNotSpamModal($id)

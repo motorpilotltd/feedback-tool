@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 interface Filter
 {
     public function handle($data, Closure $next);
+
     public function applyFilter(Builder $builder);
 }

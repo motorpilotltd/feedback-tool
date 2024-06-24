@@ -20,5 +20,5 @@ return [
     'STATUS_COMPLETED' => 'completed',
     'STATUS_SUPPORTCALL' => 'supportcall',
     'ACCEPTED_IMAGE_MIMETYPES' => ['image/jpg', 'image/jpeg', 'image/png', 'image/svg', 'image/svg+xml'],
-    'APP_FORCE_HTTPS' => env('APP_FORCE_HTTPS', false)
+    'APP_FORCE_HTTPS' => env('APP_FORCE_HTTPS', false),
 ];
