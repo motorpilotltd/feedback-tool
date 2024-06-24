@@ -39,10 +39,13 @@ class Product extends Model implements HasMedia
 
     protected $cascadeDeletes = ['categories', 'tagGroups'];
 
-    protected $casts = [
-        'settings' => 'array',
-        'links' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'settings' => 'array',
+            'links' => 'array',
+        ];
+    }
 
     /**
      * The "booted" method of the model.
