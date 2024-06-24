@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller
@@ -11,7 +12,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function products()
+    public function products(): View
     {
         return view('admin.products', []);
     }
@@ -21,7 +22,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function settings()
+    public function settings(): View
     {
         return view('admin.settings', []);
     }
@@ -31,7 +32,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function ideas()
+    public function ideas(): View
     {
         return view('admin.ideas');
     }
@@ -41,7 +42,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function categories()
+    public function categories(): View
     {
         return view('admin.categories');
     }
@@ -51,7 +52,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function tags()
+    public function tags(): View
     {
         return view('admin.tags');
     }
@@ -61,7 +62,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function users()
+    public function users(): View
     {
         return view('admin.users');
     }

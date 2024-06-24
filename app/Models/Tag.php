@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
@@ -28,7 +30,7 @@ class Tag extends Model
      *
      * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleting(function ($tag) {
             // Delete tag_idea
@@ -63,17 +65,17 @@ class Tag extends Model
         return 'slug';
     }
 
-    public function ideas()
+    public function ideas(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class);
     }
 
-    public function tagGroup()
+    public function tagGroup(): BelongsTo
     {
         return $this->belongsTo(TagGroup::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by');
     }

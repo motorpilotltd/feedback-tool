@@ -12,7 +12,7 @@ class StatusesSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // define('STATUS_ALL', 'all');
         // define('STATUS_NEW', 'new');

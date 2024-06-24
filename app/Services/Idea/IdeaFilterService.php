@@ -2,6 +2,7 @@
 
 namespace App\Services\Idea;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\DataTransferObject\IdeaFilterDto;
 use App\Models\Idea;
 use App\Models\Vote;
@@ -15,7 +16,7 @@ class IdeaFilterService
      * @param  IdeaFilterDto  $filter  The filters to be applied
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
-    public function filter(IdeaFilterDto $filter)
+    public function filter(IdeaFilterDto $filter): Builder
     {
         $idea = app(Pipeline::class)
             ->send([

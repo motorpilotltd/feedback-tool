@@ -11,7 +11,7 @@ trait WithCustomNotification
      *
      * @return string
      */
-    public function databaseType()
+    public function databaseType(): string
     {
         return $this->customType ?? get_class($this);
     }

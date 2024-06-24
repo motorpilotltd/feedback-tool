@@ -13,7 +13,7 @@ class UpdateTeamNameTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_team_names_can_be_updated()
+    public function test_team_names_can_be_updated(): void
     {
         if (! Features::hasTeamFeatures()) {
             return $this->markTestSkipped('Team support is not enabled.');

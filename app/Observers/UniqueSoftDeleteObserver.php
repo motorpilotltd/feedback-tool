@@ -27,7 +27,7 @@ class UniqueSoftDeleteObserver
         }
     }
 
-    public function deleted(Model $model)
+    public function deleted(Model $model): void
     {
         foreach ($model->getDuplicateAvoidColumns() as $column) {
             $newValue = time().self::DELIMITER.$model->{$column};

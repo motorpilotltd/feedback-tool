@@ -2,6 +2,7 @@
 
 namespace App\Services\Category;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Category;
 use Illuminate\Pipeline\Pipeline;
 
@@ -13,7 +14,7 @@ class CategoryFilterService
      * @param  string  $searchName  The search term for filtering categories by name.
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
-    public function filter($searchName = '')
+    public function filter(string $searchName = ''): Builder
     {
         $category = app(Pipeline::class)
             ->send([

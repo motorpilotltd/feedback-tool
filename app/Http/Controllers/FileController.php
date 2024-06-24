@@ -18,7 +18,7 @@ class FileController extends Controller
         return $action == 'display' ? $media->toInlineResponse($request) : $media->toResponse($request);
     }
 
-    public function showProfilePhoto(Request $request, string $filename)
+    public function showProfilePhoto(Request $request, string $filename): \Illuminate\Http\Response
     {
         // Construct the file path
         $path = 'public/profile-photos/'.$filename;

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,22 +34,22 @@ class Comment extends Model implements HasMedia
      */
     protected $withCount = ['spams'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function idea()
+    public function idea(): BelongsTo
     {
         return $this->belongsTo(Idea::class);
     }
 
-    public function status()
+    public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'is_status_update', 'slug');
     }
 
-    public function spams()
+    public function spams(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'comment_spam')->withTimestamps();
     }

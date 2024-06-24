@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class IdeaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Idea $idea)
+    public function show(Idea $idea): View
     {
         return view('frontend.idea.show', [
             'idea' => $idea,
@@ -56,7 +57,7 @@ class IdeaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Idea $idea)
+    public function edit(Idea $idea): View
     {
         return view('frontend.idea.edit', [
             'idea' => $idea,

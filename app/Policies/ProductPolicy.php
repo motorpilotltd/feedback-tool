@@ -16,7 +16,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         //
     }
@@ -26,7 +26,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Product $product)
+    public function view(User $user, Product $product): bool
     {
         //
     }
@@ -36,7 +36,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         //
     }
@@ -46,7 +46,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Product $product)
+    public function update(User $user, Product $product): bool
     {
         return $user->hasPermissionTo(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product->id)
             || $user->hasRole(config('const.ROLE_SUPER_ADMIN'));
@@ -72,7 +72,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user, Product $product): bool
     {
         //
     }
@@ -82,7 +82,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user, Product $product): bool
     {
         //
     }
@@ -92,7 +92,7 @@ class ProductPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user, Product $product): bool
     {
         //
     }

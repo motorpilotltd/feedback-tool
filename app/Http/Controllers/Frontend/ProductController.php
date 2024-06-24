@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 use App\Models\Product;
@@ -15,7 +16,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('frontend.product.index');
     }
@@ -45,7 +46,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $product): View
     {
         return view('frontend.product.show', [
             'product' => $product,
@@ -57,7 +58,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function tag(Product $product, Tag $tag)
+    public function tag(Product $product, Tag $tag): View
     {
         return view('frontend.product.tag', [
             'product' => $product,
@@ -70,7 +71,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function suggestIdea(Product $product)
+    public function suggestIdea(Product $product): View
     {
         return view('frontend.product.suggest-idea', [
             'product' => $product,
@@ -82,7 +83,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function progress(Product $product)
+    public function progress(Product $product): View
     {
         return view('frontend.product.progress', [
             'product' => $product,

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Traits\Livewire\WithDispatchNotify;
@@ -13,7 +15,7 @@ class UserController extends Controller
     /**
      * Show the profile for a given user.
      */
-    public function show(Request $request, ?User $user = null)
+    public function show(Request $request, ?User $user = null): View
     {
         if ($user === null) {
             $user = $request->user();
@@ -24,7 +26,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function loginAs(Request $request)
+    public function loginAs(Request $request): RedirectResponse
     {
         $adminUser = $request->session()->get('admin_user');
         $user = User::find($adminUser->id);

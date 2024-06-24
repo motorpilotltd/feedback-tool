@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleAndPermissionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         try {
             $permission = config('const.PERMISSION_SYSTEM_MANAGE');

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\WithPerPage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -69,42 +71,42 @@ class User extends Authenticatable
         ];
     }
 
-    public function products()
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class, 'created_by');
     }
 
-    public function ideaSpams()
+    public function ideaSpams(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class, 'idea_spam');
     }
 
-    public function commentSpams()
+    public function commentSpams(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class, 'comment_spam');
     }
 
-    public function votes()
+    public function votes(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class, 'votes');
     }
 
-    public function authoredIdeas()
+    public function authoredIdeas(): HasMany
     {
         return $this->hasMany(Idea::class, 'author_id')->with(['author', 'ideaStatus']);
     }
 
-    public function addedByIdeas()
+    public function addedByIdeas(): HasMany
     {
         return $this->hasMany(Idea::class, 'added_by');
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
