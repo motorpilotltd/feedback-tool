@@ -16,7 +16,8 @@ class UpdateTeamNameTest extends TestCase
     public function test_team_names_can_be_updated(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
