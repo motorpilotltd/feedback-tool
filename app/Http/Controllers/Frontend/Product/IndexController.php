@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend\Product;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class IndexController extends Controller
 {

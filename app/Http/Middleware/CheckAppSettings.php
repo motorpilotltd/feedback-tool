@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use Symfony\Component\HttpFoundation\Response;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use App\Traits\Livewire\WithAuthRedirects;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CheckAppSettings
 {

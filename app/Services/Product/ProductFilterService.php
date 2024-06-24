@@ -2,8 +2,8 @@
 
 namespace App\Services\Product;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 
 class ProductFilterService
