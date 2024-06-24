@@ -29,7 +29,7 @@ trait WithProductManage
 
     public function getProducts()
     {
-        $products = Product::select('id', 'name')->orderBy('name', 'asc')
+        $products = Product::select('id', 'name')->orderBy('name')
             ->when(
                 $this->authUser->getRoleNames()->first() == $this->productAdmin,
                 function (Builder $query) {
