@@ -29,7 +29,7 @@ trait WithAuthRedirects
     {
         $prevurl = url()->previous();
         $referrerhost = parse_url($prevurl, PHP_URL_HOST);
-        $apphost = parse_url(env('APP_URL'), PHP_URL_HOST);
+        $apphost = parse_url(config('app.url'), PHP_URL_HOST);
         if ($referrerhost === $apphost) {
             redirect()->setIntendedUrl($prevurl);
         }
