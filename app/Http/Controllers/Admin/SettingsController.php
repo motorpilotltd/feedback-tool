@@ -12,8 +12,6 @@ class SettingsController extends Controller
 {
     /**
      * Display the system settings page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {

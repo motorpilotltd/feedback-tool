@@ -12,8 +12,6 @@ class IdeaController extends Controller
 {
     /**
      * Display the manage ideas page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {

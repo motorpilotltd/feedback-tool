@@ -13,8 +13,6 @@ class ProfilePhotoController extends Controller
 {
     /**
      * Handle the incoming request to display a profile photo.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Request $request, string $filename): Response
     {

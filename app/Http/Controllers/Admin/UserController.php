@@ -12,8 +12,6 @@ class UserController extends Controller
 {
     /**
      * Display the manage users page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {

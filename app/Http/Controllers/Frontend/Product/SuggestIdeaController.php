@@ -10,8 +10,6 @@ class SuggestIdeaController extends Controller
 {
     /**
      * Suggest an idea for the current product.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Product $product): View
     {

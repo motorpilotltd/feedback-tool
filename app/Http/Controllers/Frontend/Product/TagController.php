@@ -11,8 +11,6 @@ class TagController extends Controller
 {
     /**
      * Display product ideas by tag.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Product $product, Tag $tag): View
     {
