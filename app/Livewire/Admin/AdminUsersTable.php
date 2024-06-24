@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Admin;
 
-use App\Traits\Livewire\WithProductManage;
-use App\Traits\Livewire\WithTableSorting;
 use App\Models\Product;
 use App\Models\User;
+use App\Traits\Livewire\WithProductManage;
+use App\Traits\Livewire\WithTableSorting;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -17,18 +17,27 @@ class AdminUsersTable extends Component
 {
     use Actions,
         WithPagination,
-        WithTableSorting,
-        WithProductManage;
+        WithProductManage,
+        WithTableSorting;
 
     public $showModal = false;
+
     public $userId;
+
     public $role;
+
     public $productIds;
+
     public $superAdmin;
+
     public $disabledUsersSelect = false;
+
     public $disabledRoleSelect = false;
+
     public $searchUser;
+
     public $searchSuperUser;
+
     public $selectProduct;
 
     protected $rules = [
@@ -62,14 +71,14 @@ class AdminUsersTable extends Component
             'user' => __('text.useremail', ['user' => $user->name, 'email' => $user->email]),
             'role' => __('text.role:'.$this->role),
         ];
-        switch($this->role) {
+        switch ($this->role) {
             case $this->superAdmin:
                 // Prevent user to be re-assigned super-admin role
                 $isAssignTo = false;
-                if($user->hasRole($this->superAdmin)) {
+                if ($user->hasRole($this->superAdmin)) {
                     $message = __('error.userlreadyrole', $textParams);
                     $success = false;
-                } else if($user->hasRole($this->productAdmin)) {
+                } elseif ($user->hasRole($this->productAdmin)) {
                     // Remove product roles/permissions
                     $isAssignTo = true;
                     $user->removeRole($this->productAdmin);
@@ -96,7 +105,7 @@ class AdminUsersTable extends Component
 
                 // Resync Permission
                 foreach ($products as $product) {
-                    $permissions[] = $this->productsManage . $product->id;
+                    $permissions[] = $this->productsManage.$product->id;
                     $productManageList .= __('text.permission:product:li', ['product' => $product->name]);
                 }
                 $user->syncPermissions($permissions);
@@ -109,7 +118,7 @@ class AdminUsersTable extends Component
                     $user->removeRole($this->superAdmin);
                 }
 
-                if(!$user->hasRole($this->role)) {
+                if (! $user->hasRole($this->role)) {
                     $user->assignRole($this->role);
                 }
 
@@ -119,13 +128,13 @@ class AdminUsersTable extends Component
         if ($success) {
             $this->notification()->success(
                 $title = '',
-                $description = $message .  $messageNote,
+                $description = $message.$messageNote,
             );
             $this->dispatch('accordion:set:activeItem', Str::plural($this->role));
         } else {
             $this->notification()->error(
                 $title = '',
-                $description = $message .  $messageNote,
+                $description = $message.$messageNote,
             );
         }
 
@@ -133,17 +142,17 @@ class AdminUsersTable extends Component
         $this->showModal = false;
     }
 
-    public function updatingSearchUser ()
+    public function updatingSearchUser()
     {
         $this->resetPage();
     }
 
-    public function updatingSearchSuperUser ()
+    public function updatingSearchSuperUser()
     {
         $this->resetPage();
     }
 
-    public function updatingSelectProduct ()
+    public function updatingSelectProduct()
     {
         $this->resetPage();
     }
@@ -182,52 +191,52 @@ class AdminUsersTable extends Component
         $message = __('error:failedtorevoke');
         $success = false;
         $userEmailText = __('text.useremail', ['user' => $user->name, 'email' => $user->email]);
-        if (!$confirm) {
+        if (! $confirm) {
             $confirmDesc = '';
-            if (!empty($role)) {
+            if (! empty($role)) {
                 $confirmDesc = __('text.confirmrevoke:role', ['role' => $role, 'user' => $userEmailText]);
-            } else if (!empty($permission)) {
+            } elseif (! empty($permission)) {
                 $confirmDesc = __('text.confirmrevoke:product:permission', [
                     'product' => $permission['product']['name'] ?? __('text.unknown'),
                     'role' => $this->productAdmin,
-                    'user' => $userEmailText
+                    'user' => $userEmailText,
                 ]);
             }
 
             $this->dialog()->confirm([
-                'title'       => __('text.areyousure'),
+                'title' => __('text.areyousure'),
                 'description' => $confirmDesc,
-                'icon'        => 'trash',
-                'accept'      => [
-                    'label'  => __('text.yes_confirm'),
+                'icon' => 'trash',
+                'accept' => [
+                    'label' => __('text.yes_confirm'),
                     'method' => 'revokeDialog',
                     'params' => [
                         $user,
                         $role,
                         $permission,
-                        true
+                        true,
                     ],
                 ],
                 'reject' => [
-                    'label'  => __('text.no_cancel'),
+                    'label' => __('text.no_cancel'),
                 ],
             ]);
         } else {
-            if (!empty($role) && $user->hasRole($role)) {
+            if (! empty($role) && $user->hasRole($role)) {
                 $user->removeRole($role);
                 $user->syncPermissions();
                 $success = true;
                 $message = __('text.userrevokesuccess:role', [
                     'role' => $role,
-                    'user' => $userEmailText
+                    'user' => $userEmailText,
                 ]);
-            } else if (!empty($permission)) {
+            } elseif (! empty($permission)) {
 
                 $user->revokePermissionTo($permission['permission']);
                 $success = true;
                 $message = __('text.userrevokesuccess:product:permission', [
                     'product' => $permission['product']['name'] ?? __('text.unknown'),
-                    'user' => $userEmailText
+                    'user' => $userEmailText,
                 ]);
             }
 
@@ -249,13 +258,13 @@ class AdminUsersTable extends Component
         $products = $this->getProducts()->get();
 
         $productPermissionsIds = $products->pluck('id')
-            ->when(!empty($this->selectProduct), function ($collection) {
-                return $collection->reject(function($element){
+            ->when(! empty($this->selectProduct), function ($collection) {
+                return $collection->reject(function ($element) {
                     return $element !== $this->selectProduct;
                 });
             })
-            ->map(function($id) {
-                return $this->productsManage . $id;
+            ->map(function ($id) {
+                return $this->productsManage.$id;
             });
 
         $usersQuery = app(Pipeline::class)
@@ -263,11 +272,11 @@ class AdminUsersTable extends Component
                 'query' => User::permission($productPermissionsIds),
                 'search_field' => [
                     'field' => ['name', 'email'],
-                    'value' => $this->searchUser
+                    'value' => $this->searchUser,
                 ],
             ])
             ->through([
-                \App\Filters\Common\SearchField::class
+                \App\Filters\Common\SearchField::class,
             ])
             ->thenReturn();
 
@@ -275,22 +284,23 @@ class AdminUsersTable extends Component
         $productAdmins = $usersQuery['query']
             ->with('permissions')
             ->paginate()
-            ->through(function(User $user) {
+            ->through(function (User $user) {
                 $user->permissionProduct = new Collection();
                 $authUserPermissionProductIds = $this->authUserPermissionProductIds;
                 foreach ($user->getPermissionNames() as $permission) {
                     $productId = Str::replace($this->productsManage, '', $permission);
                     // Product Admin: Do not show permission from other products
-                    if ($authUserPermissionProductIds->isNotEmpty() && !$authUserPermissionProductIds->contains($productId)) {
+                    if ($authUserPermissionProductIds->isNotEmpty() && ! $authUserPermissionProductIds->contains($productId)) {
                         continue;
                     }
                     if ($product = Product::find($productId)) {
                         $user->permissionProduct->push([
                             'permission' => $permission,
-                            'product' => $product
+                            'product' => $product,
                         ]);
                     }
                 }
+
                 return $user;
             });
 
@@ -302,11 +312,11 @@ class AdminUsersTable extends Component
                     'query' => User::role($this->superAdmin),
                     'search_field' => [
                         'field' => ['name', 'email'],
-                        'value' => $this->searchSuperUser
+                        'value' => $this->searchSuperUser,
                     ],
                 ])
                 ->through([
-                    \App\Filters\Common\SearchField::class
+                    \App\Filters\Common\SearchField::class,
                 ])
                 ->thenReturn();
 
@@ -315,7 +325,7 @@ class AdminUsersTable extends Component
 
         // Role option usage
         $rolesOption = new Collection();
-        if($this->authUser->hasRole($this->superAdmin)) {
+        if ($this->authUser->hasRole($this->superAdmin)) {
             $rolesOption->push(['name' => 'Super Admin',  'id' => $this->superAdmin, 'description' => 'Access to everything...']);
         }
         $rolesOption->push(['name' => 'Product Admin', 'id' => $this->productAdmin, 'description' => 'Manage a specific product only']);
@@ -324,7 +334,7 @@ class AdminUsersTable extends Component
             'superadmins' => $superAdmins,
             'productadmins' => $productAdmins,
             'products' => $products,
-            'rolesOption' => $rolesOption
+            'rolesOption' => $rolesOption,
         ]);
     }
 }

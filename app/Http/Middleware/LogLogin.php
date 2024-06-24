@@ -11,13 +11,11 @@ class LogLogin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        Log::info('This user is logging in: ' . $request->email);
+        Log::info('This user is logging in: '.$request->email);
 
         return $next($request);
     }

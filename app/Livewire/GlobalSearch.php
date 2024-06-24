@@ -2,24 +2,25 @@
 
 namespace App\Livewire;
 
-use Livewire\WithPagination;
-use Livewire\Component;
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use App\Services\User\UserFilterService;
-use App\Services\Product\ProductFilterService;
-use App\Services\Idea\IdeaFilterService;
-use App\Services\Category\CategoryFilterService;
-use App\Models\User;
-use App\Models\Product;
-use App\DataTransferObject\UserFilterDto;
 use App\DataTransferObject\IdeaFilterDto;
+use App\DataTransferObject\UserFilterDto;
+use App\Models\Product;
+use App\Models\User;
+use App\Services\Category\CategoryFilterService;
+use App\Services\Idea\IdeaFilterService;
+use App\Services\Product\ProductFilterService;
+use App\Services\User\UserFilterService;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class GlobalSearch extends Component
 {
     use WithPagination;
 
     public string $keywords = '';
+
     public bool $isFullPage = false;
 
     public function mount(bool $isFullPage = false, string $keywords = '')
@@ -72,6 +73,7 @@ class GlobalSearch extends Component
                 $paginator->getCollection()->each(function (User $user) {
                     $this->appendUserProductPermissions($user);
                 });
+
                 return $paginator;
             }
 
@@ -79,13 +81,14 @@ class GlobalSearch extends Component
                 $this->appendUserProductPermissions($user);
             });
         }
+
         return collect([]);
     }
 
     public function appendUserProductPermissions(User &$user)
     {
         $permissions = $user->getPermissionNames();
-        $productsManage = config('const.PERMISSION_PRODUCTS_MANAGE') . '.';
+        $productsManage = config('const.PERMISSION_PRODUCTS_MANAGE').'.';
         $user->permissionProduct = new Collection();
         foreach ($permissions as $permission) {
             $productId = Str::replace($productsManage, '', $permission);
@@ -118,7 +121,7 @@ class GlobalSearch extends Component
 
     public function goToSearchFullPage()
     {
-        if (!empty($this->keywords)) {
+        if (! empty($this->keywords)) {
             // Assuming you have a named route for the search page
             return redirect()->route('frontend.search.index', ['keywords' => $this->keywords]);
         }
@@ -132,7 +135,7 @@ class GlobalSearch extends Component
             'products' => $this->products,
             'categories' => $this->categories,
             'productAdmins' => $this->productAdmins,
-            'ideas' => $this->ideas
+            'ideas' => $this->ideas,
         ]);
     }
 }

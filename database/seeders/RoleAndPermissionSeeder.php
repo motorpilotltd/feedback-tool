@@ -23,16 +23,16 @@ class RoleAndPermissionSeeder extends Seeder
             $productAdminRole = Role::create(['name' => config('const.ROLE_PRODUCT_ADMIN')]);
 
             $superAdminRole->givePermissionTo([
-                $permission
+                $permission,
             ]);
 
             $productAdminRole->givePermissionTo([
-                $permission2
+                $permission2,
             ]);
 
             // Assign app admin a super-admin role
             $user = User::where('email', config('const.ADMIN_EMAIL'))->get()->first();
-            if (!$user) {
+            if (! $user) {
                 $user = User::factory()->create([
                     'name' => 'Admin',
                     'email' => config('const.ADMIN_EMAIL'),
@@ -40,7 +40,7 @@ class RoleAndPermissionSeeder extends Seeder
             }
             $user->assignRole(config('const.ROLE_SUPER_ADMIN'));
         } catch (Exception $e) {
-            // Any ..AlreadyExists Execeptions 
+            // Any ..AlreadyExists Execeptions
         }
     }
 }

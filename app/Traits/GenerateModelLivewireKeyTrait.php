@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use Spatie\MediaLibrary\InteractsWithMedia as SpatieInteractsWithMedia;
-
 /**
  * Generates a unique key, resolves issue on pagination when using Pipelined query
  *
@@ -11,8 +9,8 @@ use Spatie\MediaLibrary\InteractsWithMedia as SpatieInteractsWithMedia;
  */
 trait GenerateModelLivewireKeyTrait
 {
-    public function getForLivewireKey () {
+    public function getForLivewireKey()
+    {
         return time().$this->id;
     }
-
 }

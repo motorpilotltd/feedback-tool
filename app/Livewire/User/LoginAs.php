@@ -2,9 +2,8 @@
 
 namespace App\Livewire\User;
 
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
 
 class LoginAs extends Component

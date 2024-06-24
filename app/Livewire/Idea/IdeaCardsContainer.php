@@ -4,11 +4,8 @@ namespace App\Livewire\Idea;
 
 use App\DataTransferObject\IdeaFilterDto;
 use App\Models\Category;
-use App\Models\Idea;
 use App\Models\Product;
-use App\Models\Status;
 use App\Models\Tag;
-use App\Models\Vote;
 use App\Services\Idea\IdeaFilterService;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -18,12 +15,17 @@ class IdeaCardsContainer extends Component
     use WithPagination;
 
     public $product;
+
     public $tag;
+
     public $currentCategory;
 
     public $status = '';
+
     public $category = '';
+
     public $search = '';
+
     public $otherfilter = '';
 
     public $ideaTitle = '';
@@ -32,8 +34,9 @@ class IdeaCardsContainer extends Component
         'status',
         'category',
         'search',
-        'otherfilter'
+        'otherfilter',
     ];
+
     protected $listeners = ['ideaQueryStringUpdated', 'ideaQuerySearch', 'searchAsTitle'];
 
     public function mount(Product $product, ?Category $currentCategory, ?Tag $tag)
@@ -77,6 +80,7 @@ class IdeaCardsContainer extends Component
         $title = htmlspecialchars_decode($title);
         $title = htmlspecialchars_decode($title); // re-decode
         session()->flash('suggestIdeaTitle', $title);
+
         return redirect()->route('product.suggest.idea', [$this->product]);
     }
 
@@ -104,11 +108,12 @@ class IdeaCardsContainer extends Component
 
     public function render()
     {
-        $categories = !$this->currentCategory->exists ? $this->product->categories : [];
+        $categories = ! $this->currentCategory->exists ? $this->product->categories : [];
+
         return view('livewire.idea.idea-cards-container', [
             'ideas' => $this->ideas,
             'categories' => $categories,
-            'searchTitle' => $this->ideaTitle ?: $this->search
+            'searchTitle' => $this->ideaTitle ?: $this->search,
         ]);
     }
 }

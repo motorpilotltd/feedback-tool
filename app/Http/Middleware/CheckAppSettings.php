@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Traits\Livewire\WithAuthRedirects;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
+use App\Traits\Livewire\WithAuthRedirects;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 class CheckAppSettings
 {
     use WithAuthRedirects;
+
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
@@ -34,7 +34,7 @@ class CheckAppSettings
             $aadOnly = false;
         }
 
-        if (!auth()->check()) { // Check if user was authenticated
+        if (! auth()->check()) { // Check if user was authenticated
             // Redirect to /login if forcelogin was enabled
             $exclude = collect([
                 'auth.*',
@@ -42,21 +42,22 @@ class CheckAppSettings
                 'login.*',
                 'password.*',
                 'register',
-                'register.*'
+                'register.*',
             ]);
             if ($request->routeIs('login') && $request->get('login') === 'show') {
                 return $next($request);
             } else {
-                if (!$request->routeIs($exclude) && $forcelogin) {
+                if (! $request->routeIs($exclude) && $forcelogin) {
                     return $this->redirectToLogin();
                 }
 
-                if ($request->routeIs('login') && $request->isMethod('get') && $aadOnly &&  !session()->get('logged_out', false)) {
+                if ($request->routeIs('login') && $request->isMethod('get') && $aadOnly && ! session()->get('logged_out', false)) {
                     return $this->redirectToAzureLogin();
                 }
                 session()->pull('logged_out');
             }
         }
+
         return $next($request);
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin;
 
 use App\Traits\Livewire\WithProductManage;
-use App\Models\Product;
 use Livewire\Component;
 
 class ProductSelection extends Component
@@ -25,8 +24,9 @@ class ProductSelection extends Component
     public function render()
     {
         $products = $this->getProducts()->get();
+
         return view('livewire.admin.product-selection', [
-            'products' => $products
+            'products' => $products,
         ]);
     }
 }

@@ -4,8 +4,6 @@ namespace App\Services\Comment;
 
 use App\Models\Comment;
 use App\Models\CommentSpam;
-use App\Models\Idea;
-use App\Models\IdeaSpam;
 use App\Models\User;
 
 class CommentSpamService
@@ -14,14 +12,14 @@ class CommentSpamService
     {
         $isMarked = $this->userMarkCommentSpam($comment, $user);
         $isMarked ? $comment->spams()->detach($user) : $comment->spams()->attach($user);
-        if (!$isMarked) {
+        if (! $isMarked) {
             $comment->touch();
         }
     }
 
     public function userMarkCommentSpam(Comment $comment, ?User $user)
     {
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 

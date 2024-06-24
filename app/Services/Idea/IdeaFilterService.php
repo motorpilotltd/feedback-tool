@@ -6,14 +6,13 @@ use App\DataTransferObject\IdeaFilterDto;
 use App\Models\Idea;
 use App\Models\Vote;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Facades\Auth;
 
 class IdeaFilterService
 {
     /**
      * Filter ideas based on various criteria.
      *
-     * @param IdeaFilterDto $filter The filters to be applied
+     * @param  IdeaFilterDto  $filter  The filters to be applied
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
     public function filter(IdeaFilterDto $filter)
@@ -27,9 +26,9 @@ class IdeaFilterService
                 'status' => $filter->statuses,
                 'search_field' => [
                     'field' => 'title',
-                    'value' => $filter->title
+                    'value' => $filter->title,
                 ],
-                'other_filter' => $filter->otherFilter ?: 'default'
+                'other_filter' => $filter->otherFilter ?: 'default',
             ])
             ->through([
                 \App\Filters\Idea\Product::class,
@@ -37,15 +36,16 @@ class IdeaFilterService
                 \App\Filters\Idea\Category::class,
                 \App\Filters\Idea\Tag::class,
                 \App\Filters\Common\SearchField::class,
-                \App\Filters\Idea\OtherFilter::class
+                \App\Filters\Idea\OtherFilter::class,
             ])
             ->thenReturn();
+
         return $idea['query']
             ->with(['product', 'author'])
             ->addSelect([
                 'voted_by_user' => Vote::select('id')
                     ->where('user_id', auth()->id())
-                    ->whereColumn('idea_id', 'ideas.id')
+                    ->whereColumn('idea_id', 'ideas.id'),
             ]);
     }
 }

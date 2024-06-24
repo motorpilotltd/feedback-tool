@@ -26,5 +26,5 @@ return [
     'userlreadyrole' => '<b>:user</b> was already assigned as <i>:role</i>.',
     'userlreadyproductadminof' => '<b>:user</b> was already <i>:role</i> of <b>:product</b>.',
     'failedtorevoke' => 'Failed to revoke role/permission. Please reload the page and try again.',
-    'fieldisrequired' => ':field is required'
+    'fieldisrequired' => ':field is required',
 ];

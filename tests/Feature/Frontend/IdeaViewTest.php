@@ -1,16 +1,10 @@
 <?php
 
-use App\Livewire\Forms\IdeaForm;
-use App\Livewire\Idea\IdeaCardsContainer;
 use App\Livewire\Idea\IdeaShow;
-use App\Models\Category;
-use App\Models\Idea;
-use App\Models\Product;
-use App\Models\Status;
 
 use function Pest\Livewire\livewire;
 
-beforeEach(function() {
+beforeEach(function () {
     setupData();
 });
 
@@ -23,10 +17,9 @@ it('shows the idea\'s details in the idea show page when visiting idea link', fu
 
 it('shows 404 when visiting a non-existing idea link', function () {
     $idea = $this->idea1;
-    $this->get($idea->idea_link . 'test')
+    $this->get($idea->idea_link.'test')
         ->assertStatus(404);
 });
-
 
 it('shows edit idea link/button when current logged in user is the author', function () {
     login();
@@ -71,7 +64,6 @@ it('shows "Not a Spam" link/button when logged in user is super user for idea th
     livewire(IdeaShow::class, ['idea' => $this->idea1])
         ->assertSee(__('text.notaspam'));
 });
-
 
 it('does not shows "Not a Spam" link/button when logged in user is not admin user for idea that has been marked as spam', function () {
     login($this->userBasic);

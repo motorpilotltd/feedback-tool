@@ -3,11 +3,8 @@
 namespace App\Filters\Idea;
 
 use App\Filters\BaseFilter;
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class OtherFilter extends BaseFilter
 {
@@ -39,6 +36,4 @@ class OtherFilter extends BaseFilter
                 break;
         }
     }
-
-
 }

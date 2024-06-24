@@ -32,7 +32,7 @@ class ProductFactory extends Factory
                 'enableAwaitingConsideration' => false,
                 'enableSandboxMode' => false,
                 'serviceDeskLink' => '',
-            ]
+            ],
         ];
     }
 

@@ -17,19 +17,27 @@ use WireUi\Traits\Actions;
 class ProductsTable extends Component
 {
     use Actions,
-        WithPagination,
         WithFileUploads,
-        WithTableSorting,
-        WithMediaAttachments;
+        WithMediaAttachments,
+        WithPagination,
+        WithTableSorting;
 
     public $search = '';
+
     public $modalTitle;
+
     public $showModal = false;
+
     public $showFilters = false;
+
     public $settings;
+
     public Collection $links;
+
     public Product $editing; // Wire model binding to model data
+
     public $productLogo;
+
     public $newLogo;
 
     protected $queryString = [];
@@ -49,10 +57,10 @@ class ProductsTable extends Component
                 'required',
                 'min:3',
                 Rule::unique('products', 'name')
-                ->when(
-                    isset($this->editing->id),
-                    fn($query) => $query->ignore($this->editing->id, 'id')
-                )
+                    ->when(
+                        isset($this->editing->id),
+                        fn ($query) => $query->ignore($this->editing->id, 'id')
+                    ),
             ],
             'editing.description' => 'required|min:5',
             'settings.hideFromProductList' => '',
@@ -85,6 +93,7 @@ class ProductsTable extends Component
             'enableSandboxMode' => false,
         ];
         $this->links = collect([]);
+
         return Product::make();
     }
 
@@ -96,7 +105,9 @@ class ProductsTable extends Component
     {
         $this->resetLogo();
         $product = Product::find($productId);
-        if($this->editing->isNot($product)) $this->editing = $product; // Preserved form data when ESC pressed or cancel clicked
+        if ($this->editing->isNot($product)) {
+            $this->editing = $product;
+        } // Preserved form data when ESC pressed or cancel clicked
         $this->productLogo = $product->getMedia('attachments')->first();
         $this->settings = $product->settings;
         $this->links = collect($product->links);
@@ -113,18 +124,18 @@ class ProductsTable extends Component
 
         $product = Product::find($productId);
 
-        if (!$confirm) {
+        if (! $confirm) {
             $this->dialog()->confirm([
-                'title'       => __('text.areyousure'),
+                'title' => __('text.areyousure'),
                 'description' => __('text.deleteproduct', ['product' => $product->name]),
-                'icon'        => 'trash',
-                'accept'      => [
-                    'label'  => 'Yes, confirm',
+                'icon' => 'trash',
+                'accept' => [
+                    'label' => 'Yes, confirm',
                     'method' => 'deleteDialog',
                     'params' => [$product->id, true],
                 ],
                 'reject' => [
-                    'label'  => 'No, cancel',
+                    'label' => 'No, cancel',
                 ],
             ]);
         } else {
@@ -157,7 +168,7 @@ class ProductsTable extends Component
         $this->editing->save();
 
         // Update ideas with 'new' status when enableAwaitingConsideration was toggled off
-        if (!$this->settings['enableAwaitingConsideration']) {
+        if (! $this->settings['enableAwaitingConsideration']) {
             if ($ideas = $this->editing->ideas->where('status', config('const.STATUS_NEW'))) {
                 $ideas->each(function ($idea) {
                     $idea->status = config('const.STATUS_CONSIDERED');
@@ -166,9 +177,9 @@ class ProductsTable extends Component
             }
         }
 
-        if (!empty($this->newLogo)) {
+        if (! empty($this->newLogo)) {
             // Delete if there's a current logo
-            if (!empty($this->productLogo)) {
+            if (! empty($this->productLogo)) {
                 $this->productLogo->delete();
             }
             // Upload new logo
@@ -189,7 +200,9 @@ class ProductsTable extends Component
     {
         $this->resetLogo();
         // Preserved form data when ESC pressed or cancel clicked
-        if ($this->editing->getKey()) $this->editing = $this->makeEmptyProduct();
+        if ($this->editing->getKey()) {
+            $this->editing = $this->makeEmptyProduct();
+        }
 
         $this->modalTitle = __('text.addnewproduct');
         $this->showModal = true;
@@ -205,7 +218,7 @@ class ProductsTable extends Component
 
     public function deleteLogo()
     {
-        if (!empty($this->productLogo)) {
+        if (! empty($this->productLogo)) {
             $this->productLogo->delete();
         }
         $this->resetLogo();
@@ -224,7 +237,7 @@ class ProductsTable extends Component
 
         return view('livewire.admin.products-table', [
             'products' => $this->products,
-            'errorbag' => $errorbag
+            'errorbag' => $errorbag,
         ]);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Product;
 
-use App\Models\Product;
 use App\Services\Product\ProductFilterService;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,9 +9,13 @@ use Livewire\WithPagination;
 class Index extends Component
 {
     use WithPagination;
+
     public $sortField = 'name';
+
     public $sortDirection = 'asc';
+
     public $search = '';
+
     public $viewMode;
 
     protected $queryString = ['sortField', 'sortDirection'];
@@ -60,7 +63,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.product.index', [
-            'products' => $this->products
+            'products' => $this->products,
         ]);
     }
 

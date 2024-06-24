@@ -4,13 +4,13 @@ use App\Livewire\Forms\IdeaForm;
 use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Product;
-
 use App\Models\User;
+
 use function Pest\Faker\fake;
 use function Pest\Livewire\livewire;
 
-beforeEach(function() {
-    $this->product1 = Product::factory()->create(['name' => "A product name"]);
+beforeEach(function () {
+    $this->product1 = Product::factory()->create(['name' => 'A product name']);
     // Categories
     $this->category1 = Category::factory()->create(['product_id' => $this->product1]);
     // Ideas
@@ -25,8 +25,6 @@ beforeEach(function() {
 
     $this->searchString = 'Lorem luctus';
 });
-
-
 
 it('redirects to login when user try to visit suggest idea form page without logging in', function () {
     $this->get(route('product.suggest.idea', $this->product1))
@@ -61,7 +59,6 @@ it('can display correct idea details when editing in the idea form', function ()
         ->assertSet('content', $idea->content);
 });
 
-
 it('can save new suggested idea when no errors', function () {
     login()->livewire(IdeaForm::class, ['product' => $this->product1])
         ->set('title', fake()->text(20))
@@ -91,10 +88,9 @@ it('can save editing idea when current logged in user is the author', function (
     $this->assertDatabaseHas('ideas', [
         'id' => $idea->id,
         'title' => $title,
-        'content' => $content
+        'content' => $content,
     ]);
 });
-
 
 it('can see search string as idea title in the Suggest Idea form', function () {
     $this->withSession(['suggestIdeaTitle' => $this->searchString]);

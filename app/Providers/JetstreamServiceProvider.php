@@ -10,15 +10,15 @@ use App\Actions\Jetstream\InviteTeamMember;
 use App\Actions\Jetstream\RemoveTeamMember;
 use App\Actions\Jetstream\UpdateTeamName;
 use App\Http\Middleware\LogLogin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Jetstream\Jetstream;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
-use Illuminate\Http\Request;
+use Laravel\Jetstream\Jetstream;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
@@ -53,11 +53,11 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Fortify::authenticateThrough(function (Request $request) {
             return array_filter([
-                    config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
-                    RedirectIfTwoFactorAuthenticatable::class,
-                    AttemptToAuthenticate::class,
-                    PrepareAuthenticatedSession::class,
-                    LogLogin::class
+                config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+                RedirectIfTwoFactorAuthenticatable::class,
+                AttemptToAuthenticate::class,
+                PrepareAuthenticatedSession::class,
+                LogLogin::class,
             ]);
         });
 

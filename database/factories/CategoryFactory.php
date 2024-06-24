@@ -26,8 +26,8 @@ class CategoryFactory extends Factory
         return [
             'product_id' => Product::factory(),
             'created_by' => User::factory(),
-            'name' => 'Category ' . $this->faker->word(),
-            'description' => $this->faker->sentences(2, true)
+            'name' => 'Category '.$this->faker->word(),
+            'description' => $this->faker->sentences(2, true),
         ];
     }
 
@@ -36,7 +36,7 @@ class CategoryFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'product_id' => $this->faker->numberBetween(1, 5),
-                'created_by' => $this->faker->numberBetween(1, 20)
+                'created_by' => $this->faker->numberBetween(1, 20),
             ];
         });
     }

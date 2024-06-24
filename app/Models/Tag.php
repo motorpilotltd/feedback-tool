@@ -12,14 +12,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tag extends Model
 {
-    use HasFactory,
-        Sluggable,
-        SoftDeletes,
+    use AvoidDuplicateConstraintSoftDelete,
         CascadeSoftDeletes,
+        HasFactory,
+        Sluggable,
         SluggableScopeHelpers,
-        AvoidDuplicateConstraintSoftDelete;
+        SoftDeletes;
 
     protected $guarded = [];
+
     protected $cascadeDeletes = [];
 
     /**
@@ -35,7 +36,7 @@ class Tag extends Model
         });
     }
 
-    public function getDuplicateAvoidColumns() : array
+    public function getDuplicateAvoidColumns(): array
     {
         return [
             'slug',
@@ -44,22 +45,18 @@ class Tag extends Model
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
     /**
      * Get the route key for the model.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {
@@ -73,7 +70,7 @@ class Tag extends Model
 
     public function tagGroup()
     {
-        return $this->belongsTo(TagGroup::class );
+        return $this->belongsTo(TagGroup::class);
     }
 
     public function user()

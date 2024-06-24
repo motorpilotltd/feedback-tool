@@ -10,7 +10,7 @@ class IdeaSpamService
 {
     public function userMarkIdeaSpam(Idea $idea, ?User $user): bool
     {
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 
@@ -19,12 +19,11 @@ class IdeaSpamService
             ->exists();
     }
 
-
     public function toggleSpam(Idea $idea, User $user): void
     {
         $isMarked = $this->userMarkIdeaSpam($idea, $user);
         $isMarked ? $idea->spams()->detach($user) : $idea->spams()->attach($user);
-        if (!$isMarked) {
+        if (! $isMarked) {
             $idea->touch();
         }
     }
@@ -33,5 +32,4 @@ class IdeaSpamService
     {
         $idea->spams()->sync([]);
     }
-
 }
