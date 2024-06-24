@@ -16,7 +16,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         //
     }
@@ -26,7 +26,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Idea $idea)
+    public function view(User $user, Idea $idea): bool
     {
         //
     }
@@ -36,7 +36,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         //
     }
@@ -46,7 +46,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Idea $idea)
+    public function update(User $user, Idea $idea): bool
     {
         return $user->id === (int) $idea->author_id;
     }
@@ -56,7 +56,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Idea $idea)
+    public function delete(User $user, Idea $idea): bool
     {
         if ($this->isSandboxMode($idea->product)) {
             return true;
@@ -74,7 +74,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Idea $idea)
+    public function restore(User $user, Idea $idea): bool
     {
         //
     }
@@ -101,7 +101,7 @@ class IdeaPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Idea $idea)
+    public function forceDelete(User $user, Idea $idea): bool
     {
         //
     }

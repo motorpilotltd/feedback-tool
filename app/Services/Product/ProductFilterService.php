@@ -2,6 +2,7 @@
 
 namespace App\Services\Product;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Product;
 use Illuminate\Pipeline\Pipeline;
 
@@ -13,7 +14,7 @@ class ProductFilterService
      * @param  string  $searchTitle  The search term for filtering products by name.
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
-    public function filter($searchTitle = '')
+    public function filter(string $searchTitle = ''): Builder
     {
         $product = app(Pipeline::class)
             ->send([

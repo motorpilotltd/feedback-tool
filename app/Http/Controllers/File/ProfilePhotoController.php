@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,7 @@ class ProfilePhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, string $filename)
+    public function show(Request $request, string $filename): Response
     {
         // Construct the file path
         $path = 'public/profile-photos/'.$filename;

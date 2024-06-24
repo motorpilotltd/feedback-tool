@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -15,7 +16,7 @@ class UserLoginAsController extends Controller
      *
      * @return void
      */
-    public function index(Request $request)
+    public function index(Request $request): RedirectResponse
     {
         $adminUser = $request->session()->get('admin_user');
         $user = User::find($adminUser->id);

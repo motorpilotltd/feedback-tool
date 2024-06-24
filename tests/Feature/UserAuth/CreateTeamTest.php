@@ -13,7 +13,7 @@ class CreateTeamTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_teams_can_be_created()
+    public function test_teams_can_be_created(): void
     {
         if (! Features::hasTeamFeatures()) {
             return $this->markTestSkipped('Team support is not enabled.');
