@@ -57,7 +57,7 @@ class CommentsContainer extends Component
     {
         return Comment::with(['user', 'status', 'media.model', 'spams'])
             ->where('idea_id', $this->idea->id)
-            ->orderBy('comments.created_at', 'desc')
+            ->orderByDesc('comments.created_at')
             ->paginate()
             ->withQueryString();
     }
