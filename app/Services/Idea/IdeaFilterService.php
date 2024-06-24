@@ -2,10 +2,10 @@
 
 namespace App\Services\Idea;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\DataTransferObject\IdeaFilterDto;
 use App\Models\Idea;
 use App\Models\Vote;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 
 class IdeaFilterService

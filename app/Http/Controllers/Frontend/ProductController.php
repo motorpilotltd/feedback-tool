@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Idea;
 use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
