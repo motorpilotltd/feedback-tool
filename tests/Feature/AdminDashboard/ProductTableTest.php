@@ -3,12 +3,8 @@
 use App\Livewire\Admin\ProductsTable;
 use App\Models\Product;
 use function Pest\Faker\fake;
-use function Pest\Livewire\livewire;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\MediaLibrary;
-use Laravel\Jetstream\Http\Livewire\NavigationMenu;
 
 beforeEach(function () {
     setupData();

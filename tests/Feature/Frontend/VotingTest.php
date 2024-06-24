@@ -5,7 +5,6 @@ use App\Livewire\Idea\Card as IdeaCard;
 use App\Livewire\Idea\VotesCountButton;
 use App\Models\Idea;
 
-use App\Services\Idea\IdeaVoteService;
 use function Pest\Faker\fake;
 use function Pest\Livewire\livewire;
 
@@ -42,7 +41,7 @@ it('can vote/unvote for the idea', function (bool $isVoting) {
 ]);
 
 it('can automatically vote for the idea that the user created', function () {
-    Idea::truncate();
+    Idea::query()->delete();
     login()->livewire(IdeaForm::class, ['product' => $this->product1])
         ->set('title', fake()->text(20))
         ->set('category', $this->category1->id)

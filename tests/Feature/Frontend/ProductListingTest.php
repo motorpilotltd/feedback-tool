@@ -37,7 +37,7 @@ it('can show product index livewire', function () {
 });
 
 it('can show no items found when there are no product', function () {
-    Product::truncate(); // Delete all products
+    Product::query()->delete();
     login()->get(route('product.index'))
         ->assertDontSeeLivewire('product.container')
         ->assertSee(__('general.noitemsfound', ['items' => 'products']));
