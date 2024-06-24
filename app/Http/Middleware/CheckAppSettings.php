@@ -34,7 +34,7 @@ class CheckAppSettings
             $aadOnly = false;
         }
 
-        if (! auth()->check()) { // Check if user was authenticated
+        if (! $request->user()) { // Check if user was authenticated
             // Redirect to /login if forcelogin was enabled
             $exclude = collect([
                 'auth.*',
@@ -51,10 +51,10 @@ class CheckAppSettings
                     return $this->redirectToLogin();
                 }
 
-                if ($request->routeIs('login') && $request->isMethod('get') && $aadOnly && ! session()->get('logged_out', false)) {
+                if ($request->routeIs('login') && $request->isMethod('get') && $aadOnly && ! $request->session()->get('logged_out', false)) {
                     return $this->redirectToAzureLogin();
                 }
-                session()->pull('logged_out');
+                $request->session()->pull('logged_out');
             }
         }
 

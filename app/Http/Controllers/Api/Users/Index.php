@@ -17,7 +17,7 @@ class Index extends Controller
             ->orderBy('name')
             ->whereNot(function ($query) {
                 // Prevent current logged in user to select itself
-                $query->where('id', auth()->user()->id);
+                $query->where('id', $request->user()->id);
             })
             ->when(
                 $request->search,
@@ -42,14 +42,14 @@ class Index extends Controller
             });
         // Remove super admins when auth user was a product admin
         $users = $users->filter(function (User $user) {
-            $isAuthSuperAdmin = auth()->user()->hasRole(config('const.ROLE_SUPER_ADMIN'));
+            $isAuthSuperAdmin = $request->user()->hasRole(config('const.ROLE_SUPER_ADMIN'));
 
             if (! $isAuthSuperAdmin) {
                 return ! $user->hasRole(config('const.ROLE_SUPER_ADMIN'));
             }
 
             // Prevent user to search itself
-            if (auth()->user()->id == $user->id) {
+            if ($request->user()->id == $user->id) {
                 return false;
             }
 

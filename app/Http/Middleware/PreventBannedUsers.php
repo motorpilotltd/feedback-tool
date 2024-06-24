@@ -18,7 +18,7 @@ class PreventBannedUsers
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->banned_at && ! $request->is('*/notification-bell')) {
+        if ($request->user() && $request->user()->banned_at && ! $request->is('*/notification-bell')) {
             auth()->logout();
 
             $request->session()->invalidate();
