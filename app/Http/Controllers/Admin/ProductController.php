@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 /**
  * Handles the management of products in the admin panel.

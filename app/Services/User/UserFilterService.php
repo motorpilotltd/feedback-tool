@@ -2,11 +2,11 @@
 
 namespace App\Services\User;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\DataTransferObject\UserFilterDto;
 use App\Filters\Common\SearchField;
 use App\Filters\User\Role;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pipeline\Pipeline;
 
 class UserFilterService

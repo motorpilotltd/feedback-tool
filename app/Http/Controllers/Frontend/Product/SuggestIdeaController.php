@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Frontend\Product;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Illuminate\View\View;
 
 class SuggestIdeaController extends Controller
 {

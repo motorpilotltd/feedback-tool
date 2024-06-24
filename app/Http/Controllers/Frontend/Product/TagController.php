@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend\Product;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Tag;
+use Illuminate\View\View;
 
 class TagController extends Controller
 {
