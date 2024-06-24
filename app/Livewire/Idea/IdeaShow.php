@@ -60,8 +60,6 @@ class IdeaShow extends Component
 
     /**
      * Delete the idea confirmation
-     *
-     * @return void
      */
     public function deleteConfirm(bool $confirm = false): void
     {
@@ -97,8 +95,6 @@ class IdeaShow extends Component
 
     /**
      * Mark/Unmark idea spam
-     *
-     * @return void
      */
     public function ideaSpamConfirm(IdeaSpamService $ideaSpamService, bool $hasMarkedSpam, bool $confirm = false): void
     {
@@ -138,8 +134,6 @@ class IdeaShow extends Component
 
     /**
      * Clear all spam report
-     *
-     * @return void
      */
     public function ideaNotSpam(IdeaSpamService $ideaSpamService, bool $confirm = false): void
     {

@@ -12,8 +12,6 @@ class CategoryController extends Controller
 {
     /**
      * Display the manage categories page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {

@@ -13,8 +13,6 @@ class UserLoginAsController extends Controller
 {
     /**
      * Processing logging in as different user
-     *
-     * @return void
      */
     public function index(Request $request): RedirectResponse
     {

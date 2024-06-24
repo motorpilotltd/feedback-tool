@@ -12,8 +12,6 @@ class TagController extends Controller
 {
     /**
      * Display the manage tags page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {

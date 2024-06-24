@@ -41,8 +41,6 @@ class IdeaController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Idea $idea): View
     {
@@ -54,8 +52,6 @@ class IdeaController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function edit(Idea $idea): View
     {

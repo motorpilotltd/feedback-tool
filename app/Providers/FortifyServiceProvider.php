@@ -17,8 +17,6 @@ class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -27,8 +25,6 @@ class FortifyServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -50,8 +46,6 @@ class FortifyServiceProvider extends ServiceProvider
 
     /**
      * Configure the routes offered by the application.
-     *
-     * @return void
      */
     protected function configureRoutes(): void
     {

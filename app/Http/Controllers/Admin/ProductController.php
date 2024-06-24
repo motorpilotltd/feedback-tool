@@ -12,8 +12,6 @@ class ProductController extends Controller
 {
     /**
      * Display the manage products page.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {
