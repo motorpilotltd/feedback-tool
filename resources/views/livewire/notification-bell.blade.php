@@ -22,7 +22,7 @@
 
     </button>
     <ul
-        class="absolute w-76 max-h-128 overflow-y-auto text-gray-700 md:w-96 text-left bg-white shadow-dialog text-sm rounded-xl z-10 -right-28  md:-right-12"
+        class="absolute w-76 max-h-128 overflow-y-auto text-gray-700 md:w-96 text-left bg-white shadow-dialog text-sm rounded-xl z-10 -right-28 md:-right-12"
         x-show.transition.origin.top="isOpen"
         @click.away="isOpen = false"
         @keydown.escape.window="isOpen = false"
@@ -45,11 +45,11 @@
                     @endswitch
                 </li>
             @endforeach
-            <li class="border-t border-gray-300 text-center ">
+            <li class="border-t border-gray-300 text-center">
                 <button
                     wire:click="markAllAsRead"
                     @click="isOpen = false";
-                    class="w-full block font-semibold  hover:bg-gray-100 transition duration-150 ease-in px-5 py-4"
+                    class="w-full block font-semibold hover:bg-gray-100 transition duration-150 ease-in px-5 py-4"
                 >Mark all as read</button>
             </li>
         @elseif ($isLoading)

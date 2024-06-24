@@ -20,8 +20,7 @@
             >
                 <x-button.circle info :icon="'view-'.$viewMode" wire:click="toggleViewMode"/>
                 <div x-show="tooltip"
-                    class="text-sm text-white absolute bg-gray-800 rounded-lg
-                    p-2 transform translate-y-0.5 z-10 -translate-x-14"
+                    class="text-sm text-white absolute bg-gray-800 rounded-lg p-2 transform translate-y-0.5 z-10 -translate-x-14"
                     x-cloak
                 >
                     {{ __($viewMode == 'grid' ? 'text.tooltip:listview': 'text.tooltip:gridview') }}

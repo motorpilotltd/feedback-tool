@@ -11,7 +11,7 @@
             clicked.closest('.product-container').querySelector('.product-link').click()
         }
     "
-    class="product-container group bg-white border rounded-lg hover:shadow-md hover:border-blue-200 p-4 flex cursor-pointer "
+    class="product-container group bg-white border rounded-lg hover:shadow-md hover:border-blue-200 p-4 flex cursor-pointer"
 >
     <!-- Logo/Photo (1/4 size of the thumbnail) -->
     <div class="w-1/4">
