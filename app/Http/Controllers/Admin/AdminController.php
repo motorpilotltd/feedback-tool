@@ -9,8 +9,6 @@ class AdminController extends Controller
 {
     /**
      * Manage Products
-     *
-     * @return \Illuminate\Http\Response
      */
     public function products(): View
     {
@@ -19,8 +17,6 @@ class AdminController extends Controller
 
     /**
      * System Settings
-     *
-     * @return \Illuminate\Http\Response
      */
     public function settings(): View
     {
@@ -29,8 +25,6 @@ class AdminController extends Controller
 
     /**
      * Manage Ideas
-     *
-     * @return \Illuminate\Http\Response
      */
     public function ideas(): View
     {
@@ -39,8 +33,6 @@ class AdminController extends Controller
 
     /**
      * Manage Categories
-     *
-     * @return \Illuminate\Http\Response
      */
     public function categories(): View
     {
@@ -49,8 +41,6 @@ class AdminController extends Controller
 
     /**
      * Manage Tags
-     *
-     * @return \Illuminate\Http\Response
      */
     public function tags(): View
     {
@@ -59,8 +49,6 @@ class AdminController extends Controller
 
     /**
      * Manage users
-     *
-     * @return \Illuminate\Http\Response
      */
     public function users(): View
     {

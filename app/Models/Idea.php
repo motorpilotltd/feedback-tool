@@ -37,8 +37,6 @@ class Idea extends Model implements HasMedia
 
     /**
      * The "booted" method of the model.
-     *
-     * @return void
      */
     protected static function booted(): void
     {

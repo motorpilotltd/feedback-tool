@@ -13,8 +13,6 @@ class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(): View
     {
@@ -43,8 +41,6 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Product $product): View
     {
@@ -55,8 +51,6 @@ class ProductController extends Controller
 
     /**
      * Display product ideas by tag.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function tag(Product $product, Tag $tag): View
     {
@@ -68,8 +62,6 @@ class ProductController extends Controller
 
     /**
      * Suggest idea for the current Product
-     *
-     * @return \Illuminate\Http\Response
      */
     public function suggestIdea(Product $product): View
     {
@@ -80,8 +72,6 @@ class ProductController extends Controller
 
     /**
      * View Product's ideas progress(by status)
-     *
-     * @return \Illuminate\Http\Response
      */
     public function progress(Product $product): View
     {

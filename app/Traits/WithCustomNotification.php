@@ -8,8 +8,6 @@ trait WithCustomNotification
 
     /**
      * Get the type of the notification being broadcast.
-     *
-     * @return string
      */
     public function databaseType(): string
     {
