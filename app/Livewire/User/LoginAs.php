@@ -21,7 +21,7 @@ class LoginAs extends Component
     {
         $redirect = loginAsUser($user);
         $this->sessionNotifySuccess(__('text.loginassucess', ['user' => $user->name]));
-        redirect($redirect);
+        redirect()->to($redirect);
     }
 
     public function render()

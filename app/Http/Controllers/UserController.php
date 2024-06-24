@@ -30,7 +30,7 @@ class UserController extends Controller
         $user = User::find($adminUser->id);
         $redirect = loginAsUser($user, true);
 
-        return redirect($redirect)->with('notify', [
+        return redirect()->to($redirect)->with('notify', [
             'message' => __('text.loginassucess', ['user' => $user->name]),
             'type' => 'success',
         ]);

@@ -77,7 +77,7 @@ Route::get('/auth/microsoft/callback', function () {
 
         return redirect()->intended('/');
     } catch (Exception $e) {
-        return redirect('login')->with('error', __('error.microsoft:login', ['message' => $e->getMessage() ?: 'None']));
+        return redirect()->to('login')->with('error', __('error.microsoft:login', ['message' => $e->getMessage() ?: 'None']));
     }
 })->name('auth.microsoft.callback');
 
