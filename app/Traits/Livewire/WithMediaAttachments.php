@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits\Livewire;
 
 use App\Models\Comment;
@@ -13,7 +14,7 @@ trait WithMediaAttachments
     {
         $errors = $this->getErrorBag();
         $errorBag = $errors->getMessages();
-        if(count($errorBag) > 0){
+        if (count($errorBag) > 0) {
             $errorMessages = [];
             foreach ($errorBag as $key => $val) {
                 $_key = explode('.', $key);
@@ -23,16 +24,16 @@ trait WithMediaAttachments
                 }
                 if (count($_key) > 1) {
                     $fileIndex = $_key[1];
-                    if(!isset($files[$fileIndex])) {
+                    if (! isset($files[$fileIndex])) {
                         continue;
                     }
                     $fileName = $files[$fileIndex]->getClientOriginalName();
                 }
                 foreach ($val as $err) {
-                    $errorMessages[] = '&bull;'. Str::replace($key, '"' . $fileName . '"', $err);
+                    $errorMessages[] = '&bull;'.Str::replace($key, '"'.$fileName.'"', $err);
                 }
             }
-            if (!empty($errorMessages)) {
+            if (! empty($errorMessages)) {
                 $errors->add($fieldName, implode('<br/>', $errorMessages));
             }
         }
@@ -50,10 +51,9 @@ trait WithMediaAttachments
 
     public function storeAttachments($model)
     {
-        if (!empty($this->attachments)) {
+        if (! empty($this->attachments)) {
             $modelType = get_class($model);
-            collect($this->attachments)->each(fn($image) =>
-                $model->addMedia($image->getRealPath())->toMediaCollection('attachments')
+            collect($this->attachments)->each(fn ($image) => $model->addMedia($image->getRealPath())->toMediaCollection('attachments')
             );
 
             $this->attachments = [];
@@ -62,5 +62,4 @@ trait WithMediaAttachments
             $this->dispatch("filepreview:{$modelType}:{$model->id}");
         }
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Observers;
+
 /*
 |--------------------------------------------------------------------------
 | Solution for Unique violation in softdeleted models
@@ -16,7 +17,7 @@ class UniqueSoftDeleteObserver
 
     public function restoring(Model $model)
     {
-        if (!$model->trashed()) {
+        if (! $model->trashed()) {
             return;
         }
         foreach ($model->getDuplicateAvoidColumns() as $column) {

@@ -36,15 +36,16 @@ class Index extends Controller
                 // if there's no performance issue on fetching
 
                 $user->profile_image = $user->getAvatar();
-                $user->name = __('text.useremail',['user' => $user->name, 'email' => $user->email]);
+                $user->name = __('text.useremail', ['user' => $user->name, 'email' => $user->email]);
+
                 return $user;
             });
         // Remove super admins when auth user was a product admin
-        $users = $users->filter(function(User $user) {
+        $users = $users->filter(function (User $user) {
             $isAuthSuperAdmin = auth()->user()->hasRole(config('const.ROLE_SUPER_ADMIN'));
 
-            if (!$isAuthSuperAdmin) {
-                return !$user->hasRole(config('const.ROLE_SUPER_ADMIN'));
+            if (! $isAuthSuperAdmin) {
+                return ! $user->hasRole(config('const.ROLE_SUPER_ADMIN'));
             }
 
             // Prevent user to search itself

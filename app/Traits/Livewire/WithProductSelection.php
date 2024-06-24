@@ -11,7 +11,7 @@ trait WithProductSelection
     {
         // Livewire's $listeners
         $this->listeners = array_merge($this->listeners, [
-            'product:selection:selected' => 'setProductSelected'
+            'product:selection:selected' => 'setProductSelected',
         ]);
 
         $this->productId = session('admin.productId', 0);
@@ -23,6 +23,4 @@ trait WithProductSelection
         session(['admin.productId' => $product]);
         $this->dispatch('productUpdated')->to('admin.ideas-table');
     }
-
-
 }

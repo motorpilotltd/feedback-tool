@@ -8,7 +8,7 @@ use App\Models\Idea;
 use function Pest\Faker\fake;
 use function Pest\Livewire\livewire;
 
-beforeEach(function() {
+beforeEach(function () {
     setupData();
 });
 
@@ -23,9 +23,9 @@ it('can vote/unvote for the idea', function (bool $isVoting) {
     $component = livewire(VotesCountButton::class, [
         'ideaId' => $this->idea1->id,
         'hasVoted' => $this->ideaVoteService->isVotedByUser($this->idea1, $user),
-        'votesCount' => $this->idea1->votes()->count()
+        'votesCount' => $this->idea1->votes()->count(),
     ])
-    ->assertViewHas('votesCount', 0);
+        ->assertViewHas('votesCount', 0);
 
     if ($isVoting) {
         $component->call('voteIdea')
@@ -50,6 +50,6 @@ it('can automatically vote for the idea that the user created', function () {
 
     $this->assertDatabaseHas('votes', [
         'idea_id' => Idea::first()->id,
-        'user_id' => auth()->user()->id
+        'user_id' => auth()->user()->id,
     ]);
 });

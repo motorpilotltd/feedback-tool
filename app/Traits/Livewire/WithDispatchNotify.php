@@ -4,11 +4,11 @@ namespace App\Traits\Livewire;
 
 trait WithDispatchNotify
 {
-    public function dispatchNotify ($type, $message)
+    public function dispatchNotify($type, $message)
     {
         $this->dispatch('dispatchnotify', [
             'message' => $message,
-            'type' => $type
+            'type' => $type,
         ]);
     }
 
@@ -31,7 +31,7 @@ trait WithDispatchNotify
     {
         session()->flash('notify', [
             'message' => $message,
-            'type' => $type
+            'type' => $type,
         ]);
     }
 

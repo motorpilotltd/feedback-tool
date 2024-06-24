@@ -6,13 +6,15 @@ use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use App\Settings\LinksSettings;
 use Illuminate\Support\Collection;
-use Livewire\Component;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Component;
 
 class SystemSettings extends Component
 {
     public $generalSettings;
+
     public $azureadSettings;
+
     public $linksSettings;
 
     public Collection $links;
@@ -39,7 +41,7 @@ class SystemSettings extends Component
             'app_email' => ['string', 'email', 'max:255'],
         ])->validate();
 
-        $this->generalSettings->each(function ($value, $key) use(&$settings) {
+        $this->generalSettings->each(function ($value, $key) use (&$settings) {
             $settings->{$key} = $value;
         });
         $this->dispatch('savedGeneralSettings');
@@ -49,7 +51,7 @@ class SystemSettings extends Component
     public function saveAzureADSettings()
     {
         $settings = $this->getAzureADSettings();
-        $this->azureadSettings->each(function ($value, $key) use(&$settings) {
+        $this->azureadSettings->each(function ($value, $key) use (&$settings) {
             $settings->{$key} = $value;
         });
         $this->dispatch('savedAzureadSettings');
@@ -80,7 +82,6 @@ class SystemSettings extends Component
     {
         return resolve(AzureADSettings::class);
     }
-
 
     protected function getLinksSettings()
     {

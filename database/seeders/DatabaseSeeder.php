@@ -8,9 +8,7 @@ use App\Models\Idea;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Vote;
-use Database\Seeders\RoleAndPermissionSeeder;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,9 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-          // Assign app admin a super-admin role
+        // Assign app admin a super-admin role
         $user = User::where('email', config('const.ADMIN_EMAIL'))->get()->first();
-        if (!$user) {
+        if (! $user) {
             User::factory()->create([
                 'name' => 'Admin',
                 'email' => config('const.ADMIN_EMAIL'),
@@ -35,7 +33,7 @@ class DatabaseSeeder extends Seeder
         Category::factory(10)->existing()->create();
 
         $this->call([
-            StatusesSeeder::class
+            StatusesSeeder::class,
         ]);
 
         Idea::factory(25)->existing()->create();
@@ -46,7 +44,7 @@ class DatabaseSeeder extends Seeder
                 if ($idea_id % 2 === 0) {
                     Vote::factory()->create([
                         'user_id' => $user_id,
-                        'idea_id' => $idea_id
+                        'idea_id' => $idea_id,
                     ]);
                 }
             }

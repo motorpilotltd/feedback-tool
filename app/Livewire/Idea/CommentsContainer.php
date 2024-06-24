@@ -4,9 +4,9 @@ namespace App\Livewire\Idea;
 
 use App\Models\Comment;
 use App\Models\Idea;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Computed;
 
 class CommentsContainer extends Component
 {
@@ -19,17 +19,19 @@ class CommentsContainer extends Component
         'commentWasDeleted',
         'statusWasUpdated',
         'refreshCommentIdea',
-        'refreshCommentsContainer' => '$refresh'
+        'refreshCommentsContainer' => '$refresh',
     ];
 
     public function mount(Idea $idea)
     {
         $this->idea = $idea;
     }
-    public function refreshCommentIdea ()
+
+    public function refreshCommentIdea()
     {
         $this->idea->refresh();
     }
+
     public function commentWasAdded()
     {
         $this->idea->refresh();
@@ -54,10 +56,10 @@ class CommentsContainer extends Component
     public function comments()
     {
         return Comment::with(['user', 'status', 'media.model', 'spams'])
-        ->where('idea_id', $this->idea->id)
-        ->orderBy('comments.created_at', 'desc')
-        ->paginate()
-        ->withQueryString();
+            ->where('idea_id', $this->idea->id)
+            ->orderBy('comments.created_at', 'desc')
+            ->paginate()
+            ->withQueryString();
     }
 
     #[Computed]
@@ -65,6 +67,7 @@ class CommentsContainer extends Component
     {
         return 'foo';
     }
+
     public function paginationView()
     {
         return 'vendor.livewire.tailwind';

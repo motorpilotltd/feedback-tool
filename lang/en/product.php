@@ -14,6 +14,6 @@ return [
     */
     'products' => 'Products',
     'select_a_product' => 'Select a product and start exploring different categories and ideas.',
-    'added_by' => 'Added by :name, :date'
+    'added_by' => 'Added by :name, :date',
 
 ];

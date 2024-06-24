@@ -2,9 +2,9 @@
 
 namespace App\Livewire;
 
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\Comment;
 use App\Models\Idea;
+use App\Traits\Livewire\WithDispatchNotify;
 use Illuminate\Http\Response;
 use Illuminate\Notifications\DatabaseNotification;
 use Livewire\Component;
@@ -14,8 +14,11 @@ class NotificationBell extends Component
     use WithDispatchNotify;
 
     const NOTICATION_THRESHOLD = 20;
+
     public $notifications;
+
     public $isLoading;
+
     public $notificationCount;
 
     protected $listeners = ['getNotifications'];
@@ -32,7 +35,7 @@ class NotificationBell extends Component
         $this->notificationCount = auth()->user()->unreadNotifications()->count();
 
         if ($this->notificationCount > self::NOTICATION_THRESHOLD) {
-            $this->notificationCount = self::NOTICATION_THRESHOLD . '+';
+            $this->notificationCount = self::NOTICATION_THRESHOLD.'+';
         }
     }
 
@@ -53,7 +56,7 @@ class NotificationBell extends Component
         }
 
         $notification = DatabaseNotification::findOrFail($notificationId);
-         // or markAsRead to flag read_at instead of deleting from table
+        // or markAsRead to flag read_at instead of deleting from table
         $notification->delete(); // Or delete completely
 
         switch ($notification->type) {
@@ -69,14 +72,16 @@ class NotificationBell extends Component
     public function scrollToComment($notification)
     {
         $idea = Idea::find($notification->data['idea_id']);
-        if (!$idea) {
+        if (! $idea) {
             $this->sessionNotify('warning', __('text.idea_not_exist'));
+
             return redirect()->route('product.index');
         }
 
         $comment = Comment::find($notification->data['comment_id']);
-        if (!$comment) {
+        if (! $comment) {
             $this->sessionNotify('warning', __('The comment no longer exists!'));
+
             return redirect()->route('idea.show', [
                 'idea' => $notification->data['idea_slug'],
             ]);
@@ -85,29 +90,29 @@ class NotificationBell extends Component
         $comments = $idea->comments()->pluck('id');
         $indexOfComment = $comments->search($comment->id);
 
-        $page = (int) ($indexOfComment / $comment->getPerPage()) + 1 ;
+        $page = (int) ($indexOfComment / $comment->getPerPage()) + 1;
 
         session()->flash('scrollToComment', $comment->id);
 
         return redirect()->route('idea.show', [
             'idea' => $notification->data['idea_slug'],
-            'page' => $page
+            'page' => $page,
         ]);
     }
 
     public function goToIdea($notification)
     {
         $idea = Idea::find($notification->data['idea_id']);
-        if (!$idea) {
+        if (! $idea) {
             $this->sessionNotify('warning', __('text.idea_not_exist'));
+
             return redirect()->route('product.index');
         }
 
         return redirect()->route('idea.show', [
-            'idea' => $notification->data['idea_slug']
+            'idea' => $notification->data['idea_slug'],
         ]);
     }
-
 
     public function markAllAsRead()
     {
@@ -124,7 +129,7 @@ class NotificationBell extends Component
     public function render()
     {
         return view('livewire.notification-bell', [
-            'notifications' => auth()->user()->unreadNotifications
+            'notifications' => auth()->user()->unreadNotifications,
         ]);
     }
 }

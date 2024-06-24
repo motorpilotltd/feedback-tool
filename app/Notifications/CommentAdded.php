@@ -3,18 +3,18 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
+use App\Settings\GeneralSettings;
 use App\Traits\WithCustomNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Settings\GeneralSettings;
 
 class CommentAdded extends Notification
 {
     use Queueable, WithCustomNotification;
 
     public $comment;
+
     public $generalSettings;
 
     /**
@@ -49,15 +49,15 @@ class CommentAdded extends Notification
     public function toMail($notifiable)
     {
         // Send emails to divert test email if enabled
-        if ($this->generalSettings->enable_divert_email && !empty($this->generalSettings->divert_email)) {
+        if ($this->generalSettings->enable_divert_email && ! empty($this->generalSettings->divert_email)) {
             // Modify the notifiable's email address
             $notifiable->email = $this->generalSettings->divert_email;
         }
 
         return (new MailMessage)
-            ->subject(config('app.name', 'Feedback App') . ': A comment was posted on your idea')
+            ->subject(config('app.name', 'Feedback App').': A comment was posted on your idea')
             ->markdown('emails.comment-added', [
-                'comment' => $this->comment
+                'comment' => $this->comment,
             ]);
     }
 

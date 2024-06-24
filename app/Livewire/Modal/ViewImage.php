@@ -7,6 +7,7 @@ use Livewire\Component;
 class ViewImage extends Component
 {
     public $imageUrl;
+
     protected $listeners = ['setImageUrl'];
 
     public function setImageUrl($imageUrl)

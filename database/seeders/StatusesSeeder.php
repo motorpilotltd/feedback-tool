@@ -3,9 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Status;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 class StatusesSeeder extends Seeder
 {
@@ -27,7 +25,7 @@ class StatusesSeeder extends Seeder
 
         // Refer to WireUI badges section for color
         // https://livewire-wireui.com/docs/badges
-         // slug, name, color
+        // slug, name, color
         $statuses = [
             [config('const.STATUS_NEW'), 'Awaiting Consideration', 'amber'],
             [config('const.STATUS_CONSIDERED'), 'Under Consideration', 'gray'],
@@ -45,7 +43,7 @@ class StatusesSeeder extends Seeder
             Status::factory()->create([
                 'name' => $status[1],
                 'slug' => $status[0],
-                'color' => $status[2]
+                'color' => $status[2],
             ]);
         }
     }

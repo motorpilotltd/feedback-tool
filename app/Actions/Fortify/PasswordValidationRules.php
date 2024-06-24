@@ -27,6 +27,7 @@ trait PasswordValidationRules
         if ($user->isSocialiteHasNoPassword()) {
             return [];
         }
+
         return ['required', 'string'];
     }
 }

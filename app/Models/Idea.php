@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Category;
-use App\Models\Comment;
-use App\Models\User;
 use App\Traits\GenerateModelLivewireKeyTrait;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
@@ -14,21 +11,20 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Idea extends Model implements HasMedia
 {
-    use HasFactory,
+    use BelongsToThrough,
+        CascadeSoftDeletes,
+        GenerateModelLivewireKeyTrait,
+        HasFactory,
+        HasMediaCollectionsTrait,
         Sluggable,
         SoftDeletes,
-        WithPerPage,
-        BelongsToThrough,
-        CascadeSoftDeletes,
-        HasMediaCollectionsTrait,
-        GenerateModelLivewireKeyTrait;
+        WithPerPage;
 
     protected $cascadeDeletes = ['comments', 'votes', 'tags'];
 
@@ -118,22 +114,19 @@ class Idea extends Model implements HasMedia
     public function statusClass(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => 'status-' . Str::kebab($this->status)
+            get: fn ($value) => 'status-'.Str::kebab($this->status)
         );
     }
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
-
 }

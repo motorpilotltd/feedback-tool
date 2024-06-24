@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
 
 /**
  * Handles the management of tags in the admin panel.
@@ -23,7 +22,7 @@ class UserLoginAsController extends Controller
 
         return redirect($redirect)->with('notify', [
             'message' => __('text.loginassucess', ['user' => $user->name]),
-            'type' => 'success'
+            'type' => 'success',
         ]);
     }
 }

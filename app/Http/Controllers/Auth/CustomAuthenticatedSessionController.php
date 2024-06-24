@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\Contracts\LogoutResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use Exception;
-use App\Settings\GeneralSettings;
 use App\Settings\AzureADSettings;
+use App\Settings\GeneralSettings;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Contracts\LogoutResponse;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 class CustomAuthenticatedSessionController extends AuthenticatedSessionController
 {
     /**
      * Destroy an authenticated session.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Laravel\Fortify\Contracts\LogoutResponse
      */
     public function destroy(Request $request): LogoutResponse
     {

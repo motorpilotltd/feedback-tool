@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use WireUi\Traits\Actions;
-use Livewire\WithPagination;
+use App\Models\User;
+use App\Traits\Livewire\WithTableSorting;
 use Illuminate\Pipeline\Pipeline;
 use Livewire\Component;
-use App\Traits\Livewire\WithTableSorting;
-use App\Models\User;
+use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class AllUsersTable extends Component
 {
@@ -16,9 +16,10 @@ class AllUsersTable extends Component
         WithTableSorting;
 
     public $searchUser;
+
     protected $queryString = [];
 
-    public function updatingSearchUser ()
+    public function updatingSearchUser()
     {
         $this->resetPage();
     }
@@ -33,15 +34,15 @@ class AllUsersTable extends Component
                 'query' => User::whereNull('banned_at'),
                 'search_field' => [
                     'field' => ['name', 'email'],
-                    'value' => $this->searchUser
+                    'value' => $this->searchUser,
                 ],
             ])
             ->through([
-                \App\Filters\Common\SearchField::class
+                \App\Filters\Common\SearchField::class,
             ])
             ->thenReturn();
 
-        return  $usersQuery['query']
+        return $usersQuery['query']
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate();
     }
@@ -49,7 +50,7 @@ class AllUsersTable extends Component
     public function render()
     {
         return view('livewire.admin.all-users-table', [
-            'users' => $this->users
+            'users' => $this->users,
         ]);
     }
 }
