@@ -4,7 +4,6 @@ use App\Livewire\Forms\IdeaForm;
 use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Product;
-use App\Models\Status;
 
 use App\Models\User;
 use function Pest\Faker\fake;
@@ -116,7 +115,7 @@ it('can prevent save editing idea when current logged in user was not the author
 });
 
 it('can redirect to idea page after saving', function () {
-    Idea::truncate();
+    Idea::query()->delete();
     login()->livewire(IdeaForm::class, ['product' => $this->product1])
         ->set('title', fake()->text(20))
         ->set('category', $this->category1->id)
