@@ -30,6 +30,6 @@ class ProfilePhotoController extends Controller
         $type = Storage::mimeType($path);
 
         // Return the file as a response
-        return response($file, 200)->header('Content-Type', $type);
+        return response($file)->header('Content-Type', $type);
     }
 }
