@@ -18,7 +18,8 @@ class DeleteTeamTest extends TestCase
     {
 
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
@@ -41,7 +42,8 @@ class DeleteTeamTest extends TestCase
     public function test_personal_teams_cant_be_deleted(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());

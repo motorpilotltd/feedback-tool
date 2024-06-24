@@ -16,7 +16,8 @@ class LeaveTeamTest extends TestCase
     public function test_users_can_leave_teams(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         $user = User::factory()->withPersonalTeam()->create();
@@ -36,7 +37,8 @@ class LeaveTeamTest extends TestCase
     public function test_team_owners_cant_leave_their_own_team(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());

@@ -18,7 +18,8 @@ class InviteTeamMemberTest extends TestCase
     public function test_team_members_can_be_invited_to_team(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         Mail::fake();
@@ -39,7 +40,8 @@ class InviteTeamMemberTest extends TestCase
     public function test_team_member_invitations_can_be_cancelled(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+            return;
         }
 
         Mail::fake();

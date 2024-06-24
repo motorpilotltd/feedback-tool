@@ -63,7 +63,7 @@ class IdeaShow extends Component
      *
      * @return void
      */
-    public function deleteConfirm(bool $confirm = false): void
+    public function deleteConfirm(bool $confirm = false): mixed
     {
         if (auth()->guest() || auth()->user()->cannot('delete', $this->idea)) {
             $this->notification()->warning(
