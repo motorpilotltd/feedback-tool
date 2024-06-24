@@ -27,7 +27,7 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         Jetstream::ignoreRoutes();
     }
@@ -37,7 +37,7 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configurePermissions();
 
@@ -68,7 +68,7 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRoutes()
+    protected function configureRoutes(): void
     {
         Route::domain(config('jetstream.domain', null))->prefix(config('jetstream.prefix', config('jetstream.path')))->group(function () {
             $this->loadRoutesFrom(base_path('routes/jetstream.php'));
@@ -80,7 +80,7 @@ class JetstreamServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configurePermissions()
+    protected function configurePermissions(): void
     {
         Jetstream::defaultApiTokenPermissions(['read']);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Product;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('frontend.product.index');
     }
@@ -43,7 +44,7 @@ class IndexController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $product): View
     {
         return view('frontend.product.show', [
             'product' => $product,

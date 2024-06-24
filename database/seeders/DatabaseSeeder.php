@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         // Assign app admin a super-admin role
         $user = User::where('email', config('const.ADMIN_EMAIL'))->get()->first();

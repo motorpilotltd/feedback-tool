@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Symfony\Component\HttpFoundation\Response;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use App\Traits\Livewire\WithAuthRedirects;
@@ -19,7 +20,7 @@ class CheckAppSettings
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         try {
             $forcelogin = app(GeneralSettings::class)->forcelogin;

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
@@ -52,7 +55,7 @@ class Product extends Model implements HasMedia
      *
      * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleting(function ($product) {
             // Delete product permission
@@ -82,22 +85,22 @@ class Product extends Model implements HasMedia
         });
     }
 
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
     }
 
-    public function tagGroups()
+    public function tagGroups(): HasMany
     {
         return $this->hasMany(TagGroup::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function ideas()
+    public function ideas(): HasManyThrough
     {
         return $this->hasManyThrough(Idea::class, Category::class)
             ->with('author');

@@ -13,7 +13,7 @@ class UpdateTeamMemberRoleTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_team_member_roles_can_be_updated()
+    public function test_team_member_roles_can_be_updated(): void
     {
         if (! Features::hasTeamFeatures()) {
             return $this->markTestSkipped('Team support is not enabled.');
@@ -35,7 +35,7 @@ class UpdateTeamMemberRoleTest extends TestCase
         ));
     }
 
-    public function test_only_team_owner_can_update_team_member_roles()
+    public function test_only_team_owner_can_update_team_member_roles(): void
     {
         if (! Features::hasTeamFeatures()) {
             return $this->markTestSkipped('Team support is not enabled.');

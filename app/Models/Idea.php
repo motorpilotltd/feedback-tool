@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\GenerateModelLivewireKeyTrait;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
@@ -37,7 +40,7 @@ class Idea extends Model implements HasMedia
      *
      * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         // Deleting associated media to the idea
         static::deleting(function ($idea) {
@@ -47,42 +50,42 @@ class Idea extends Model implements HasMedia
         });
     }
 
-    public function pinnedComment()
+    public function pinnedComment(): BelongsTo
     {
         return $this->belongsTo(Comment::class, 'sticky_comment_id');
     }
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function ideaStatus()
+    public function ideaStatus(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status', 'slug');
     }
 
-    public function addedBy()
+    public function addedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by');
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
-    public function spams()
+    public function spams(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'idea_spam')->withTimestamps();
     }
 
-    public function votes()
+    public function votes(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'votes');
     }
@@ -92,7 +95,7 @@ class Idea extends Model implements HasMedia
         return $this->belongsToThrough(Product::class, Category::class);
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }

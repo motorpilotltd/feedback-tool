@@ -12,7 +12,7 @@ trait PasswordValidationRules
      *
      * @return array
      */
-    protected function passwordRules()
+    protected function passwordRules(): array
     {
         return ['required', 'string', new Password, 'confirmed'];
     }
@@ -22,7 +22,7 @@ trait PasswordValidationRules
      *
      * @return array
      */
-    protected function currentPasswordRules(User $user)
+    protected function currentPasswordRules(User $user): array
     {
         if ($user->isSocialiteHasNoPassword()) {
             return [];

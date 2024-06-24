@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Product;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 
@@ -12,7 +13,7 @@ class SuggestIdeaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $product): View
     {
         return view('frontend.product.suggest-idea', [
             'product' => $product,

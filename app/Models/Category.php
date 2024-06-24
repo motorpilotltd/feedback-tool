@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use App\Traits\WithPerPage;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -31,17 +33,17 @@ class Category extends Model
         ];
     }
 
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function ideas()
+    public function ideas(): HasMany
     {
         return $this->hasMany(Idea::class);
     }

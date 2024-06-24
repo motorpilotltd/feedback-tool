@@ -16,7 +16,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         //
     }
@@ -26,7 +26,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Comment $comment)
+    public function view(User $user, Comment $comment): bool
     {
         //
     }
@@ -36,7 +36,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         //
     }
@@ -46,7 +46,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Comment $comment)
+    public function update(User $user, Comment $comment): bool
     {
         return $user->id === (int) $comment->user_id;
     }
@@ -56,7 +56,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Comment $comment)
+    public function delete(User $user, Comment $comment): bool
     {
         if ($this->isSandboxMode($comment->idea->product)) {
             return true;
@@ -72,7 +72,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Comment $comment)
+    public function restore(User $user, Comment $comment): bool
     {
         //
     }
@@ -82,7 +82,7 @@ class CommentPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Comment $comment)
+    public function forceDelete(User $user, Comment $comment): bool
     {
         //
     }

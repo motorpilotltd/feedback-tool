@@ -63,7 +63,7 @@ class IdeaShow extends Component
      *
      * @return void
      */
-    public function deleteConfirm(bool $confirm = false)
+    public function deleteConfirm(bool $confirm = false): void
     {
         if (auth()->guest() || auth()->user()->cannot('delete', $this->idea)) {
             $this->notification()->warning(
@@ -100,7 +100,7 @@ class IdeaShow extends Component
      *
      * @return void
      */
-    public function ideaSpamConfirm(IdeaSpamService $ideaSpamService, bool $hasMarkedSpam, bool $confirm = false)
+    public function ideaSpamConfirm(IdeaSpamService $ideaSpamService, bool $hasMarkedSpam, bool $confirm = false): void
     {
         if (auth()->guest()) {
             $this->notification()->error(
@@ -141,7 +141,7 @@ class IdeaShow extends Component
      *
      * @return void
      */
-    public function ideaNotSpam(IdeaSpamService $ideaSpamService, bool $confirm = false)
+    public function ideaNotSpam(IdeaSpamService $ideaSpamService, bool $confirm = false): void
     {
         if (auth()->guest()) {
             $this->dispatchNotifyWarning(__('error.actionnotpermitted'));

@@ -35,7 +35,7 @@ class CommentAdded extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail', 'database'];
     }
@@ -46,7 +46,7 @@ class CommentAdded extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         // Send emails to divert test email if enabled
         if ($this->generalSettings->enable_divert_email && ! empty($this->generalSettings->divert_email)) {
@@ -67,7 +67,7 @@ class CommentAdded extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'comment_id' => $this->comment->id,

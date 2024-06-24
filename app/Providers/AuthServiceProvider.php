@@ -19,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Gate::after(function ($user, $ability) {
             return $user->hasRole(config('const.ROLE_SUPER_ADMIN')) ? true : null;
