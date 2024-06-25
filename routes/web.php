@@ -13,8 +13,8 @@ use App\Http\Controllers\Frontend\Product\ProgressController as ProductProgressC
 use App\Http\Controllers\Frontend\Product\SuggestIdeaController as ProductSuggestIdeaController;
 use App\Http\Controllers\Frontend\Product\TagController as ProductTagController;
 use App\Http\Controllers\Frontend\SearchController;
-use App\Http\Controllers\MediaController;
-use App\Http\Controllers\ProfilePhotoController;
+use App\Http\Controllers\File\MediaController;
+use App\Http\Controllers\File\ProfilePhotoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginAsController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;

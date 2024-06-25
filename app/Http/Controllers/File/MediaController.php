@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\File;
 
-use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 /**
  * Handles displaying and downloading media files.

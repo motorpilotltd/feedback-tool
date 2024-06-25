@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\File;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 /**
  * Handles displaying profile photos.
