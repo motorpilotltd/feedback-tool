@@ -14,7 +14,7 @@ class LogLogin
      *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): mixed
     {
         Log::info('This user is logging in: '.$request->email);
 
