@@ -3,17 +3,17 @@
 namespace App\Notifications;
 
 use App\Models\User;
+use App\Settings\GeneralSettings;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Settings\GeneralSettings;
 
 class AccountCreated extends Notification
 {
     use Queueable;
 
     public $user;
+
     public $generalSettings;
 
     /**
@@ -31,9 +31,8 @@ class AccountCreated extends Notification
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -42,20 +41,19 @@ class AccountCreated extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         // Send emails to divert test email if enabled
-        if ($this->generalSettings->enable_divert_email && !empty($this->generalSettings->divert_email)) {
+        if ($this->generalSettings->enable_divert_email && ! empty($this->generalSettings->divert_email)) {
             // Modify the notifiable's email address
             $notifiable->email = $this->generalSettings->divert_email;
         }
 
         return (new MailMessage)
-            ->subject(config('app.name', 'Feedback App') . ': ' . $this->user->email . ' account created')
+            ->subject(config('app.name', 'Feedback App').': '.$this->user->email.' account created')
             ->markdown('emails.account-created', [
-                'user' => $this->user
+                'user' => $this->user,
             ]);
     }
 
@@ -63,9 +61,8 @@ class AccountCreated extends Notification
      * Get the array representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             'user_name' => $this->user->name,

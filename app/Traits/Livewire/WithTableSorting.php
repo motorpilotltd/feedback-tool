@@ -5,6 +5,7 @@ namespace App\Traits\Livewire;
 trait WithTableSorting
 {
     public $sortDirection = 'asc';
+
     public $sortField = 'created_at';
 
     // Executed during the Livewire Component initialization
@@ -13,7 +14,7 @@ trait WithTableSorting
         // Livewire's $queryString
         $this->queryString = array_merge($this->queryString, [
             'sortField',
-            'sortDirection'
+            'sortDirection',
         ]);
     }
 

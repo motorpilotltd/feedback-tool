@@ -13,6 +13,7 @@ class Container extends Component
     {
         $this->product = $product;
     }
+
     public function render()
     {
         return view('livewire.side-bar.container');

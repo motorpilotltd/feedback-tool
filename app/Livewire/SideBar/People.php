@@ -2,9 +2,9 @@
 
 namespace App\Livewire\SideBar;
 
-use Livewire\Component;
-use App\Models\User;
 use App\Models\Product;
+use App\Models\User;
+use Livewire\Component;
 
 class People extends Component
 {
@@ -17,13 +17,13 @@ class People extends Component
 
     public function getPeopleProperty()
     {
-        return User::permission(config('const.PERMISSION_PRODUCTS_MANAGE') . '.' . $this->product->id)->get();
+        return User::permission(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$this->product->id)->get();
     }
 
     public function render()
     {
         return view('livewire.side-bar.people', [
-            'people' => $this->people
+            'people' => $this->people,
         ]);
     }
 }

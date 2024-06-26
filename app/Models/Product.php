@@ -2,63 +2,63 @@
 
 namespace App\Models;
 
-use App\Models\Category;
-use App\Models\User;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
-use Illuminate\Pipeline\Pipeline;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Exception;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Permission\Models\Permission;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\Permission\Models\Permission;
 
 class Product extends Model implements HasMedia
 {
-    use Sluggable,
-        HasFactory,
-        SoftDeletes,
-        WithPerPage,
-        HasMediaCollectionsTrait,
+    use AvoidDuplicateConstraintSoftDelete,
         CascadeSoftDeletes,
+        HasFactory,
+        HasMediaCollectionsTrait,
+        Sluggable,
         SluggableScopeHelpers,
-        AvoidDuplicateConstraintSoftDelete;
+        SoftDeletes,
+        WithPerPage;
 
     public $guarded = [];
 
-    public function getDuplicateAvoidColumns() : array
+    public function getDuplicateAvoidColumns(): array
     {
         return [
             'name',
-            'slug'
+            'slug',
         ];
     }
 
     protected $cascadeDeletes = ['categories', 'tagGroups'];
 
-
-    protected $casts = [
-        'settings' => 'array',
-        'links' => 'array'
-    ];
+    protected function casts(): array
+    {
+        return [
+            'settings' => 'array',
+            'links' => 'array',
+        ];
+    }
 
     /**
      * The "booted" method of the model.
-     *
-     * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleting(function ($product) {
             // Delete product permission
             try {
-                if($permission = Permission::findByName(config('const.PERMISSION_PRODUCTS_MANAGE').'.'. $product->id)) {
+                if ($permission = Permission::findByName(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product->id)) {
                     $permission->delete();
                 }
 
@@ -66,38 +66,39 @@ class Product extends Model implements HasMedia
                     $media->delete();
                 });
 
-            } catch (Exception $e) {}
+            } catch (Exception $e) {
+            }
         });
 
         static::created(function ($product) {
             // Create product's permission definition as well
-            Permission::create(['name' => config('const.PERMISSION_PRODUCTS_MANAGE') . '.' . $product->id]);
+            Permission::create(['name' => config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product->id]);
             Category::create([
                 'product_id' => $product->id,
                 'created_by' => $product->user->id,
                 'name' => 'General',
-                'description' => ''
+                'description' => '',
             ]);
 
         });
     }
 
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
     }
 
-    public function tagGroups()
+    public function tagGroups(): HasMany
     {
         return $this->hasMany(TagGroup::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function ideas()
+    public function ideas(): HasManyThrough
     {
         return $this->hasManyThrough(Idea::class, Category::class)
             ->with('author');
@@ -122,6 +123,7 @@ class Product extends Model implements HasMedia
                     'enableAwaitingConsideration' => $value['enableAwaitingConsideration'] ?? false,
                     'enableSandboxMode' => $value['enableSandboxMode'] ?? false,
                 ];
+
                 return $newValue;
             }
         );
@@ -130,28 +132,24 @@ class Product extends Model implements HasMedia
     public function permission(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => config('const.PERMISSION_PRODUCTS_MANAGE') . '.' . $this->id
+            get: fn ($value) => config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$this->id
         );
     }
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
     /**
      * Get the route key for the model.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {

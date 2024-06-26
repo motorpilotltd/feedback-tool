@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\File;
 
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Handles displaying profile photos.
@@ -12,18 +14,14 @@ class ProfilePhotoController extends Controller
 {
     /**
      * Handle the incoming request to display a profile photo.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $filename
-     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, string $filename)
+    public function show(Request $request, string $filename): Response
     {
         // Construct the file path
-        $path = 'public/profile-photos/' . $filename;
+        $path = 'public/profile-photos/'.$filename;
 
         // Check if the file exists
-        if (!Storage::exists($path)) {
+        if (! Storage::exists($path)) {
             abort(404);
         }
 
@@ -32,6 +30,6 @@ class ProfilePhotoController extends Controller
         $type = Storage::mimeType($path);
 
         // Return the file as a response
-        return response($file, 200)->header("Content-Type", $type);
+        return response($file)->header('Content-Type', $type);
     }
 }

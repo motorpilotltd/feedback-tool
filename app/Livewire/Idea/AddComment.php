@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Idea;
 
-use App\Traits\Livewire\WithAuthRedirects;
-use App\Models\Comment;
 use App\Models\Idea;
-use Illuminate\Http\Response;
+use App\Traits\Livewire\WithAuthRedirects;
 use Livewire\Component;
 
 class AddComment extends Component
@@ -13,6 +11,7 @@ class AddComment extends Component
     use WithAuthRedirects;
 
     public $idea;
+
     public $action;
 
     public function mount(Idea $idea)

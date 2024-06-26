@@ -3,7 +3,6 @@
 namespace App\Filters\Idea;
 
 use App\Filters\BaseFilter;
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class Tag extends BaseFilter
@@ -16,6 +15,7 @@ class Tag extends BaseFilter
                 ->leftJoin('tags', 'tags.id', '=', 'idea_tag.tag_id')
                 ->where('tags.id', $this->builderState);
         }
+
         return $builder;
     }
 }

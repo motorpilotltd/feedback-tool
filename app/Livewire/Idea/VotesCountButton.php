@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Idea;
 
-use App\Traits\Livewire\WithAuthRedirects;
 use App\Models\Idea;
 use App\Services\Idea\IdeaVoteService;
+use App\Traits\Livewire\WithAuthRedirects;
 use Livewire\Component;
 
 class VotesCountButton extends Component
@@ -12,12 +12,16 @@ class VotesCountButton extends Component
     use WithAuthRedirects;
 
     public $ideaId;
+
     public $hasVoted;
+
     public $votesCount;
+
     public $isResponsive;
+
     public $isHorizontal;
 
-    public function mount(int $ideaId, bool $hasVoted, int $votesCount, $isResponsive = false, $isHorizontal=false): void
+    public function mount(int $ideaId, bool $hasVoted, int $votesCount, $isResponsive = false, $isHorizontal = false): void
     {
         $this->ideaId = $ideaId;
         $this->hasVoted = $hasVoted;

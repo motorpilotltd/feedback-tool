@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 /**
  * Handles the management of users in the admin panel.
@@ -11,10 +12,8 @@ class UserController extends Controller
 {
     /**
      * Display the manage users page.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.users');
     }

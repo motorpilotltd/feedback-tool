@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Traits\Livewire\WithAuthRedirects;
 use App\Settings\AzureADSettings;
+use App\Traits\Livewire\WithAuthRedirects;
 use Exception;
 use Livewire\Component;
 
@@ -20,7 +20,7 @@ class LoginRegisterLinks extends Component
         }
 
         return view('livewire.login-register-links', [
-            'azureOnly' => $aadOnly
+            'azureOnly' => $aadOnly,
         ]);
     }
 }

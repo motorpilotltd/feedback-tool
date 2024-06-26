@@ -2,50 +2,48 @@
 
 namespace App\Models;
 
-use App\Models\Idea;
-use App\Models\Product;
-use App\Models\User;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
+use App\Traits\WithPerPage;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pipeline\Pipeline;
-use App\Traits\WithPerPage;
 
 class Category extends Model
 {
-    use HasFactory,
+    use AvoidDuplicateConstraintSoftDelete,
+        CascadeSoftDeletes,
+        HasFactory,
         Sluggable,
         SoftDeletes,
-        CascadeSoftDeletes,
-        AvoidDuplicateConstraintSoftDelete,
         WithPerPage;
 
     protected $cascadeDeletes = ['ideas'];
 
     public $guarded = [];
 
-    public function getDuplicateAvoidColumns() : array
+    public function getDuplicateAvoidColumns(): array
     {
         return [
             'slug',
         ];
     }
 
-    public function product()
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function ideas()
+    public function ideas(): HasMany
     {
         return $this->hasMany(Idea::class);
     }
@@ -59,15 +57,13 @@ class Category extends Model
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Filters\Idea;
 
 use App\Filters\BaseFilter;
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class Status extends BaseFilter
@@ -13,8 +12,7 @@ class Status extends BaseFilter
         if ($this->builderState) {
             return $builder->whereIn('status', $this->builderState);
         }
+
         return $builder;
     }
-
-
 }

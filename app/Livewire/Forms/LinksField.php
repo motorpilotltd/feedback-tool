@@ -2,9 +2,8 @@
 
 namespace App\Livewire\Forms;
 
-use Livewire\Component;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Livewire\Component;
 
 class LinksField extends Component
 {
@@ -14,7 +13,7 @@ class LinksField extends Component
 
     protected $listeners = ['populate-links' => 'populateLinks'];
 
-     // When wire model binding, $rules is required
+    // When wire model binding, $rules is required
     protected function rules()
     {
         return [
@@ -23,12 +22,11 @@ class LinksField extends Component
         ];
     }
 
-
     protected function messages()
     {
         return [
             'links.*.label.required' => __('error.fieldisrequired', ['field' => 'Link label']),
-            'links.*.url.required' =>  __('error.fieldisrequired', ['field' => 'Link url']),
+            'links.*.url.required' => __('error.fieldisrequired', ['field' => 'Link url']),
             'links.*.url.url' => 'Link url must be a valid URL format',
         ];
     }

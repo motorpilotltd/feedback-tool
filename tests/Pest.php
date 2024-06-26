@@ -21,10 +21,9 @@ use App\Services\Idea\IdeaVoteService;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use Database\Seeders\RoleAndPermissionSeeder;
-
-use function Pest\Faker\fake;
 use Illuminate\Support\Str;
 
+use function Pest\Faker\fake;
 
 uses(
     Tests\TestCase::class,
@@ -62,6 +61,7 @@ expect()->extend('toBeOne', function () {
 function login($user = null)
 {
     $user = $user ?? User::factory()->create();
+
     return test()->actingAs($user);
 }
 
@@ -73,16 +73,16 @@ function createIdeaWithUser($user = null, $product = null)
 
     $status = Status::factory()->create([
         'name' => 'Awaiting Consideration',
-        'slug' => Str::slug('Awaiting Consideration', '')
+        'slug' => Str::slug('Awaiting Consideration', ''),
     ]);
+
     return Idea::factory()->create([
         'title' => 'Lorem ipsum dolor sit amet',
         'category_id' => $category,
         'author_id' => $user->id,
-        'status' => $status->slug
+        'status' => $status->slug,
     ]);
 }
-
 
 function setupSettings()
 {
@@ -92,12 +92,12 @@ function setupSettings()
 
 function setupAzureSettings()
 {
-    test()->azureSettings =  resolve(AzureADSettings::class);
+    test()->azureSettings = resolve(AzureADSettings::class);
 }
 
 function setupGeneralSettings()
 {
-    test()->generalSettings =  resolve(GeneralSettings::class);
+    test()->generalSettings = resolve(GeneralSettings::class);
 }
 
 function setupData()
@@ -109,10 +109,10 @@ function setupData()
     test()->category2 = Category::factory()->create(['product_id' => test()->product1]);
     test()->category3 = Category::factory()->create(['product_id' => test()->product1]);
 
-    test()->category4 = Category::factory()->create(['product_id' =>  Product::factory()->create(['name' => "A product name"])]);
+    test()->category4 = Category::factory()->create(['product_id' => Product::factory()->create(['name' => 'A product name'])]);
 
     test()->status1 = Status::factory()->create([
-        'name' =>'Status Alpha',
+        'name' => 'Status Alpha',
         'slug' => 'statusalpha',
         'color' => 'red',
     ]);
@@ -122,11 +122,11 @@ function setupData()
         'color' => 'green',
     ]);
 
-     // Ideas
+    // Ideas
     test()->idea1 = Idea::factory()->create([
         'title' => 'Lorem ipsum dolor sit amet',
         'category_id' => test()->category1,
-        'status' => test()->status1->slug
+        'status' => test()->status1->slug,
     ]);
 
     test()->idea2 = Idea::factory()->create([
@@ -142,7 +142,7 @@ function setupData()
         'category_id' => test()->category4,
     ]);
 
-     // Run a specific seeder...
+    // Run a specific seeder...
     test()->seed(RoleAndPermissionSeeder::class);
 
     test()->userBasic = User::factory()->create();
@@ -154,11 +154,11 @@ function setupData()
     // Product Admin User
     test()->userProductAdmin1 = User::factory()->create();
     test()->userProductAdmin1->assignRole(config('const.ROLE_PRODUCT_ADMIN'));
-    test()->userProductAdmin1->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE') . '.' . test()->product1->id]);
+    test()->userProductAdmin1->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE').'.'.test()->product1->id]);
 
     test()->userProductAdmin2 = User::factory()->create();
     test()->userProductAdmin2->assignRole(config('const.ROLE_PRODUCT_ADMIN'));
-    test()->userProductAdmin2->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE') . '.' . test()->product2->id]);
+    test()->userProductAdmin2->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE').'.'.test()->product2->id]);
 
     test()->searchString = 'Lorem';
 

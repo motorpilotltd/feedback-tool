@@ -2,32 +2,41 @@
 
 namespace App\Livewire\Forms;
 
-use App\Traits\Livewire\WithMediaAttachments;
 use App\Models\Comment;
 use App\Models\Idea;
 use App\Notifications\CommentAdded;
+use App\Traits\Livewire\WithMediaAttachments;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use WireUi\Traits\Actions;
 
 class CommentForm extends Component
 {
-    use WithFileUploads, WithMediaAttachments, Actions;
+    use Actions, WithFileUploads, WithMediaAttachments;
 
     const ACTIONS = ['add', 'edit'];
+
     public $idea;
+
     public $content;
+
     public $comment;
+
     public $action;
+
     public $wireSubmit = '';
+
     public $allowedTypes = "['image/png', 'image/jpg', 'image/jpeg']";
-    public $allowedSize = "2MB";
+
+    public $allowedSize = '2MB';
+
     public $maxFiles = 4;
 
     protected $rules = [
         'content' => 'required|min:4',
         'attachments.*' => 'image|max:2024',
     ];
+
     public $isRender = true;
 
     protected $listeners = ['setComment', 'editCommentModalClosed'];
@@ -36,7 +45,7 @@ class CommentForm extends Component
     {
         $this->idea = $idea;
         $this->action = $action;
-        if (!in_array($action, self::ACTIONS)) {
+        if (! in_array($action, self::ACTIONS)) {
             $this->isRender = false;
         } else {
             $this->wireSubmit = $action == 'add' ? 'addComment' : 'updateComment';
@@ -68,7 +77,7 @@ class CommentForm extends Component
             $comment = Comment::create([
                 'user_id' => auth()->id(),
                 'idea_id' => $this->idea->id,
-                'content' => $this->content
+                'content' => $this->content,
             ]);
 
             $this->storeCommentAttachments($comment);
@@ -76,7 +85,7 @@ class CommentForm extends Component
             $this->resetForm();
             // Only notify when other users commented on the idea
             if ($this->idea->author_id !== auth()->id()) {
-                $this->idea->author->notify(New CommentAdded($comment));
+                $this->idea->author->notify(new CommentAdded($comment));
             }
             $this->dispatch('commentWasAdded');
             $this->dispatch('refreshIdeaShow');
@@ -121,6 +130,7 @@ class CommentForm extends Component
     public function render()
     {
         $this->displayMultipleFileErrors($this->attachments, 'attachments');
+
         return view('livewire.forms.comment-form');
     }
 }

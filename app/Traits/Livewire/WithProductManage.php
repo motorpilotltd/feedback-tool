@@ -3,21 +3,24 @@
 namespace App\Traits\Livewire;
 
 use App\Models\Product;
-use Illuminate\Support\Str;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 trait WithProductManage
 {
     public Collection $authUserPermissionProductIds;
+
     public $authUser;
+
     public $productsManage;
+
     public $productAdmin;
 
     public function mountWithProductManage()
     {
         $this->authUser = auth()->user();
-        $this->productsManage = config('const.PERMISSION_PRODUCTS_MANAGE') . '.';
+        $this->productsManage = config('const.PERMISSION_PRODUCTS_MANAGE').'.';
         $this->productAdmin = config('const.ROLE_PRODUCT_ADMIN');
         $this->authUserPermissionProductIds = $this->authUser->getPermissionNames()->map(function ($permission) {
             return Str::replace($this->productsManage, '', $permission);
@@ -26,7 +29,7 @@ trait WithProductManage
 
     public function getProducts()
     {
-        $products = Product::select('id', 'name')->orderBy('name', 'asc')
+        $products = Product::select('id', 'name')->orderBy('name')
             ->when(
                 $this->authUser->getRoleNames()->first() == $this->productAdmin,
                 function (Builder $query) {

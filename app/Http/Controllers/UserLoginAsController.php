@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 /**
  * Handles the management of tags in the admin panel.
@@ -12,18 +13,16 @@ class UserLoginAsController extends Controller
 {
     /**
      * Processing logging in as different user
-     *
-     * @return void
      */
-    public function index()
+    public function index(Request $request): RedirectResponse
     {
-        $adminUser = session()->get('admin_user');
+        $adminUser = $request->session()->get('admin_user');
         $user = User::find($adminUser->id);
         $redirect = loginAsUser($user, true);
 
-        return redirect($redirect)->with('notify', [
+        return redirect()->to($redirect)->with('notify', [
             'message' => __('text.loginassucess', ['user' => $user->name]),
-            'type' => 'success'
+            'type' => 'success',
         ]);
     }
 }

@@ -24,22 +24,22 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 });
 
 // Home > [Product Name]
-Breadcrumbs::for('product', function (BreadcrumbTrail $trail, Product $product, Array $queryParams = []) {
+Breadcrumbs::for('product', function (BreadcrumbTrail $trail, Product $product, array $queryParams = []) {
     $prevQueryParams = getPreviousQueryString() ?? [];
 
     if (getPreviousRouteName() == 'frontend.search.index') {
         $trail->parent('search', $prevQueryParams);
     } else {
         if (
-            !isset($product->settings['hideProductFromBreadcrumbs']) ||
-            (isset($product->settings['hideProductFromBreadcrumbs']) && !$product->settings['hideProductFromBreadcrumbs'])
+            ! isset($product->settings['hideProductFromBreadcrumbs']) ||
+            (isset($product->settings['hideProductFromBreadcrumbs']) && ! $product->settings['hideProductFromBreadcrumbs'])
         ) {
-                $trail->parent('home');
+            $trail->parent('home');
         }
     }
 
     $params = collect([
-        'product' => $product
+        'product' => $product,
     ])->merge($queryParams);
     $trail->push($product->name, route('product.show', $params->all()));
 });
@@ -51,7 +51,7 @@ Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
 });
 
 // Home > Profile
-Breadcrumbs::for('search', function (BreadcrumbTrail $trail, Array $queryParams = []) {
+Breadcrumbs::for('search', function (BreadcrumbTrail $trail, array $queryParams = []) {
     $trail->parent('home');
     $trail->push('Search', route('frontend.search.index', $queryParams));
 });
@@ -69,15 +69,15 @@ Breadcrumbs::for('viewprofile', function (BreadcrumbTrail $trail) {
 });
 
 // Home > [Category Title]
-Breadcrumbs::for('category', function (BreadcrumbTrail $trail, Category $category, Array $queryParams = []) {
+Breadcrumbs::for('category', function (BreadcrumbTrail $trail, Category $category, array $queryParams = []) {
     $prevQueryParams = getPreviousQueryString() ?? [];
-    if(getPreviousRouteName() == 'frontend.search.index') {
+    if (getPreviousRouteName() == 'frontend.search.index') {
         $trail->parent('search', $prevQueryParams);
     } else {
         $trail->parent('product', $category->product);
     }
     $params = collect([
-        'category' => $category
+        'category' => $category,
     ])->merge($queryParams);
     $trail->push($category->name, route('category.show', $params->all()));
 });
@@ -87,7 +87,7 @@ Breadcrumbs::for('idea', function (BreadcrumbTrail $trail, Idea $idea) {
     $prevQueryParams = getPreviousQueryString() ?? [];
     if (getPreviousRouteName() == 'category.show') {
         $trail->parent('category', $idea->category, $prevQueryParams);
-    } else if (getPreviousRouteName() == 'frontend.search.index') {
+    } elseif (getPreviousRouteName() == 'frontend.search.index') {
         $trail->parent('search', $prevQueryParams);
     } else {
         $trail->parent('product', $idea->product, $prevQueryParams);
@@ -106,7 +106,6 @@ Breadcrumbs::for('tag', function (BreadcrumbTrail $trail, Tag $tag) {
     $trail->parent('product', $tag->tagGroup->product, $prevQueryParams);
     $trail->push(__('text.tagname', ['tag' => $tag->name]), route('product.tag', [$tag->tagGroup->product, $tag]));
 });
-
 
 // Home > Product > [Suggest an Idea]
 Breadcrumbs::for('suggestIdea', function (BreadcrumbTrail $trail, Product $product) {

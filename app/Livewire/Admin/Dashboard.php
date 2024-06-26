@@ -2,9 +2,8 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
 use App\Services\Product\ProductFilterService;
-use App\Models\Product;
+use Livewire\Component;
 
 class Dashboard extends Component
 {
@@ -22,9 +21,9 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.admin.dashboard',[
-            'products' => $this->products
+        return view('livewire.admin.dashboard', [
+            'products' => $this->products,
         ])
-        ->layout('layouts.app');
+            ->layout('layouts.app');
     }
 }

@@ -13,17 +13,19 @@ class UpdateTeamNameTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_team_names_can_be_updated()
+    public function test_team_names_can_be_updated(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         Livewire::test(UpdateTeamNameForm::class, ['team' => $user->currentTeam])
-                    ->set(['state' => ['name' => 'Test Team']])
-                    ->call('updateTeamName');
+            ->set(['state' => ['name' => 'Test Team']])
+            ->call('updateTeamName');
 
         $this->assertCount(1, $user->fresh()->ownedTeams);
         $this->assertEquals('Test Team', $user->currentTeam->fresh()->name);

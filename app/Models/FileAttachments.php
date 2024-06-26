@@ -13,6 +13,6 @@ class FileAttachments extends Model
 
     public function getFullPath()
     {
-        return $this->section . '/' . $this->item_id . '/' . $this->file_name;
+        return $this->section.'/'.$this->item_id.'/'.$this->file_name;
     }
 }

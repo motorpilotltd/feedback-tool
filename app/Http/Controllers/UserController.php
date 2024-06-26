@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\User;
+use App\Traits\Livewire\WithDispatchNotify;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     use WithDispatchNotify;
+
     /**
      * Show the profile for a given user.
      */
-    public function show(User $user = null)
+    public function show(Request $request, ?User $user = null): View
     {
         if ($user === null) {
-        $user = auth()->user();
+            $user = $request->user();
         }
+
         return view('profile.view', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }

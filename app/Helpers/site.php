@@ -9,7 +9,8 @@ if (! function_exists('convertLocalToUTC')) {
     {
         $prevUrl = parse_url(URL::previous());
         $query = $prevUrl['query'] ?? '';
-        parse_str($query , $resultQuery);
+        parse_str($query, $resultQuery);
+
         return $resultQuery;
     }
 }
@@ -31,7 +32,7 @@ if (! function_exists('loginAsUser')) {
         session()->flush();
 
         Auth::login($user);
-        if (!$isAdmin) {
+        if (! $isAdmin) {
             session()->put('admin_user', $adminUser);
         }
 
@@ -43,18 +44,20 @@ if (! function_exists('hideEmailAddress')) {
     function hideEmailAddress($email)
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            list($first, $last) = explode('@', $email);
-            $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first)-3), $first);
+            [$first, $last] = explode('@', $email);
+            $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first) - 3), $first);
             $last = explode('.', $last);
-            $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0'])-1), $last['0']);
+            $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0']) - 1), $last['0']);
             $hideEmailAddress = $first.'@'.$last_domain.'.'.$last['1'];
+
             return $hideEmailAddress;
         }
     }
 }
 
 if (! function_exists('highlightMatchedSearch')) {
-    function highlightMatchedSearch($text, $keyword) {
+    function highlightMatchedSearch($text, $keyword)
+    {
         $keyword = trim($keyword);
         // Split the keyword into individual words
         $keywords = explode(' ', $keyword);

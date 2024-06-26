@@ -2,36 +2,31 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Builder;
-use Exception;
-use App\Settings\GeneralSettings;
 use App\Settings\AzureADSettings;
+use App\Settings\GeneralSettings;
+use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         if (config('const.APP_FORCE_HTTPS')) {
             URL::forceScheme('https');
@@ -39,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         try {
             // Ensure there is a DB connection and class exist before retrieving settings
-            if (DB::connection()->getPDO() ) {
+            if (DB::connection()->getPDO()) {
 
                 // Overriding Azure .env default configs for System azure settings
                 if (class_exists(AzureADSettings::class)) {
@@ -48,8 +43,8 @@ class AppServiceProvider extends ServiceProvider
                     if ($data = $azureSettings->toArray()) {
                         $config = [];
                         foreach ($data as $key => $val) {
-                            if (config()->has($servicesAzure . $key) && !empty($val)) {
-                                $config[$servicesAzure . $key] = $val;
+                            if (config()->has($servicesAzure.$key) && ! empty($val)) {
+                                $config[$servicesAzure.$key] = $val;
                             }
                         }
                         if ($config) {
@@ -66,8 +61,8 @@ class AppServiceProvider extends ServiceProvider
                         $config = [];
                         foreach ($data as $key => $val) {
                             $key = Str::replace('_', '.', $key);
-                            if (config()->has($mailers . $key) && !empty($val)) {
-                                $config[$mailers . $key] = $val;
+                            if (config()->has($mailers.$key) && ! empty($val)) {
+                                $config[$mailers.$key] = $val;
                             }
                         }
                         if ($config) {
@@ -77,10 +72,11 @@ class AppServiceProvider extends ServiceProvider
                 }
             }
 
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+        }
 
         // Laravel strict for development
-        Model::shouldBeStrict(!$this->app->isProduction());
+        Model::shouldBeStrict(! $this->app->isProduction());
         /**  Macros */
         Builder::macro('search', function ($field, $string) {
             return $string ? $this->where($field, 'like', '%'.$string.'%') : $this;
@@ -89,7 +85,9 @@ class AppServiceProvider extends ServiceProvider
         Builder::macro('toCsv', function () {
             $results = $this->get();
 
-            if ($results->count() < 1) return;
+            if ($results->count() < 1) {
+                return;
+            }
 
             $titles = implode(',', array_keys((array) $results->first()->getAttributes()));
 
@@ -120,14 +118,15 @@ class AppServiceProvider extends ServiceProvider
                     if (is_array($value)) {
                         if (isset($value['name'])) {
                             $value = $value['name'];
-                        } else if (isset($value['title'])) {
+                        } elseif (isset($value['title'])) {
                             $value = $value['title'];
                         } else {
                             $value = '-';
                         }
                     }
+
                     // Double quotes for CSV and escape inner quotes by doubling them
-                    return '"' . str_replace('"', '""', $value) . '"';
+                    return '"'.str_replace('"', '""', $value).'"';
                 }, $item));
             });
 

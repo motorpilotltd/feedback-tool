@@ -17,10 +17,8 @@ class ProductFactory extends Factory
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id' => User::factory(),
@@ -32,7 +30,7 @@ class ProductFactory extends Factory
                 'enableAwaitingConsideration' => false,
                 'enableSandboxMode' => false,
                 'serviceDeskLink' => '',
-            ]
+            ],
         ];
     }
 

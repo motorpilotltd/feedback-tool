@@ -17,20 +17,16 @@ class FortifyServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         Fortify::ignoreRoutes();
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
@@ -50,16 +46,10 @@ class FortifyServiceProvider extends ServiceProvider
 
     /**
      * Configure the routes offered by the application.
-     *
-     * @return void
      */
-    protected function configureRoutes()
+    protected function configureRoutes(): void
     {
-        Route::group([
-            'namespace' => 'Laravel\Fortify\Http\Controllers',
-            'domain' => config('fortify.domain', null),
-            'prefix' => config('fortify.prefix'),
-        ], function () {
+        Route::domain(config('fortify.domain', null))->prefix(config('fortify.prefix'))->group(function () {
             $this->loadRoutesFrom(base_path('routes/fortify.php'));
         });
     }

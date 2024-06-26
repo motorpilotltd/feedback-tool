@@ -10,34 +10,30 @@ use App\Actions\Jetstream\InviteTeamMember;
 use App\Actions\Jetstream\RemoveTeamMember;
 use App\Actions\Jetstream\UpdateTeamName;
 use App\Http\Middleware\LogLogin;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Jetstream\Jetstream;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
-use Illuminate\Http\Request;
+use Laravel\Jetstream\Jetstream;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         Jetstream::ignoreRoutes();
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configurePermissions();
 
@@ -53,11 +49,11 @@ class JetstreamServiceProvider extends ServiceProvider
 
         Fortify::authenticateThrough(function (Request $request) {
             return array_filter([
-                    config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
-                    RedirectIfTwoFactorAuthenticatable::class,
-                    AttemptToAuthenticate::class,
-                    PrepareAuthenticatedSession::class,
-                    LogLogin::class
+                config('fortify.limiters.login') ? null : EnsureLoginIsNotThrottled::class,
+                RedirectIfTwoFactorAuthenticatable::class,
+                AttemptToAuthenticate::class,
+                PrepareAuthenticatedSession::class,
+                LogLogin::class,
             ]);
         });
 
@@ -65,26 +61,18 @@ class JetstreamServiceProvider extends ServiceProvider
 
     /**
      * Configure the routes offered by the application.
-     *
-     * @return void
      */
-    protected function configureRoutes()
+    protected function configureRoutes(): void
     {
-        Route::group([
-            'namespace' => 'Laravel\Jetstream\Http\Controllers',
-            'domain' => config('jetstream.domain', null),
-            'prefix' => config('jetstream.prefix', config('jetstream.path')),
-        ], function () {
+        Route::domain(config('jetstream.domain', null))->prefix(config('jetstream.prefix', config('jetstream.path')))->group(function () {
             $this->loadRoutesFrom(base_path('routes/jetstream.php'));
         });
     }
 
     /**
      * Configure the roles and permissions that are available within the application.
-     *
-     * @return void
      */
-    protected function configurePermissions()
+    protected function configurePermissions(): void
     {
         Jetstream::defaultApiTokenPermissions(['read']);
 

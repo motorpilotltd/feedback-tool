@@ -2,9 +2,8 @@
 
 namespace App\Livewire\User;
 
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
 
 class LoginAs extends Component
@@ -22,7 +21,7 @@ class LoginAs extends Component
     {
         $redirect = loginAsUser($user);
         $this->sessionNotifySuccess(__('text.loginassucess', ['user' => $user->name]));
-        redirect($redirect);
+        redirect()->to($redirect);
     }
 
     public function render()

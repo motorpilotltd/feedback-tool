@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 
 /**
  * Handles the management of categories in the admin panel.
@@ -11,10 +12,8 @@ class CategoryController extends Controller
 {
     /**
      * Display the manage categories page.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.categories');
     }

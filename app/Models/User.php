@@ -2,17 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Comment;
-use App\Models\Product;
 use App\Traits\WithPerPage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -20,12 +19,12 @@ class User extends Authenticatable
 {
     use HasApiTokens,
         HasFactory,
+        HasPermissions,
         HasProfilePhoto,
+        HasRoles,
         HasTeams,
         Notifiable,
         TwoFactorAuthenticatable,
-        HasRoles,
-        HasPermissions,
         WithPerPage;
 
     /**
@@ -34,7 +33,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider_user_id', 'provider_token', 'provider_platform'
+        'name', 'email', 'password', 'provider_user_id', 'provider_token', 'provider_platform',
     ];
 
     /**
@@ -47,17 +46,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
-        'azure_token'
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'banned_at' => 'datetime',
+        'azure_token',
     ];
 
     /**
@@ -69,48 +58,63 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function products()
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'banned_at' => 'datetime',
+        ];
+    }
+
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }
 
-    public function categories()
+    public function categories(): HasMany
     {
         return $this->hasMany(Category::class, 'created_by');
     }
 
-    public function ideaSpams()
+    public function ideaSpams(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class, 'idea_spam');
     }
 
-    public function commentSpams()
+    public function commentSpams(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class, 'comment_spam');
     }
 
-    public function votes()
+    public function votes(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class, 'votes');
     }
 
-    public function authoredIdeas() {
-        return $this->hasMany(Idea::class, 'author_id')->with(['author', 'ideaStatus']);;
+    public function authoredIdeas(): HasMany
+    {
+        return $this->hasMany(Idea::class, 'author_id')->with(['author', 'ideaStatus']);
     }
 
-    public function addedByIdeas() {
+    public function addedByIdeas(): HasMany
+    {
         return $this->hasMany(Idea::class, 'added_by');
     }
 
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
     public function getAvatar()
     {
-        if (!empty($this->profile_photo_path)) {
-            return asset('/' . $this->profile_photo_path);
+        if (! empty($this->profile_photo_path)) {
+            return asset('/'.$this->profile_photo_path);
         } else {
             return null;
         }
@@ -118,10 +122,10 @@ class User extends Authenticatable
 
     public function isSocialiteHasNoPassword()
     {
-        if (!isset($this->provider_platform)) {
+        if (! isset($this->provider_platform)) {
             return false;
         }
+
         return $this->provider_platform !== null && empty($this->password);
     }
-
 }
