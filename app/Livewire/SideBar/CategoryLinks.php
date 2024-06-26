@@ -2,7 +2,6 @@
 
 namespace App\Livewire\SideBar;
 
-
 use App\Models\Category;
 use Livewire\Component;
 

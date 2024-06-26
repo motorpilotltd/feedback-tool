@@ -2,26 +2,28 @@
 
 namespace App\Filters;
 
-use App\Filters\Filter;
 use Closure;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 abstract class BaseFilter implements Filter
 {
+    protected $builderState;
+
     public function handle($state, Closure $next)
     {
         $filterName = $this->filterName();
-        if ( !array_key_exists($filterName, $state) || empty($state[$filterName]) || !$state[$filterName] ) {
+        if (! array_key_exists($filterName, $state) || empty($state[$filterName]) || ! $state[$filterName]) {
             return $next($state);
         }
         $this->builderState = $state[$filterName];
         $builder = $state['query'];
         $this->applyFilter($builder);
+
         return $next($state);
     }
 
-    public abstract function applyFilter(Builder $builder);
+    abstract public function applyFilter(Builder $builder);
 
     protected function filterName()
     {

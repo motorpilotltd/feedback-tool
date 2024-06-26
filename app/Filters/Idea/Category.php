@@ -3,7 +3,6 @@
 namespace App\Filters\Idea;
 
 use App\Filters\BaseFilter;
-use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class Category extends BaseFilter
@@ -20,6 +19,7 @@ class Category extends BaseFilter
                 }
             });
         }
+
         return $builder;
     }
 }

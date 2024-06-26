@@ -7,10 +7,7 @@ use App\Models\TagGroup;
 use App\Services\Idea\IdeaSpamService;
 use App\Services\Idea\IdeaVoteService;
 use App\Traits\Livewire\WithDispatchNotify;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
 use WireUi\Traits\Actions;
 
 class IdeaShow extends Component
@@ -18,9 +15,13 @@ class IdeaShow extends Component
     use Actions, WithDispatchNotify;
 
     public $idea;
+
     public $product;
+
     public $ideaTagsByGroup;
+
     public $votesCount;
+
     public $hasVoted;
 
     public $hasTags = false;
@@ -28,9 +29,8 @@ class IdeaShow extends Component
     protected $listeners = [
         'refreshIdeaShow' => '$refresh',
         'commentWasDeleted' => '$refresh',
-        'setAttachments'
+        'setAttachments',
     ];
-
 
     public function mount(IdeaVoteService $ideaVoteService, Idea $idea)
     {
@@ -49,36 +49,34 @@ class IdeaShow extends Component
                 }
             }
 
-            if ($tags->isNotEmpty() && !$this->hasTags) {
+            if ($tags->isNotEmpty() && ! $this->hasTags) {
                 $this->hasTags = true;
             }
             $tg->tags = $tags;
+
             return $tg;
         });
     }
 
     /**
      * Delete the idea confirmation
-     *
-     * @param boolean $confirm
-     * @return void
      */
-    public function deleteConfirm(bool $confirm = false)
+    public function deleteConfirm(bool $confirm = false): mixed
     {
         if (auth()->guest() || auth()->user()->cannot('delete', $this->idea)) {
             $this->notification()->warning(
                 $description = __('error.actionnotpermitted'),
             );
         } else {
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->dialog()->confirm([
-                    'title'       => __('text.areyousure'),
+                    'title' => __('text.areyousure'),
                     'description' => __('text.deleteidea'),
-                    'accept'      => [
-                        'label'  => __('text.yes_confirm'),
+                    'accept' => [
+                        'label' => __('text.yes_confirm'),
                         'method' => 'deleteConfirm',
                         'params' => [
-                            true
+                            true,
                         ],
                     ],
                 ]);
@@ -97,13 +95,8 @@ class IdeaShow extends Component
 
     /**
      * Mark/Unmark idea spam
-     *
-     * @param IdeaSpamService $ideaSpamService
-     * @param bool $hasMarkedSpam
-     * @param bool $confirm
-     * @return void
      */
-    public function ideaSpamConfirm(IdeaSpamService $ideaSpamService, bool $hasMarkedSpam, bool $confirm = false)
+    public function ideaSpamConfirm(IdeaSpamService $ideaSpamService, bool $hasMarkedSpam, bool $confirm = false): void
     {
         if (auth()->guest()) {
             $this->notification()->error(
@@ -111,17 +104,17 @@ class IdeaShow extends Component
                 $description = __('error.actionnotpermitted')
             );
         } else {
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon'          => 'exclamation',
-                    'title'         => __('text.areyousure'),
-                    'description'   =>  $hasMarkedSpam ? __('text.unmarkideaspamconfirm') : __('text.markideaspamconfirm'),
-                    'accept'        => [
-                        'label'     => __('text.yes_confirm'),
-                        'method'    => 'ideaSpamConfirm',
-                        'params'    => [
+                    'icon' => 'exclamation',
+                    'title' => __('text.areyousure'),
+                    'description' => $hasMarkedSpam ? __('text.unmarkideaspamconfirm') : __('text.markideaspamconfirm'),
+                    'accept' => [
+                        'label' => __('text.yes_confirm'),
+                        'method' => 'ideaSpamConfirm',
+                        'params' => [
                             $hasMarkedSpam,
-                            true
+                            true,
                         ],
                     ],
                 ]);
@@ -141,26 +134,22 @@ class IdeaShow extends Component
 
     /**
      * Clear all spam report
-     *
-     * @param IdeaSpamService $ideaSpamService
-     * @param bool $confirm
-     * @return void
      */
-    public function ideaNotSpam(IdeaSpamService $ideaSpamService, bool $confirm = false)
+    public function ideaNotSpam(IdeaSpamService $ideaSpamService, bool $confirm = false): void
     {
         if (auth()->guest()) {
             $this->dispatchNotifyWarning(__('error.actionnotpermitted'));
         } else {
-            if (!$confirm) {
+            if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon'          => 'exclamation',
-                    'title'         => __('text.ideanotspam'),
-                    'description'   => __('text.idearemovespamconfirm'),
-                    'accept'        => [
-                        'label'     => __('text.yes_confirm'),
-                        'method'    => 'ideaNotSpam',
-                        'params'    => [
-                            true
+                    'icon' => 'exclamation',
+                    'title' => __('text.ideanotspam'),
+                    'description' => __('text.idearemovespamconfirm'),
+                    'accept' => [
+                        'label' => __('text.yes_confirm'),
+                        'method' => 'ideaNotSpam',
+                        'params' => [
+                            true,
                         ],
                     ],
                 ]);
@@ -177,11 +166,10 @@ class IdeaShow extends Component
         $this->dispatch('refreshIdeaShow');
     }
 
-
     public function render(IdeaSpamService $ideaSpamService)
     {
         return view('livewire.idea.idea-show', [
-            'hasMarkedSpam' => (int) $ideaSpamService->userMarkIdeaSpam($this->idea, auth()->user())
+            'hasMarkedSpam' => (int) $ideaSpamService->userMarkIdeaSpam($this->idea, auth()->user()),
         ]);
     }
 }

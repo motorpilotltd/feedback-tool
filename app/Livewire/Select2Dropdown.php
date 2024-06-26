@@ -7,10 +7,12 @@ use Livewire\Component;
 
 class Select2Dropdown extends Component
 {
-
     public $value = '';
+
     public $name = 'select2';
+
     public $default = '';
+
     public $placeholder = 'Select...';
 
     public Collection $options;

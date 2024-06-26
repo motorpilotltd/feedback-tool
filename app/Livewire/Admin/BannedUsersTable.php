@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Admin;
 
-use App\Traits\Livewire\WithTableSorting;
 use App\Models\User;
+use App\Traits\Livewire\WithTableSorting;
 use Carbon\Carbon;
-use Livewire\Component;
 use Illuminate\Pipeline\Pipeline;
+use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
@@ -17,7 +17,9 @@ class BannedUsersTable extends Component
         WithTableSorting;
 
     public $searchUser;
+
     public $userId;
+
     public $showModal;
 
     protected $rules = [
@@ -50,21 +52,21 @@ class BannedUsersTable extends Component
 
     public function unsuspendUserDialog(User $user, $confirm = false)
     {
-        if (!$confirm) {
+        if (! $confirm) {
             $this->dialog()->confirm([
-                'title'       => __('text.areyousure'),
+                'title' => __('text.areyousure'),
                 'description' => __('text.liftusersuspension', ['email' => $user->email, 'user' => $user->name]),
-                'icon'        => 'trash',
-                'accept'      => [
-                    'label'  => __('text.yes_confirm'),
+                'icon' => 'trash',
+                'accept' => [
+                    'label' => __('text.yes_confirm'),
                     'method' => 'unsuspendUserDialog',
                     'params' => [
                         $user,
-                        true
+                        true,
                     ],
                 ],
                 'reject' => [
-                    'label'  => __('text.no_cancel'),
+                    'label' => __('text.no_cancel'),
                 ],
             ]);
         } else {
@@ -89,15 +91,15 @@ class BannedUsersTable extends Component
                 'query' => User::whereNotNull('banned_at'),
                 'search_field' => [
                     'field' => ['name', 'email'],
-                    'value' => $this->searchUser
+                    'value' => $this->searchUser,
                 ],
             ])
             ->through([
-                \App\Filters\Common\SearchField::class
+                \App\Filters\Common\SearchField::class,
             ])
             ->thenReturn();
 
-        return  $usersQuery['query']
+        return $usersQuery['query']
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate();
     }
@@ -105,7 +107,7 @@ class BannedUsersTable extends Component
     public function render()
     {
         return view('livewire.admin.banned-users-table', [
-            'users' => $this->users
+            'users' => $this->users,
         ]);
     }
 }

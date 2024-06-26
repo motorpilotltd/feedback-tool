@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Traits;
 
 use App\Observers\UniqueSoftDeleteObserver;
@@ -9,7 +10,8 @@ trait AvoidDuplicateConstraintSoftDelete
     {
         static::observe(app(UniqueSoftDeleteObserver::class));
     }
-    public function getDuplicateAvoidColumns() : array
+
+    public function getDuplicateAvoidColumns(): array
     {
         return [];
     }

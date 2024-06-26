@@ -17,7 +17,7 @@ class ViewProfile extends Component
     public function render()
     {
         return view('livewire.user.view-profile', [
-            'ideas' => $this->user->authoredIdeas
+            'ideas' => $this->user->authoredIdeas,
         ]);
     }
 }

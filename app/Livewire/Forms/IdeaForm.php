@@ -12,7 +12,6 @@ use App\Notifications\AccountCreated;
 use App\Notifications\IdeaAdded;
 use App\Services\Idea\IdeaService;
 use App\Services\Idea\IdeaVoteService;
-use App\Settings\GeneralSettings;
 use App\Traits\Livewire\WithDispatchNotify;
 use App\Traits\Livewire\WithMediaAttachments;
 use Livewire\Component;
@@ -21,24 +20,40 @@ use WireUi\Traits\Actions;
 
 class IdeaForm extends Component
 {
-    use WithFileUploads, WithMediaAttachments, WithDispatchNotify, Actions;
+    use Actions, WithDispatchNotify, WithFileUploads, WithMediaAttachments;
 
     public $product;
+
     public $idea;
+
     public $categories;
+
     public $title;
+
     public $content;
+
     public $category;
+
     public $formTitle;
+
     public $addOrUpdate;
+
     public $allowedTypes;
+
     public $allowedSize;
+
     public $showModal = false;
+
     public $tagGroups;
+
     public $selectedTags;
+
     public $authorOption = 1;
+
     public $authorId;
+
     public $newUser = [];
+
     public $authUser;
 
     protected $listeners = ['setIdeaFormData'];
@@ -49,9 +64,9 @@ class IdeaForm extends Component
         $this->product = $product;
         $this->idea = $idea;
         $this->selectedTags = [];
-        $this->formTitle = !empty($idea)? __('text.ideaformtitle:update') : __('text.ideaformtitle:add');
+        $this->formTitle = ! empty($idea) ? __('text.ideaformtitle:update') : __('text.ideaformtitle:add');
         $this->categories = $product->categories;
-        $this->addOrUpdate = empty($idea) ? 'add': 'update';
+        $this->addOrUpdate = empty($idea) ? 'add' : 'update';
 
         $this->allowedSize = config('const.MAX_FILESIZE_UPLOAD');
         $this->allowedTypes = config('const.ALLOWED_FILETYPES');
@@ -79,7 +94,7 @@ class IdeaForm extends Component
             $this->category = $idea->category_id;
             $ideaTags = $idea->tags->map->only(['id', 'tag_group_id']);
             foreach ($ideaTags as $tag) {
-                $this->selectedTags['tg_' . $tag['tag_group_id']][] = $tag['id'];
+                $this->selectedTags['tg_'.$tag['tag_group_id']][] = $tag['id'];
             }
         }
     }
@@ -94,12 +109,12 @@ class IdeaForm extends Component
         $tag = Tag::create([
             'name' => $tag,
             'added_by' => $this->authUser->id,
-            'tag_group_id' => $tagGroupId
+            'tag_group_id' => $tagGroupId,
         ]);
 
         $this->setTagGroups();
 
-        $this->selectedTags['tg_' . $tagGroupId][] = $tag->id;
+        $this->selectedTags['tg_'.$tagGroupId][] = $tag->id;
     }
 
     public function resetSelectedTags()
@@ -107,7 +122,7 @@ class IdeaForm extends Component
         // Initialize holder for selected tags on each Tag Group
         if ($this->tagGroups->isNotEmpty()) {
             foreach ($this->tagGroups as $tg) {
-                $this->selectedTags['tg_' . $tg->id] = [];
+                $this->selectedTags['tg_'.$tg->id] = [];
             }
         }
     }
@@ -116,17 +131,18 @@ class IdeaForm extends Component
     {
         $category = $this->category;
         $categories = $this->categories->pluck('id');
+
         return [
             'title' => ['required', 'min:4', 'max:255'],
-            'category' => ['required', 'integer', function ($attribute, $value, $fail) use ($category, $categories){
-                if (!in_array($category, $categories->toArray())) {
+            'category' => ['required', 'integer', function ($attribute, $value, $fail) use ($category, $categories) {
+                if (! in_array($category, $categories->toArray())) {
                     $fail(__('error.invalidcategoryvalue'));
                 }
             }],
             'content' => 'required:min:4',
             'attachments.*' => 'image|max:2024',
             'newUser.name' => 'required_if:authorOption,0|min:4|max:255',
-            'newUser.email' => 'max:255|required_if:authorOption,0|email|unique:users,email,' . $this->authUser->id
+            'newUser.email' => 'max:255|required_if:authorOption,0|email|unique:users,email,'.$this->authUser->id,
         ];
     }
 
@@ -135,14 +151,15 @@ class IdeaForm extends Component
         return [
             'newUser.name.required_if' => __('validation.required', ['attribute' => 'name']),
             'newUser.email.required_if' => __('validation.required', ['attribute' => 'email']),
-            'newUser.email.unique' => __('validation.unique', ['attribute' => 'email'])
+            'newUser.email.unique' => __('validation.unique', ['attribute' => 'email']),
         ];
     }
 
     public function saveIdea(IdeaVoteService $ideaVoteService, IdeaService $ideaService)
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             $this->sessionNotify('warning', __('text.mustlogin'));
+
             return redirect()->route('login');
         }
         if ($this->idea->exists && auth()->user()->cannot('update', $this->idea)) {
@@ -150,6 +167,7 @@ class IdeaForm extends Component
                 $description = __('error.actionnotpermitted'),
             );
             $this->dispatch('saveidea-unauthorized');
+
             return;
         }
 
@@ -160,14 +178,14 @@ class IdeaForm extends Component
 
         // Note: We probably don't want to send email/notification if product is in sandbox mode
         $diffAuthor = null;
-        if (!empty($newUser['name']) && !empty($newUser['email'])) {
+        if (! empty($newUser['name']) && ! empty($newUser['email'])) {
             $diffAuthor = User::create([
                 'name' => $newUser['name'],
                 'email' => $newUser['email'],
             ]);
             $this->authorId = $diffAuthor->id;
             // Send an email
-            $diffAuthor->notify(New AccountCreated($diffAuthor));
+            $diffAuthor->notify(new AccountCreated($diffAuthor));
         }
 
         // Create an idea
@@ -180,7 +198,7 @@ class IdeaForm extends Component
         // Define the Idea DTO object
         $ideaDto = IdeaDto::fromArray($data);
 
-        if (!$this->idea->exists) {
+        if (! $this->idea->exists) {
             $idea = $ideaService->store($ideaDto);
             // Initiate storing attachment
             $storeAttachment = true;
@@ -195,7 +213,7 @@ class IdeaForm extends Component
             }
 
             // Notify product admins that idea was added to product
-            if ($productAdmins = User::permission(config('const.PERMISSION_PRODUCTS_MANAGE') . '.' . $this->product->id)->get()) {
+            if ($productAdmins = User::permission(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$this->product->id)->get()) {
                 $productAdmins->each(function ($user) use ($idea) {
                     if ($user->id !== auth()->id()) {
                         $user->notify(new IdeaAdded($idea));
@@ -232,6 +250,7 @@ class IdeaForm extends Component
     public function render()
     {
         $this->displayMultipleFileErrors($this->attachments, 'attachments');
+
         return view('livewire.forms.idea-form', []);
     }
 }

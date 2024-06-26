@@ -18,7 +18,7 @@ class SearchBar extends Component
         if (strlen($this->search) >= 3) {
             $this->dispatch('ideaQuerySearch', $this->search);
             $this->dispatch('searchAsTitle', e($this->search));
-        } else if (strlen($this->search) < 3) {
+        } elseif (strlen($this->search) < 3) {
             $this->dispatch('ideaQuerySearch', '');
         }
 

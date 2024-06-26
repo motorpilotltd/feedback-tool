@@ -2,7 +2,8 @@
 
 namespace App\DataTransferObject;
 
-class IdeaDto {
+class IdeaDto
+{
     public function __construct(
         public string $title,
         public string $content,
@@ -12,7 +13,8 @@ class IdeaDto {
         public int $addedBy
     ) {}
 
-    public static function fromArray(array $data) {
+    public static function fromArray(array $data)
+    {
         return new self(
             title: $data['title'],
             content: $data['content'],

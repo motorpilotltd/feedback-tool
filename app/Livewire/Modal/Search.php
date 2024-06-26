@@ -8,7 +8,8 @@ class Search extends Component
 {
     public bool $showModal = false;
 
-    public function openSearchModal() {
+    public function openSearchModal()
+    {
         $this->showModal = true;
         $this->dispatch('global-search-focuskeyword');
     }

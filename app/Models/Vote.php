@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Idea;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Vote extends Model
 {
@@ -14,7 +14,7 @@ class Vote extends Model
 
     protected $guarded = [];
 
-    public function idea()
+    public function idea(): BelongsTo
     {
         return $this->belongsTo(Idea::class);
     }

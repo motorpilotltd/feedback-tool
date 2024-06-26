@@ -14,11 +14,13 @@ class DeleteTeamTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_teams_can_be_deleted()
+    public function test_teams_can_be_deleted(): void
     {
 
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
@@ -32,23 +34,25 @@ class DeleteTeamTest extends TestCase
         );
 
         $component = Livewire::test(DeleteTeamForm::class, ['team' => $team->fresh()])
-                                ->call('deleteTeam');
+            ->call('deleteTeam');
 
         $this->assertNull($team->fresh());
         $this->assertCount(0, $otherUser->fresh()->teams);
     }
 
-    public function test_personal_teams_cant_be_deleted()
+    public function test_personal_teams_cant_be_deleted(): void
     {
         if (! Features::hasTeamFeatures()) {
-            return $this->markTestSkipped('Team support is not enabled.');
+            $this->markTestSkipped('Team support is not enabled.');
+
+            return;
         }
 
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
 
         $component = Livewire::test(DeleteTeamForm::class, ['team' => $user->currentTeam])
-                                ->call('deleteTeam')
-                                ->assertHasErrors(['team']);
+            ->call('deleteTeam')
+            ->assertHasErrors(['team']);
 
         $this->assertNotNull($user->currentTeam->fresh());
     }

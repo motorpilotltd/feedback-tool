@@ -4,7 +4,7 @@
             {{ __('text.noproductavail') }}
         </x-alertbox.warning>
     @else
-        <div class="flex justify-between ">
+        <div class="flex justify-between">
             <div class="flex w-1/2 space-x-4">
                 <x-input
                     id="search"

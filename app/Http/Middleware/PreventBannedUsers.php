@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Traits\Livewire\WithDispatchNotify;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class PreventBannedUsers
 {
@@ -13,14 +13,10 @@ class PreventBannedUsers
 
     /**
      * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->banned_at && !$request->is('*/notification-bell')) {
+        if ($request->user() && $request->user()->banned_at && ! $request->is('*/notification-bell')) {
             auth()->logout();
 
             $request->session()->invalidate();
@@ -29,6 +25,7 @@ class PreventBannedUsers
 
             return redirect()->route('login')->with('error', __('text.user:banned'));
         }
+
         return $next($request);
     }
 }

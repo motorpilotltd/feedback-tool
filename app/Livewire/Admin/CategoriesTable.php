@@ -2,21 +2,25 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Category;
+use App\Services\Category\CategoryFilterService;
 use App\Traits\Livewire\WithModelEditing;
 use App\Traits\Livewire\WithProductSelection;
 use App\Traits\Livewire\WithTableSorting;
-use App\Models\Category;
-use App\Services\Category\CategoryFilterService;
 use Livewire\Component;
 use Livewire\WithPagination;
 use WireUi\Traits\Actions;
 
 class CategoriesTable extends Component
 {
-    use WithPagination, WithProductSelection, WithTableSorting, Actions, WithModelEditing;
+    use Actions, WithModelEditing, WithPagination, WithProductSelection, WithTableSorting;
+
     public $showDeleteModal = false;
+
     public $showEditModal = false;
+
     public $modalTitle = '';
+
     public $search = '';
 
     public Category $editing;

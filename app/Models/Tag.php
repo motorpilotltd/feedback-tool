@@ -8,26 +8,27 @@ use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tag extends Model
 {
-    use HasFactory,
-        Sluggable,
-        SoftDeletes,
+    use AvoidDuplicateConstraintSoftDelete,
         CascadeSoftDeletes,
+        HasFactory,
+        Sluggable,
         SluggableScopeHelpers,
-        AvoidDuplicateConstraintSoftDelete;
+        SoftDeletes;
 
     protected $guarded = [];
+
     protected $cascadeDeletes = [];
 
     /**
      * The "booted" method of the model.
-     *
-     * @return void
      */
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleting(function ($tag) {
             // Delete tag_idea
@@ -35,7 +36,7 @@ class Tag extends Model
         });
     }
 
-    public function getDuplicateAvoidColumns() : array
+    public function getDuplicateAvoidColumns(): array
     {
         return [
             'slug',
@@ -44,39 +45,35 @@ class Tag extends Model
 
     /**
      * Return the sluggable configuration array for this model.
-     *
-     * @return array
      */
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
 
     /**
      * Get the route key for the model.
-     *
-     * @return string
      */
     public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    public function ideas()
+    public function ideas(): BelongsToMany
     {
         return $this->belongsToMany(Idea::class);
     }
 
-    public function tagGroup()
+    public function tagGroup(): BelongsTo
     {
-        return $this->belongsTo(TagGroup::class );
+        return $this->belongsTo(TagGroup::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'added_by');
     }

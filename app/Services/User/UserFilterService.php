@@ -2,21 +2,22 @@
 
 namespace App\Services\User;
 
-use Illuminate\Pipeline\Pipeline;
-use App\Models\User;
-use App\Filters\User\Role;
-use App\Filters\Common\SearchField;
 use App\DataTransferObject\UserFilterDto;
+use App\Filters\Common\SearchField;
+use App\Filters\User\Role;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pipeline\Pipeline;
 
 class UserFilterService
 {
     /**
      * Filter users based on various criteria.
      *
-     * @param UserFilterDto $filter The filters to be applied
+     * @param  UserFilterDto  $filter  The filters to be applied
      * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
      */
-    public function filter(UserFilterDto $filter)
+    public function filter(UserFilterDto $filter): Builder
     {
         $users = app(Pipeline::class)
             ->send([
@@ -24,7 +25,7 @@ class UserFilterService
                 'role' => $filter->role,
                 'search_field' => [
                     'field' => $filter->searchFields,
-                    'value' => $filter->searchValue
+                    'value' => $filter->searchValue,
                 ],
             ])
             ->through([

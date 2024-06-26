@@ -1,17 +1,17 @@
 <?php
 
 use App\Livewire\Idea\IdeaCardsContainer;
-
-use function Pest\Livewire\livewire;
 use Livewire\Livewire;
 
-beforeEach(function() {
+use function Pest\Livewire\livewire;
+
+beforeEach(function () {
     setupData();
 });
 
 it('can show post new idea button after searchign when user logged in', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
-        ->set('search',  $this->searchString)
+        ->set('search', $this->searchString)
         ->assertSee(__('general.post_new_idea'))
         ->assertViewHas('searchTitle', $this->searchString);
 });
@@ -28,10 +28,9 @@ it('can show \"Vote from existing idea(s)\" when there are results from search',
         ->assertSee(__('general.vote_from_existing'));
 });
 
-
 it('redirects to suggest idea page when clicking "Post a new idea" button', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
-        ->set('search',  $this->searchString)
+        ->set('search', $this->searchString)
         ->assertViewHas('searchTitle', $this->searchString)
         ->call('suggestingIdea', $this->searchString)
         ->assertOk()
@@ -40,11 +39,9 @@ it('redirects to suggest idea page when clicking "Post a new idea" button', func
 
 it('does not show the idea that doesn\'t belong to the current product', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
-    ->assertSee($this->idea2->title)
-    ->assertDontSee($this->idea4->title);
+        ->assertSee($this->idea2->title)
+        ->assertDontSee($this->idea4->title);
 });
-
-
 
 it('can show filtered idea when a category was selected in the dropdown', function () {
     //expect()->
@@ -131,7 +128,6 @@ it('shows matching results when searching idea that matched the keywords', funct
             return in_array($this->idea1->title, $ideas->pluck('title')->toArray());
         });
 });
-
 
 it('does not show results when searching idea that doesn\'t match the keywords provided', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])

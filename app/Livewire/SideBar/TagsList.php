@@ -3,13 +3,13 @@
 namespace App\Livewire\SideBar;
 
 use App\Models\Product;
-use App\Models\Tag;
 use App\Models\TagGroup;
 use Livewire\Component;
 
 class TagsList extends Component
 {
     public $product;
+
     public $currentTagId;
 
     protected $listeners = ['setActiveTag'];
@@ -29,7 +29,7 @@ class TagsList extends Component
         return view('livewire.side-bar.tags-list', [
             'tagsGroup' => TagGroup::with(['tags' => function ($query) {
                 $query->withCount('ideas');
-            }])->where('product_id', $this->product->id)->get()
+            }])->where('product_id', $this->product->id)->get(),
         ]);
     }
 }

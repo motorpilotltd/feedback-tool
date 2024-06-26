@@ -1,18 +1,29 @@
+/.phpunit.cache
 /node_modules
+# /public/build
 /public/hot
-/public/attachments
 /public/storage
 /storage/*.key
 /vendor
-.env*
-!.env*.example
+#.env
+#.env.backup
+#.env.production
+.phpactor.json
 .phpunit.result.cache
-docker-compose.override.yml
 Homestead.json
 Homestead.yaml
+auth.json
 npm-debug.log
 yarn-error.log
+/.fleet
 /.idea
 /.vscode
+
+# Ours
+/.phplint.cache
+/public/attachments
+.env*
+!.env*.example
+docker-compose.override.yml
 *.DS_Store
 /uploads

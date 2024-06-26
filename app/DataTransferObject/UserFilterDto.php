@@ -2,15 +2,16 @@
 
 namespace App\DataTransferObject;
 
-class UserFilterDto {
+class UserFilterDto
+{
     public function __construct(
         public mixed $role,
         public mixed $permission,
         public array $searchFields,
         public string $searchValue
-    ) { }
+    ) {}
 
-    public static function fromArray(Array $filters): UserFilterDto
+    public static function fromArray(array $filters): UserFilterDto
     {
         return new self(
             role: $filters['role'] ?? [],

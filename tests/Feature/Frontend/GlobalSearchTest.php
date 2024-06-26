@@ -3,9 +3,7 @@
 use App\Livewire\GlobalSearch;
 use App\Livewire\Modal\Search as ModalSearch;
 
-use function Pest\Livewire\livewire;
-
-beforeEach(function() {
+beforeEach(function () {
     setupData();
 });
 
@@ -27,7 +25,6 @@ it('shows initial empty input keywords', function () {
     login()->livewire(GlobalSearch::class)
         ->assertViewHas('keywords', '');
 });
-
 
 it('shows the keywords typed in', function () {
     login()->livewire(GlobalSearch::class)

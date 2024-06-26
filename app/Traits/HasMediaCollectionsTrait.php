@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use Spatie\MediaLibrary\InteractsWithMedia as SpatieInteractsWithMedia;
 
-
 trait HasMediaCollectionsTrait
 {
     use SpatieInteractsWithMedia {

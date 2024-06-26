@@ -9,19 +9,7 @@
 >
     <button
         type="button"
-        class="
-            border-b
-            border-gray-200
-            w-full relative
-            flex
-            items-center
-            py-4
-            px-5
-            text-base text-white text-left
-            bg-gray-400
-            rounded-none
-            transition
-            focus:outline-none"
+        class="border-b border-gray-200 w-full relative flex items-center py-4 px-5 text-base text-white text-left bg-gray-400 rounded-none transition focus:outline-none"
         @click="activeItem = item";
     >
         <div class="flex items-center justify-between w-full">

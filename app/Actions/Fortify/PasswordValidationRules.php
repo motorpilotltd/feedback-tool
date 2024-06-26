@@ -9,24 +9,21 @@ trait PasswordValidationRules
 {
     /**
      * Get the validation rules used to validate passwords.
-     *
-     * @return array
      */
-    protected function passwordRules()
+    protected function passwordRules(): array
     {
         return ['required', 'string', new Password, 'confirmed'];
     }
 
     /**
      * Get the validation rules used to validate passwords.
-     *
-     * @return array
      */
-    protected function currentPasswordRules(User $user)
+    protected function currentPasswordRules(User $user): array
     {
         if ($user->isSocialiteHasNoPassword()) {
             return [];
         }
+
         return ['required', 'string'];
     }
 }

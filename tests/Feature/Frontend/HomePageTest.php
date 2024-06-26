@@ -4,14 +4,12 @@ use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Product;
 use App\Models\User;
-use App\Settings\AzureADSettings;
-use App\Settings\GeneralSettings;
 
 beforeEach(function () {
     $this->product1 = Product::factory()->create([
         'name' => 'AAA Product Name 1 TestSearch',
         'created_at' => now()->addMinute(),
-        'user_id' => User::factory()->create(['name' => "AA User Name"])
+        'user_id' => User::factory()->create(['name' => 'AA User Name']),
     ]);
     $c1 = Category::factory()->create(['product_id' => $this->product1]);
     Idea::factory()->create([
@@ -23,12 +21,11 @@ beforeEach(function () {
     $this->product2 = Product::factory()->create([
         'name' => 'ZZZ Product Name 2 TestSearch',
         'created_at' => now(),
-        'user_id' => User::factory()->create(['name' => "ZZ User Name"])
+        'user_id' => User::factory()->create(['name' => 'ZZ User Name']),
     ]);
 
     $this->perPage = $this->product1->getPerPage();
 });
-
 
 it('redirects to /login when forcelogin was enabled', function () {
     setupGeneralSettings();
