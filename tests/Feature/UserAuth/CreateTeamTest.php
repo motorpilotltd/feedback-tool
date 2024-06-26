@@ -17,6 +17,7 @@ class CreateTeamTest extends TestCase
     {
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
 

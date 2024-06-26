@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 abstract class BaseFilter implements Filter
 {
+    protected $builderState;
+
     public function handle($state, Closure $next)
     {
         $filterName = $this->filterName();

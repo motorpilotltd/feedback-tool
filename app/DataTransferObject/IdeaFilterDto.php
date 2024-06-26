@@ -11,8 +11,7 @@ class IdeaFilterDto
         public array $statuses,
         public string $title,
         public string $otherFilter
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $filters): IdeaFilterDto
     {

@@ -19,6 +19,7 @@ class InviteTeamMemberTest extends TestCase
     {
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
 
@@ -41,6 +42,7 @@ class InviteTeamMemberTest extends TestCase
     {
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
 

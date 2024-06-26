@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\SettingsController as AdminSettingsController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\File\MediaController;
+use App\Http\Controllers\File\ProfilePhotoController;
 use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\IdeaController;
 use App\Http\Controllers\Frontend\Product\IndexController as ProductIndexController;
@@ -13,8 +15,6 @@ use App\Http\Controllers\Frontend\Product\ProgressController as ProductProgressC
 use App\Http\Controllers\Frontend\Product\SuggestIdeaController as ProductSuggestIdeaController;
 use App\Http\Controllers\Frontend\Product\TagController as ProductTagController;
 use App\Http\Controllers\Frontend\SearchController;
-use App\Http\Controllers\File\MediaController;
-use App\Http\Controllers\File\ProfilePhotoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginAsController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;

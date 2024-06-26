@@ -17,6 +17,7 @@ class RemoveTeamMemberTest extends TestCase
     {
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
@@ -36,6 +37,7 @@ class RemoveTeamMemberTest extends TestCase
     {
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
 

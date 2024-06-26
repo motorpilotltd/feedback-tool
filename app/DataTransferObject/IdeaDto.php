@@ -11,8 +11,7 @@ class IdeaDto
         public string $status,
         public ?int $authorId,
         public int $addedBy
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $data)
     {

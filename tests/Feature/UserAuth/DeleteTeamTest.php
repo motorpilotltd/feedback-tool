@@ -19,6 +19,7 @@ class DeleteTeamTest extends TestCase
 
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
 
@@ -43,6 +44,7 @@ class DeleteTeamTest extends TestCase
     {
         if (! Features::hasTeamFeatures()) {
             $this->markTestSkipped('Team support is not enabled.');
+
             return;
         }
 

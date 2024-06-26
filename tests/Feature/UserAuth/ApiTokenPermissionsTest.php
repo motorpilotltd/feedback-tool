@@ -18,6 +18,7 @@ class ApiTokenPermissionsTest extends TestCase
     {
         if (! Features::hasApiFeatures()) {
             $this->markTestSkipped('API support is not enabled.');
+
             return;
         }
 

@@ -9,8 +9,7 @@ class UserFilterDto
         public mixed $permission,
         public array $searchFields,
         public string $searchValue
-    ) {
-    }
+    ) {}
 
     public static function fromArray(array $filters): UserFilterDto
     {
