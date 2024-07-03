@@ -21,6 +21,7 @@ use App\Services\Idea\IdeaVoteService;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use Database\Seeders\RoleAndPermissionSeeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 use function Pest\Faker\fake;
@@ -110,9 +111,10 @@ function setupData()
     $product2 = Product::factory()->create(['name' => 'BB-'.fake()->unique()->name, 'user_id' => $user2]);
     $product3 = Product::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'user_id' => $user3]);
     // Categories
-    $category1 = Category::factory()->create(['name' => 'AA-'.fake()->unique()->name, 'product_id' => $product1]);
-    $category2 = Category::factory()->create(['name' => 'BB-'.fake()->unique()->name, 'product_id' => $product1]);
-    $category3 = Category::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'product_id' => $product1]);
+    $initialTimestamp = Carbon::now();
+    $category1 = Category::factory()->create(['name' => 'AA-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user1, 'created_at' => $initialTimestamp->addHours(1)]);
+    $category2 = Category::factory()->create(['name' => 'BB-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user2, 'created_at' => $initialTimestamp->addHours(2)]);
+    $category3 = Category::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user3, 'created_at' => $initialTimestamp->addHours(3)]);
     $category4 = Category::factory()->create(['name' => 'DD-'.fake()->unique()->name, 'product_id' => Product::factory()->create(['name' => 'A product name'])]);
 
     test()->category1 = Category::with('user')->withCount(['ideas'])->find($category1->id);
@@ -145,22 +147,40 @@ function setupData()
 
     // Ideas
     test()->idea1 = Idea::factory()->create([
-        'title' => 'Lorem ipsum dolor sit amet',
-        'category_id' => $category1,
+        'title' => 'IDEA1UNIQUE Lorem ipsum dolor sit amet',
+        'category_id' => $category1->id,
         'status' => test()->status1->slug,
     ]);
 
     test()->idea2 = Idea::factory()->create([
         'title' => 'Nullam luctus mi ac',
-        'category_id' => $category2,
+        'category_id' => $category2->id,
     ]);
-    test()->idea3 = Idea::factory()->create([
-        'title' => 'DONT MATCH SEARCH',
-        'category_id' => $category2,
+
+    test()->idea21 = Idea::factory()->create([
+        'title' => fake()->text(50),
+        'category_id' => $category2->id,
+    ]);
+
+    test()->idea31 = Idea::factory()->create([
+        'title' => fake()->text(50),
+        'category_id' => $category3->id,
+    ]);
+    test()->idea32 = Idea::factory()->create([
+        'title' => fake()->text(50),
+        'category_id' => $category3->id,
+    ]);
+    test()->idea33 = Idea::factory()->create([
+        'title' => fake()->text(50),
+        'category_id' => $category3->id,
     ]);
     test()->idea4 = Idea::factory()->create([
         'title' => 'DONT BELONG TO FIRST PRODUCT',
-        'category_id' => $category4,
+        'category_id' => $category4->id,
+    ]);
+    test()->idea4 = Idea::factory()->create([
+        'title' => 'DONT BELONG TO FIRST PRODUCT',
+        'category_id' => $category4->id,
     ]);
 
     // Run a specific seeder...
@@ -181,7 +201,7 @@ function setupData()
     test()->userProductAdmin2->assignRole(config('const.ROLE_PRODUCT_ADMIN'));
     test()->userProductAdmin2->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product2->id]);
 
-    test()->searchString = 'Lorem';
+    test()->searchString = 'IDEA1UNIQUE';
 
     // Load Service Classes
     test()->ideaVoteService = new IdeaVoteService();
