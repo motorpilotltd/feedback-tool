@@ -1,12 +1,6 @@
 <?php
 
 use App\Livewire\Admin\CategoriesTable;
-use App\Models\Category;
-use App\Models\User;
-use App\Models\Product;
-use Livewire\Livewire;
-use function Pest\Laravel\actingAs;
-
 
 beforeEach(function () {
     setupData();
