@@ -87,7 +87,7 @@
                     <x-table.heading class="sticky-col">
                         <x-checkbox wire:model.live="selectAll"/>
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField == 'ideas.id' ? $sortDirection : null" class="sticky-col">{{ __('text.id') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('ideas.id')" :direction="$sortField == 'ideas.id' ? $sortDirection : null" class="sticky-col">{{ __('text.id') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('ideas.title')" :direction="$sortField == 'ideas.title' ? $sortDirection : null" class="sticky-col">{{ __('text.title') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('category.name')" :direction="$sortField == 'category.name' ? $sortDirection : null">{{ __('text.category') }}</x-table.heading>
                     <x-table.heading >{{ __('text.tags') }}</x-table.heading>
