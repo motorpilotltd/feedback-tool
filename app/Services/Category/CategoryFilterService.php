@@ -18,7 +18,7 @@ class CategoryFilterService
     {
         $category = app(Pipeline::class)
             ->send([
-                'query' => Category::with(['user']),
+                'query' => Category::with(['product', 'user']),
                 'search_field' => [
                     'field' => 'categories.name',
                     'value' => $searchName,
@@ -30,7 +30,7 @@ class CategoryFilterService
             ->thenReturn();
 
         return $category['query']
-            ->with(['product'])
+            ->leftJoin('users', 'users.id', '=', 'categories.created_by')
             ->withCount('ideas');
     }
 }
