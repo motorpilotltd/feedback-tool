@@ -31,8 +31,11 @@ class OtherFilter extends BaseFilter
                 $builder->where('ideas.author_id', auth()->user()->id);
                 $builder->orderByDesc('ideas.created_at');
                 break;
-            default:
+            case 'createdAt':
                 $builder->orderByDesc('ideas.created_at');
+                break;
+            default:
+                // No  orderBy should be added in the query
                 break;
         }
     }

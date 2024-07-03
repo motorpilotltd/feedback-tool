@@ -87,12 +87,12 @@
                     <x-table.heading class="sticky-col">
                         <x-checkbox wire:model.live="selectAll"/>
                     </x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField == 'id' ? $sortDirection : null" class="sticky-col">{{ __('text.id') }}</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('title')" :direction="$sortField == 'title' ? $sortDirection : null" class="sticky-col">{{ __('text.title') }}</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('categories.name')" :direction="$sortField == 'categories.name' ? $sortDirection : null">{{ __('text.category') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField == 'ideas.id' ? $sortDirection : null" class="sticky-col">{{ __('text.id') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('ideas.title')" :direction="$sortField == 'ideas.title' ? $sortDirection : null" class="sticky-col">{{ __('text.title') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('category.name')" :direction="$sortField == 'category.name' ? $sortDirection : null">{{ __('text.category') }}</x-table.heading>
                     <x-table.heading >{{ __('text.tags') }}</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('statuses.name')" :direction="$sortField == 'idea_status' ? $sortDirection : null">{{ __('text.status') }}</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('users.name')" :direction="$sortField == 'users.name' ? $sortDirection : null">{{ __('text.addedby') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('status.name')" :direction="$sortField == 'status.name' ? $sortDirection : null">{{ __('text.status') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('addedByUser.name')" :direction="$sortField == 'addedByUser.name' ? $sortDirection : null">{{ __('text.addedby') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('use_case_id')" :direction="$sortField == 'use_case_id' ? $sortDirection : null">{{ __('text.usecaseid') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('votes_count')" :direction="$sortField == 'votes_count' ? $sortDirection : null">{{ __('general.votes') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('business_value')" :direction="$sortField == 'business_value' ? $sortDirection : null">{{ __('text.businessvalue') }}</x-table.heading>
@@ -201,7 +201,7 @@
                         id="businessValue"
                         label="{{ __('text.businessvalue') }}"
                         :options="$calcNumbers"
-                        wire:model.live="calcData.business_value"
+                        wire:model="calcData.business_value"
                     />
                 </x-modal.row>
                 <x-modal.row>
@@ -209,7 +209,7 @@
                         id="timeCriticality"
                         label="{{ __('text.timecriticality') }}"
                         :options="$calcNumbers"
-                        wire:model.live="calcData.time_criticality"
+                        wire:model="calcData.time_criticality"
                     />
                 </x-modal.row>
                 <x-modal.row>
@@ -217,7 +217,7 @@
                         id="complexity"
                         label="{{ __('text.complexity') }}"
                         :options="$calcNumbers"
-                        wire:model.live="calcData.complexity"
+                        wire:model="calcData.complexity"
                     />
                 </x-modal.row>
                 <x-modal.row>

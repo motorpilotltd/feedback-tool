@@ -261,7 +261,7 @@ class IdeasTable extends Component
 
         $filtersDto = IdeaFilterDto::fromArray($filters);
 
-        return (new IdeaFilterService)->filter($filtersDto)->with('tags', 'pinnedComment', 'addedBy');
+        return (new IdeaFilterService)->filter($filtersDto)->with(['tags', 'pinnedComment', 'addedBy']);
     }
 
     public function render()
