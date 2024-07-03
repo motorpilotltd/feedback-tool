@@ -24,27 +24,24 @@ it('can display categories', function () {
 it('can sort categories by name', function () {
     login($this->userSuperAdmin)
         ->livewire(CategoriesTable::class)
+        ->set('sortField', 'name')
+        ->set('sortDirection', 'asc')
         ->set('productId', $this->product1->id)
-        // ->set('sortField', 'name')
-        // ->set('sortDirection', 'asc')
-        ->assertViewHas('categories', function($categories) {
-            dd($categories->pluck('name')->toArray());
-        })
-        ->assertSee($this->category1->name);
-        // ->assertSeeInOrder([
-        //     $this->category1->name,
-        //     $this->category2->name,
-        //     $this->category3->name,
-        // ]);
+        ->assertSee($this->category1->name)
+        ->assertSeeInOrder([
+            $this->category1->name,
+            $this->category2->name,
+            $this->category3->name,
+        ]);
 
-    // login($this->userSuperAdmin)
-    //     ->livewire(CategoriesTable::class)
-    //     ->set('productId', $this->product1->id)
-    //     // ->set('sortField', 'name')
-    //     // ->set('sortDirection', 'desc')
-    //     ->assertSeeInOrder([
-    //         $this->category3->name,
-    //         $this->category2->name,
-    //         $this->category1->name,
-    //     ]);
+    login($this->userSuperAdmin)
+        ->livewire(CategoriesTable::class)
+        ->set('sortField', 'name')
+        ->set('sortDirection', 'desc')
+        ->set('productId', $this->product1->id)
+        ->assertSeeInOrder([
+            $this->category3->name,
+            $this->category2->name,
+            $this->category1->name,
+        ]);
 })->group('cat123');
