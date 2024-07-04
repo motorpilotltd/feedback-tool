@@ -2,25 +2,19 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "postinstall": "vite build"
+        "build": "vite build"
     },
     "devDependencies": {
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/forms": "^0.5.7",
-        "@tailwindcss/typography": "^0.5.10",
-        "alpinejs": "^3.13.7",
+        "@tailwindcss/typography": "^0.5.13",
         "autoprefixer": "^10.4.19",
-        "axios": "^1.6.8",
-        "laravel-vite-plugin": "^1.0.2",
+        "axios": "^1.7.2",
+        "laravel-vite-plugin": "^1.0.4",
         "lodash": "^4.17.21",
-        "postcss": "^8.4.38",
-        "postcss-import": "^14.1.0",
-        "tailwindcss": "^3.4.1",
-        "vite": "^5.2.2"
-    },
-    "dependencies": {
-        "@tailwindcss/line-clamp": "^0.2.2"
+        "postcss": "^8.4.39",
+        "tailwindcss": "^3.4.4",
+        "vite": "^5.3.3"
     },
     "type": "module"
 }
