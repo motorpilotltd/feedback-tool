@@ -44,10 +44,9 @@ it('does not show the idea that doesn\'t belong to the current product', functio
 });
 
 it('can show filtered idea when a category was selected in the dropdown', function () {
-    //expect()->
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 3;
+            return $ideas->count() === 6;
         })
         ->assertSee($this->idea1->title)
         ->assertSee($this->idea2->title)
@@ -68,11 +67,11 @@ it('can show filtered idea when a category was selected in the dropdown', functi
 it('shows no result when selecting a category with no idea', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 3;
+            return $ideas->count() === 6;
         })
         ->set('category', $this->category3->slug)
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 0;
+            return $ideas->count() === 4;
         })
         ->assertDontSee($this->idea1->title)
         ->assertDontSee($this->idea2->title);
@@ -81,7 +80,7 @@ it('shows no result when selecting a category with no idea', function () {
 it('can filter ideas by status', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 3;
+            return $ideas->count() === 6;
         })
         ->set('status', $this->status1->slug)
         ->assertViewHas('ideas', function ($ideas) {
@@ -99,7 +98,7 @@ it('can filter ideas by status', function () {
 
 it('shows no result when selecting a status with no idea', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
-        ->set('status', $this->status2->slug)
+        ->set('status', $this->status4->slug)
         ->assertViewHas('ideas', function ($ideas) {
             return $ideas->count() === 0;
         })
@@ -111,7 +110,7 @@ it('shows matching results when searching idea that matched the keywords', funct
     login();
     Livewire::test(IdeaCardsContainer::class, ['product' => $this->product1])
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 3;
+            return $ideas->count() === 6;
         })
         ->set('search', $this->searchString)
         ->assertViewHas('ideas', function ($ideas) {
@@ -132,7 +131,7 @@ it('shows matching results when searching idea that matched the keywords', funct
 it('does not show results when searching idea that doesn\'t match the keywords provided', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 3;
+            return $ideas->count() === 6;
         })
         ->set('search', 'FOOBAR')
         ->assertViewHas('ideas', function ($ideas) {

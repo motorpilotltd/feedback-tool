@@ -34,8 +34,8 @@ it('can lists products in the table', function () {
         ->assertViewHas('products', function ($products) {
             return $products->count() > 0;
         })
-        ->assertSee($this->product1->title)
-        ->assertSee($this->product2->title);
+        ->assertSee($this->product1->name)
+        ->assertSee($this->product2->name);
 });
 
 it('can search for products by title and return results', function () {
@@ -102,4 +102,112 @@ it('saves the new product\'s logo', function () {
 
     // Assert that the logo URL is not empty
     $this->assertNotEmpty($logoUrl);
+});
+
+it('can sort products by ID', function () {
+    login($this->userSuperAdmin)
+        ->livewire(ProductsTable::class)
+        ->set('sortField', 'id')
+        ->set('sortDirection', 'asc')
+        ->assertSeeInOrder([
+            $this->product1->id,
+            $this->product2->id,
+            $this->product3->id,
+        ])
+        ->set('sortDirection', 'desc')
+        ->assertSeeInOrder([
+            $this->product3->id,
+            $this->product2->id,
+            $this->product1->id,
+        ]);
+});
+
+it('can sort products by Name', function () {
+    login($this->userSuperAdmin)
+        ->livewire(ProductsTable::class)
+        ->set('sortField', 'name')
+        ->set('sortDirection', 'asc')
+        ->assertSeeInOrder([
+            $this->product1->name,
+            $this->product2->name,
+            $this->product3->name,
+        ])
+        ->set('sortDirection', 'desc')
+        ->assertSeeInOrder([
+            $this->product3->name,
+            $this->product2->name,
+            $this->product1->name,
+        ]);
+});
+
+it('can sort products by Categories Count', function () {
+    login($this->userSuperAdmin)
+        ->livewire(ProductsTable::class)
+        ->set('sortField', 'categories_count')
+        ->set('sortDirection', 'asc')
+        ->assertSeeInOrder([
+            $this->product1->categories_count,
+            $this->product2->categories_count,
+            $this->product3->categories_count,
+        ])
+        ->set('sortDirection', 'desc')
+        ->assertSeeInOrder([
+            $this->product3->categories_count,
+            $this->product2->categories_count,
+            $this->product1->categories_count,
+        ]);
+});
+
+it('can sort products by Ideas Count', function () {
+    login($this->userSuperAdmin)
+        ->livewire(ProductsTable::class)
+        ->set('sortField', 'ideas_count')
+        ->set('sortDirection', 'asc')
+        ->assertSeeInOrder([
+            $this->product1->ideas_count,
+            $this->product2->ideas_count,
+            $this->product3->ideas_count,
+        ])
+        ->set('sortDirection', 'desc')
+        ->assertSeeInOrder([
+            $this->product3->ideas_count,
+            $this->product2->ideas_count,
+            $this->product1->ideas_count,
+        ]);
+});
+
+it('can sort products by User Name', function () {
+    login($this->userSuperAdmin)
+        ->livewire(ProductsTable::class)
+        ->set('sortField', 'users.name')
+        ->set('sortDirection', 'asc')
+        ->assertSeeInOrder([
+            $this->product1->user->name,
+            $this->product2->user->name,
+            $this->product3->user->name,
+        ])
+        ->set('sortDirection', 'desc')
+        ->assertSeeInOrder([
+            $this->product3->user->name,
+            $this->product2->user->name,
+            $this->product1->user->name,
+        ]);
+});
+
+it('can sort products by Created At Date', function () {
+    login($this->userSuperAdmin)
+        ->livewire(ProductsTable::class)
+        ->set('sortField', 'created_at')
+        ->set('sortDirection', 'asc')
+        ->assertSeeInOrder([
+            $this->product1->created_at->toDayDateTimeString(),
+            $this->product2->created_at->toDayDateTimeString(),
+            $this->product3->created_at->toDayDateTimeString(),
+        ])
+        ->set('sortDirection', 'desc')
+        ->assertSeeInOrder([
+            $this->product3->created_at->toDayDateTimeString(),
+            $this->product2->created_at->toDayDateTimeString(),
+            $this->product1->created_at->toDayDateTimeString(),
+        ]);
 });

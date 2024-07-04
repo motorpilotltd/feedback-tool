@@ -26,7 +26,7 @@ class IdeaCardsContainer extends Component
 
     public $search = '';
 
-    public $otherfilter = '';
+    public $otherfilter = 'createdAt';
 
     public $ideaTitle = '';
 
