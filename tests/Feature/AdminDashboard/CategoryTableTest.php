@@ -13,7 +13,7 @@ it('can display categories', function () {
         ->assertSee($this->category1->name)
         ->assertSee($this->category1->user->name)
         ->assertSee($this->category1->ideas_count);
-})->group('cat123');
+});
 
 it('can sort categories by name', function () {
     login($this->userSuperAdmin)
@@ -106,4 +106,4 @@ it('can sort categories by Created At Date', function () {
             $this->category2->created_at->toDayDateTimeString(),
             $this->category1->created_at->toDayDateTimeString(),
         ]);
-})->group('cat123');
+});

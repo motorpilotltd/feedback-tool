@@ -71,7 +71,7 @@ it('shows no result when selecting a category with no idea', function () {
         })
         ->set('category', $this->category3->slug)
         ->assertViewHas('ideas', function ($ideas) {
-            return $ideas->count() === 3;
+            return $ideas->count() === 4;
         })
         ->assertDontSee($this->idea1->title)
         ->assertDontSee($this->idea2->title);
@@ -98,7 +98,7 @@ it('can filter ideas by status', function () {
 
 it('shows no result when selecting a status with no idea', function () {
     login()->livewire(IdeaCardsContainer::class, ['product' => $this->product1])
-        ->set('status', $this->status2->slug)
+        ->set('status', $this->status4->slug)
         ->assertViewHas('ideas', function ($ideas) {
             return $ideas->count() === 0;
         })

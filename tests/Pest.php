@@ -112,6 +112,7 @@ function setupData()
     $product3 = Product::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'user_id' => $user3]);
     // Categories
     $initialTimestamp = Carbon::now();
+
     $category1 = Category::factory()->create(['name' => 'AA-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user1, 'created_at' => $initialTimestamp->addHours(1)]);
     $category2 = Category::factory()->create(['name' => 'BB-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user2, 'created_at' => $initialTimestamp->addHours(2)]);
     $category3 = Category::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user3, 'created_at' => $initialTimestamp->addHours(3)]);
@@ -145,21 +146,41 @@ function setupData()
         'color' => 'green',
     ]);
 
+    test()->status3 = Status::factory()->create([
+        'name' => 'Status Charlie',
+        'slug' => 'statuscharlie',
+        'color' => 'blue',
+    ]);
+
+    test()->status4 = Status::factory()->create([
+        'name' => 'Status Delta',
+        'slug' => 'statusdelta',
+        'color' => 'pink',
+    ]);
+
     // Ideas
     test()->idea1 = Idea::factory()->create([
-        'title' => 'IDEA1UNIQUE Lorem ipsum dolor sit amet',
+        'title' => 'AA IDEA1UNIQUE Lorem ipsum dolor sit amet',
         'category_id' => $category1->id,
         'status' => test()->status1->slug,
+        'added_by' => $user1->id,
+        'created_at' => $initialTimestamp->addHours(1),
     ]);
 
     test()->idea2 = Idea::factory()->create([
-        'title' => 'Nullam luctus mi ac',
+        'title' => 'BB Nullam luctus mi ac',
         'category_id' => $category2->id,
+        'status' => test()->status2->slug,
+        'added_by' => $user2->id,
+        'created_at' => $initialTimestamp->addHours(2),
     ]);
 
     test()->idea21 = Idea::factory()->create([
-        'title' => fake()->text(50),
-        'category_id' => $category2->id,
+        'title' => 'CC '.fake()->text(50),
+        'category_id' => $category3->id,
+        'status' => test()->status3->slug,
+        'added_by' => $user3->id,
+        'created_at' => $initialTimestamp->addHours(3),
     ]);
 
     test()->idea31 = Idea::factory()->create([

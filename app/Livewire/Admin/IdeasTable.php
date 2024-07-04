@@ -241,6 +241,7 @@ class IdeasTable extends Component
 
     public function resetFilters()
     {
+        $this->showFilters = false;
         $this->reset('filters');
     }
 
