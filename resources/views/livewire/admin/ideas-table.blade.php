@@ -92,7 +92,7 @@
                     <x-table.heading sortable wire:click="sortBy('category.name')" :direction="$sortField == 'category.name' ? $sortDirection : null">{{ __('text.category') }}</x-table.heading>
                     <x-table.heading >{{ __('text.tags') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('status.name')" :direction="$sortField == 'status.name' ? $sortDirection : null">{{ __('text.status') }}</x-table.heading>
-                    <x-table.heading sortable wire:click="sortBy('addedByUser.name')" :direction="$sortField == 'addedByUser.name' ? $sortDirection : null">{{ __('text.addedby') }}</x-table.heading>
+                    <x-table.heading sortable wire:click="sortBy('authorUser.name')" :direction="$sortField == 'authorUser.name' ? $sortDirection : null">{{ __('text.author') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('use_case_id')" :direction="$sortField == 'use_case_id' ? $sortDirection : null">{{ __('text.usecaseid') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('votes_count')" :direction="$sortField == 'votes_count' ? $sortDirection : null">{{ __('general.votes') }}</x-table.heading>
                     <x-table.heading sortable wire:click="sortBy('business_value')" :direction="$sortField == 'business_value' ? $sortDirection : null">{{ __('text.businessvalue') }}</x-table.heading>

@@ -163,7 +163,7 @@ function setupData()
         'title' => 'AA IDEA1UNIQUE Lorem ipsum dolor sit amet',
         'category_id' => $category1->id,
         'status' => test()->status1->slug,
-        'added_by' => $user1->id,
+        'author_id' => $user1->id,
         'created_at' => $initialTimestamp->addHours(1),
     ]);
 
@@ -171,7 +171,7 @@ function setupData()
         'title' => 'BB Nullam luctus mi ac',
         'category_id' => $category2->id,
         'status' => test()->status2->slug,
-        'added_by' => $user2->id,
+        'author_id' => $user2->id,
         'created_at' => $initialTimestamp->addHours(2),
     ]);
 
@@ -179,7 +179,7 @@ function setupData()
         'title' => 'CC '.fake()->text(50),
         'category_id' => $category3->id,
         'status' => test()->status3->slug,
-        'added_by' => $user3->id,
+        'author_id' => $user3->id,
         'created_at' => $initialTimestamp->addHours(3),
     ]);
 

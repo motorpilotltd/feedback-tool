@@ -13,7 +13,7 @@ class Product extends BaseFilter
             return $builder->leftJoin('categories as category', 'category.id', '=', 'ideas.category_id')
                 ->leftJoin('products', 'products.id', '=', 'category.product_id')
                 ->leftJoin('statuses as status', 'status.slug', '=', 'ideas.status')
-                ->leftJoin('users as addedByUser', 'addedByUser.id', '=', 'ideas.added_by')
+                ->leftJoin('users as authorUser', 'authorUser.id', '=', 'ideas.author_id')
                 ->where('products.id', $this->builderState);
         }
 

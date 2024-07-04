@@ -212,11 +212,11 @@ it('can sort ideas by status', function () {
         ]);
 });
 
-it('can sort ideas by Added By User', function () {
+it('can sort ideas by Author', function () {
     login($this->userSuperAdmin)
         ->livewire(IdeasTable::class)
         ->call('setProductSelected', $this->product1->id)
-        ->set('sortField', 'addedByUser.name')
+        ->set('sortField', 'authorUser.name')
         ->set('sortDirection', 'asc')
         ->assertSeeInOrder([
             $this->idea1TitleTable,
@@ -227,14 +227,14 @@ it('can sort ideas by Added By User', function () {
     login($this->userSuperAdmin)
         ->livewire(IdeasTable::class)
         ->call('setProductSelected', $this->product1->id)
-        ->set('sortField', 'addedByUser.name')
+        ->set('sortField', 'authorUser.name')
         ->set('sortDirection', 'desc')
         ->assertSeeInOrder([
             $this->idea21TitleTable,
             $this->idea2TitleTable,
             $this->idea1TitleTable,
         ]);
-});
+})->group('test123');
 
 it('can sort ideas by created date', function () {
     login($this->userSuperAdmin)
