@@ -107,16 +107,16 @@ function setupData()
     $user2 = User::factory()->create(['name' => 'BB-'.fake()->unique()->name]);
     $user3 = User::factory()->create(['name' => 'CC-'.fake()->unique()->name]);
 
-    $product1 = Product::factory()->create(['name' => 'AA-'.fake()->unique()->name, 'user_id' => $user1]);
-    $product2 = Product::factory()->create(['name' => 'BB-'.fake()->unique()->name, 'user_id' => $user2]);
-    $product3 = Product::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'user_id' => $user3]);
+    $product1 = Product::factory()->create(['name' => 'AA-'.fake()->unique()->text(20), 'user_id' => $user1]);
+    $product2 = Product::factory()->create(['name' => 'BB-'.fake()->unique()->text(20), 'user_id' => $user2]);
+    $product3 = Product::factory()->create(['name' => 'CC-'.fake()->unique()->text(20), 'user_id' => $user3]);
     // Categories
     $initialTimestamp = Carbon::now();
 
-    $category1 = Category::factory()->create(['name' => 'AA-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user1, 'created_at' => $initialTimestamp->addHours(1)]);
-    $category2 = Category::factory()->create(['name' => 'BB-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user2, 'created_at' => $initialTimestamp->addHours(2)]);
-    $category3 = Category::factory()->create(['name' => 'CC-'.fake()->unique()->name, 'product_id' => $product1, 'created_by' => $user3, 'created_at' => $initialTimestamp->addHours(3)]);
-    $category4 = Category::factory()->create(['name' => 'DD-'.fake()->unique()->name, 'product_id' => Product::factory()->create(['name' => 'A product name'])]);
+    $category1 = Category::factory()->create(['name' => 'AA-'.fake()->unique()->text(12), 'product_id' => $product1, 'created_by' => $user1, 'created_at' => $initialTimestamp->addHours(1)]);
+    $category2 = Category::factory()->create(['name' => 'BB-'.fake()->unique()->text(12), 'product_id' => $product1, 'created_by' => $user2, 'created_at' => $initialTimestamp->addHours(2)]);
+    $category3 = Category::factory()->create(['name' => 'CC-'.fake()->unique()->text(12), 'product_id' => $product1, 'created_by' => $user3, 'created_at' => $initialTimestamp->addHours(3)]);
+    $category4 = Category::factory()->create(['name' => 'DD-'.fake()->unique()->text(12), 'product_id' => Product::factory()->create(['name' => 'A product name'])]);
 
     test()->category1 = Category::with('user')->withCount(['ideas'])->find($category1->id);
     test()->category2 = Category::with('user')->withCount(['ideas'])->find($category2->id);
