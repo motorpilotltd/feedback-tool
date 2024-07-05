@@ -11,7 +11,7 @@ it('can display categories', function () {
         ->livewire(CategoriesTable::class)
         ->set('productId', $this->product1->id)
         ->assertSee($this->category1->name)
-        ->assertSee(e($this->category1->user->name))
+        ->assertSeeHtml($this->category1->user->name)
         ->assertSee($this->category1->ideas_count);
 });
 
@@ -70,10 +70,10 @@ it('can sort categories by user name', function () {
         ->set('sortField', 'users.name')
         ->set('sortDirection', 'asc')
         ->set('productId', $this->product1->id)
-        ->assertSeeInOrder([
-            e($this->category1->user->name),
-            e($this->category2->user->name),
-            e($this->category3->user->name),
+        ->assertSeeHtmlInOrder([
+            $this->category1->user->name,
+            $this->category2->user->name,
+            $this->category3->user->name,
         ]);
 
     login($this->userSuperAdmin)
@@ -81,10 +81,10 @@ it('can sort categories by user name', function () {
         ->set('sortField', 'users.name')
         ->set('sortDirection', 'desc')
         ->set('productId', $this->product1->id)
-        ->assertSeeInOrder([
-            e($this->category3->user->name),
-            e($this->category2->user->name),
-            e($this->category1->user->name),
+        ->assertSeeHtmlInOrder([
+            $this->category3->user->name,
+            $this->category2->user->name,
+            $this->category1->user->name,
         ]);
 });
 

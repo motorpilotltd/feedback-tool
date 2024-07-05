@@ -181,18 +181,18 @@ it('can sort products by User Name', function () {
         ->livewire(ProductsTable::class)
         ->set('sortField', 'users.name')
         ->set('sortDirection', 'asc')
-        ->assertSeeInOrder([
-            e($this->product1->user->name),
-            e($this->product2->user->name),
-            e($this->product3->user->name),
+        ->assertSeeHtmlInOrder([
+            $this->product1->user->name,
+            $this->product2->user->name,
+            $this->product3->user->name,
         ])
         ->set('sortDirection', 'desc')
-        ->assertSeeInOrder([
-            e($this->product3->user->name),
-            e($this->product2->user->name),
-            e($this->product1->user->name),
+        ->assertSeeHtmlInOrder([
+            $this->product3->user->name,
+            $this->product2->user->name,
+            $this->product1->user->name,
         ]);
-});
+})->group('err123');
 
 it('can sort products by Created At Date', function () {
     login($this->userSuperAdmin)

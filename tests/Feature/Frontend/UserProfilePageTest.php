@@ -19,17 +19,17 @@ it('redirects to login when visiting /user/viewprofile page without logging in',
 it('shows the user details in the /user/viewprofile/ page with hidden email if not admin/not profile owner', function () {
     login();
     $response = $this->get(route('user.viewprofile', ['user' => $this->userBasic->id]));
-    $response->assertSee(e($this->userBasic->name));
+    $response->assertSee($this->userBasic->name);
     $response->assertDontSee($this->userBasic->email);
     $response->assertSee(hideEmailAddress($this->userBasic->email));
-});
+})->group('err1234');
 
 it('shows the user email in the /user/viewprofile/ page when', function ($user) {
     login($user);
     $response = $this->get(route('user.viewprofile', ['user' => $this->userBasic->id]));
-    $response->assertSee(e($this->userBasic->name));
+    $response->assertSee($this->userBasic->name);
     $response->assertSee($this->userBasic->email);
 })->with([
     'super admin logged in' => fn () => $this->userSuperAdmin,
     'profile owner logged in' => fn () => $this->userBasic,
-]);
+])->group('err1234');
