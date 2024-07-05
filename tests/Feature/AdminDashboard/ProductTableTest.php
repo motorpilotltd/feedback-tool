@@ -182,15 +182,15 @@ it('can sort products by User Name', function () {
         ->set('sortField', 'users.name')
         ->set('sortDirection', 'asc')
         ->assertSeeInOrder([
-            $this->product1->user->name,
-            $this->product2->user->name,
-            $this->product3->user->name,
+            e($this->product1->user->name),
+            e($this->product2->user->name),
+            e($this->product3->user->name),
         ])
         ->set('sortDirection', 'desc')
         ->assertSeeInOrder([
-            $this->product3->user->name,
-            $this->product2->user->name,
-            $this->product1->user->name,
+            e($this->product3->user->name),
+            e($this->product2->user->name),
+            e($this->product1->user->name),
         ]);
 });
 
