@@ -22,7 +22,7 @@ it('shows the user details in the /user/viewprofile/ page with hidden email if n
     $response->assertSee($this->userBasic->name);
     $response->assertDontSee($this->userBasic->email);
     $response->assertSee(hideEmailAddress($this->userBasic->email));
-})->group('err1234');
+});
 
 it('shows the user email in the /user/viewprofile/ page when', function ($user) {
     login($user);
@@ -32,4 +32,4 @@ it('shows the user email in the /user/viewprofile/ page when', function ($user) 
 })->with([
     'super admin logged in' => fn () => $this->userSuperAdmin,
     'profile owner logged in' => fn () => $this->userBasic,
-])->group('err1234');
+]);

@@ -192,7 +192,7 @@ it('can sort products by User Name', function () {
             $this->product2->user->name,
             $this->product1->user->name,
         ]);
-})->group('err123');
+});
 
 it('can sort products by Created At Date', function () {
     login($this->userSuperAdmin)
