@@ -234,7 +234,7 @@ it('can sort ideas by Author', function () {
             $this->idea2TitleTable,
             $this->idea1TitleTable,
         ]);
-})->group('test123');
+});
 
 it('can sort ideas by created date', function () {
     login($this->userSuperAdmin)

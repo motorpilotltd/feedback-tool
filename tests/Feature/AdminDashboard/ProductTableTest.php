@@ -41,7 +41,7 @@ it('can lists products in the table', function () {
 it('can search for products by title and return results', function () {
     login($this->userSuperAdmin)
         ->livewire(ProductsTable::class)
-        ->set('search', $this->product1->name)
+        ->set('search', 'AA-UNIQUEPRODUCT1')
         ->assertSee($this->product1->name)
         ->assertDontSee($this->product2->name)
         ->assertViewHas('products', function ($products) {
@@ -181,13 +181,13 @@ it('can sort products by User Name', function () {
         ->livewire(ProductsTable::class)
         ->set('sortField', 'users.name')
         ->set('sortDirection', 'asc')
-        ->assertSeeInOrder([
+        ->assertSeeHtmlInOrder([
             $this->product1->user->name,
             $this->product2->user->name,
             $this->product3->user->name,
         ])
         ->set('sortDirection', 'desc')
-        ->assertSeeInOrder([
+        ->assertSeeHtmlInOrder([
             $this->product3->user->name,
             $this->product2->user->name,
             $this->product1->user->name,
