@@ -47,7 +47,7 @@ it('can search for products by title and return results', function () {
         ->assertViewHas('products', function ($products) {
             return $products->count() === 1;
         });
-})->group('err123');
+});
 
 it('doesn\'t return search result when no match found', function () {
     login($this->userSuperAdmin)
