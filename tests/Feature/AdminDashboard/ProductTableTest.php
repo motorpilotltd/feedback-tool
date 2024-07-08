@@ -41,13 +41,13 @@ it('can lists products in the table', function () {
 it('can search for products by title and return results', function () {
     login($this->userSuperAdmin)
         ->livewire(ProductsTable::class)
-        ->set('search', $this->product1->name)
+        ->set('search', 'AA-UNIQUEPRODUCT1')
         ->assertSee($this->product1->name)
         ->assertDontSee($this->product2->name)
         ->assertViewHas('products', function ($products) {
             return $products->count() === 1;
         });
-});
+})->group('err123');
 
 it('doesn\'t return search result when no match found', function () {
     login($this->userSuperAdmin)

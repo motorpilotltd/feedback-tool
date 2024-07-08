@@ -107,7 +107,7 @@ function setupData()
     $user2 = User::factory()->create(['name' => 'BB-'.fake()->unique()->name]);
     $user3 = User::factory()->create(['name' => 'CC-'.fake()->unique()->name]);
 
-    $product1 = Product::factory()->create(['name' => 'AA-'.fake()->unique()->text(20), 'user_id' => $user1]);
+    $product1 = Product::factory()->create(['name' => 'AA-UNIQUEPRODUCT1'.fake()->unique()->text(20), 'user_id' => $user1]);
     $product2 = Product::factory()->create(['name' => 'BB-'.fake()->unique()->text(20), 'user_id' => $user2]);
     $product3 = Product::factory()->create(['name' => 'CC-'.fake()->unique()->text(20), 'user_id' => $user3]);
     // Categories
