@@ -104,10 +104,6 @@
                                     :async-data="route('api.users.index')"
                                     option-label="name"
                                     option-value="id"
-                                    :template="[
-                                        'name'   => 'user-option',
-                                        'config' => ['src' => 'profile_image']
-                                    ]"
                                     option-description="email"
                                 />
                             @else

@@ -10,7 +10,7 @@ class SearchField extends BaseFilter
     public function applyFilter(Builder $builder)
     {
         $payload = $this->builderState;
-        $keyword = trim($payload['value']);
+        $keyword = trim($payload['value'] ?? '');
         if (empty($keyword)) {
             return $builder;
         }
