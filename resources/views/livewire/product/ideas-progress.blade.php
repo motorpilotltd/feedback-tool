@@ -11,7 +11,7 @@
                 <li class="text-base mb-2 group leading-snug">
                     <a
                         class="flex flex-row align-middle text-blue-base"
-                        href="#"
+                        href="{{ route('idea.show', $idea) }}"
                         target="_blank"
                     >
                         <span><x-icon name="external-link" class="w-4 h-4 mr-1 mt-1" /></span>
