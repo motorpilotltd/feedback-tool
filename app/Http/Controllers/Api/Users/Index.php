@@ -15,7 +15,7 @@ class Index extends Controller
         $users = User::query()
             ->select('id', 'name', 'email', 'profile_photo_path')
             ->orderBy('name')
-            ->whereNot(function ($query) {
+            ->whereNot(function ($query) use ($request) {
                 // Prevent current logged in user to select itself
                 $query->where('id', $request->user()->id);
             })
@@ -41,7 +41,7 @@ class Index extends Controller
                 return $user;
             });
         // Remove super admins when auth user was a product admin
-        $users = $users->filter(function (User $user) {
+        $users = $users->filter(function (User $user) use ($request) {
             $isAuthSuperAdmin = $request->user()->hasRole(config('const.ROLE_SUPER_ADMIN'));
 
             if (! $isAuthSuperAdmin) {
