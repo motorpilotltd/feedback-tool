@@ -285,7 +285,7 @@ class AdminUsersTable extends Component
             ->with('permissions')
             ->paginate()
             ->through(function (User $user) {
-                $user->permissionProduct = new Collection();
+                $user->permissionProduct = new Collection;
                 $authUserPermissionProductIds = $this->authUserPermissionProductIds;
                 foreach ($user->getPermissionNames() as $permission) {
                     $productId = Str::replace($this->productsManage, '', $permission);
@@ -324,7 +324,7 @@ class AdminUsersTable extends Component
         }
 
         // Role option usage
-        $rolesOption = new Collection();
+        $rolesOption = new Collection;
         if ($this->authUser->hasRole($this->superAdmin)) {
             $rolesOption->push(['name' => 'Super Admin',  'id' => $this->superAdmin, 'description' => 'Access to everything...']);
         }

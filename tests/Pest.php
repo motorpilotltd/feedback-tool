@@ -225,6 +225,6 @@ function setupData()
     test()->searchString = 'IDEA1UNIQUE';
 
     // Load Service Classes
-    test()->ideaVoteService = new IdeaVoteService();
-    test()->ideaSpamService = new IdeaSpamService();
+    test()->ideaVoteService = new IdeaVoteService;
+    test()->ideaSpamService = new IdeaSpamService;
 }
