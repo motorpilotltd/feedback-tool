@@ -178,7 +178,7 @@
                             </x-table.cell>
                             @can(config('const.PERMISSION_SYSTEM_MANAGE'))
                                 <x-table.cell>
-                                        @if(count($admin->permissionProduct) > 0)
+                                        @if(count($admin->permissionProduct) > 0 && auth()->user()->id !== $admin->id)
                                             <x-button
                                                 amber
                                                 sm
@@ -187,7 +187,7 @@
                                                 wire:click="addRolePermissionModal({{ $admin->id }})"
                                             />
                                         @endif
-                                        @if(count($admin->permissionProduct) > 1)
+                                        @if(count($admin->permissionProduct) > 1 && auth()->user()->id !== $admin->id)
                                             <x-button
                                                 negative
                                                 sm
@@ -221,6 +221,7 @@
                     id="selectUserId"
                     label="User"
                     wire:model.prefetch="userId"
+                    x-on:selected="$wire.loadSelectedUserId();"
                     placeholder="Search a user..."
                     :async-data="route('api.users.index')"
                     :disabled="$disabledUsersSelect"
@@ -233,7 +234,8 @@
             <x-modal.row>
                 <x-select
                     wire:key="select-role"
-                    wire:model.live="role"
+                    wire:model.live="roles"
+                    multiselect
                     label="Administrator Role"
                     :disabled="$disabledRoleSelect"
                     placeholder="Select user's role"
@@ -242,7 +244,7 @@
                     option-value="id"
                 />
             </x-modal.row>
-            @if($role == $productAdmin)
+            @if(in_array($productAdmin, $roles))
                 <x-modal.row>
                     <x-select
                         wire:key="select-product-id"

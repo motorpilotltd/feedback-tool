@@ -24,7 +24,7 @@ class AdminUsersTable extends Component
 
     public $userId;
 
-    public $role;
+    public $roles = [];
 
     public $productIds;
 
@@ -42,7 +42,7 @@ class AdminUsersTable extends Component
 
     protected $rules = [
         'userId' => 'required|integer',
-        'role' => 'required|string',
+        'roles.*' => 'required|string',
     ];
 
     protected $queryString = [];
@@ -55,7 +55,7 @@ class AdminUsersTable extends Component
     public function save()
     {
         // Only require if role is PRODUCT_ADMIN
-        $this->rules['productIds'] = $this->role == $this->productAdmin
+        $this->rules['productIds'] = in_array($this->productAdmin, $this->roles)
             ? 'required'
             : '';
         $this->validate();
@@ -64,73 +64,77 @@ class AdminUsersTable extends Component
 
         $user = User::find($this->userId);
 
-        $messageNote = '';
-        $message = '';
+        $messageNote = [];
+        $message = [];
         $success = false;
-        $textParams = [
-            'user' => __('text.useremail', ['user' => $user->name, 'email' => $user->email]),
-            'role' => __('text.role:'.$this->role),
-        ];
-        switch ($this->role) {
-            case $this->superAdmin:
-                // Prevent user to be re-assigned super-admin role
-                $isAssignTo = false;
-                if ($user->hasRole($this->superAdmin)) {
-                    $message = __('error.userlreadyrole', $textParams);
-                    $success = false;
-                } elseif ($user->hasRole($this->productAdmin)) {
-                    // Remove product roles/permissions
-                    $isAssignTo = true;
-                    $user->removeRole($this->productAdmin);
-                    $user->syncPermissions();
-                    $messageNote = __('text.noterolerevoked', ['role' => $this->productAdmin]);
-                } else {
-                    $isAssignTo = true;
-                }
-                // Proceed assigning to role
-                if ($isAssignTo) {
-                    $user->assignRole($this->role);
-                    $message = __('text.userassignrole', $textParams);
+
+        // Determine to assign role/permission
+        foreach ($this->roles as $role) {
+            $textParams = [
+                'user' => __('text.useremail', ['user' => $user->name, 'email' => $user->email]),
+                'role' => __('text.role:'.$role),
+            ];
+            switch ($role) {
+                case $this->superAdmin:
+                    // Proceed assigning to role
+                    if (! $user->hasRole($this->superAdmin)) {
+                        $user->assignRole($role);
+                        $message[] = __('text.userassignrole', $textParams);
+                        $success = true;
+                    }
+                    break;
+                case $this->productAdmin:
                     $success = true;
+                    $message[] = __('text.permission:changes', $textParams);
+
+                    $permissions = [];
+                    $productManageList = '';
+
+                    // Resync Permission
+                    foreach ($products as $product) {
+                        $permissions[] = $this->productsManage.$product->id;
+                        $productManageList .= __('text.permission:product:li', ['product' => $product->name]);
+                    }
+                    $user->syncPermissions($permissions);
+
+                    $message[] = __('text.permission:product:permitted', ['items' => $productManageList]);
+
+                    if (! $user->hasRole($role)) {
+                        $user->assignRole($role);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } // end of foreach
+
+        // Determine which permission is to remove
+        $currentRoles = $user->getRoleNames()->toArray();
+        foreach ($currentRoles as $currentRole) {
+            if (! in_array($currentRole, $this->roles)) {
+                switch ($currentRole) {
+                    case $this->superAdmin:
+                        $messageNote[] = __('text.noterolerevoked', ['role' => $this->superAdmin]);
+                        $user->removeRole($this->superAdmin);
+                        break;
+                    case $this->productAdmin:
+                        $messageNote[] = __('text.noterolerevoked', ['role' => $this->superAdmin]);
+                        $user->removeRole($this->productAdmin);
+                        $user->syncPermissions();
+                        break;
+                    default:
+                        break;
                 }
-                break;
-            case $this->productAdmin:
-                $permittedProduct = '';
-                $alreadyPermittedProduct = '';
-                $success = true;
-                $message = __('text.permission:changes', $textParams);
-
-                $permissions = [];
-                $productManageList = '';
-
-                // Resync Permission
-                foreach ($products as $product) {
-                    $permissions[] = $this->productsManage.$product->id;
-                    $productManageList .= __('text.permission:product:li', ['product' => $product->name]);
-                }
-                $user->syncPermissions($permissions);
-
-                $message .= __('text.permission:product:permitted', ['items' => $productManageList]);
-
-                // If user was already super admin, revoke
-                if ($user->hasRole($this->superAdmin)) {
-                    $messageNote = __('text.noterolerevoked', ['role' => $this->superAdmin]);
-                    $user->removeRole($this->superAdmin);
-                }
-
-                if (! $user->hasRole($this->role)) {
-                    $user->assignRole($this->role);
-                }
-
-                break;
+            }
         }
 
+        $message = $message ? implode('<br>', $message) : '';
+        $messageNote = $messageNote ? implode('<br>', $messageNote) : '';
         if ($success) {
             $this->notification()->success(
                 $title = '',
                 $description = $message.$messageNote,
             );
-            $this->dispatch('accordion:set:activeItem', Str::plural($this->role));
         } else {
             $this->notification()->error(
                 $title = '',
@@ -159,28 +163,33 @@ class AdminUsersTable extends Component
 
     public function addRolePermissionModal($userId = 0)
     {
-        $role = '';
-        $productIds = [];
+        $this->userId = 0;
+        $this->roles = [];
+        $this->productIds = [];
         $this->reset(['userId', 'disabledUsersSelect']);
         if ($userId) {
-            $user = User::find($userId);
-            $role = $user->getRoleNames()->first();
-            $productIds = $user->getPermissionNames()->map(function ($permission) {
+            $this->loadUserRolePermissions($userId);
+            $this->disabledUsersSelect = true;
+        }
+        $this->userId = $userId;
+
+        if ($this->authUser->hasRole($this->productAdmin) && ! $this->authUser->hasRole($this->superAdmin)) {
+            $this->roles[] = $this->productAdmin;
+            $this->disabledRoleSelect = true;
+        }
+        $this->showModal = true;
+    }
+
+    private function loadUserRolePermissions($userId = 0)
+    {
+        if ($user = User::find($userId)) {
+            $this->roles = $user->getRoleNames()->toArray();
+            $this->productIds = $user->getPermissionNames()->map(function ($permission) {
                 return Str::contains($permission, $this->productsManage)
                     ? (int) Str::replace($this->productsManage, '', $permission)
                     : $permission;
             });
-
-            $this->disabledUsersSelect = true;
         }
-        $this->userId = $userId;
-        if ($this->authUser->hasRole($this->productAdmin)) {
-            $role = $this->productAdmin;
-            $this->disabledRoleSelect = true;
-        }
-        $this->role = $role;
-        $this->productIds = $productIds;
-        $this->showModal = true;
     }
 
     public function revokeDialog(User $user, $role = null, $permission = null, bool $confirm = false)
@@ -253,6 +262,11 @@ class AdminUsersTable extends Component
         }
     }
 
+    public function loadSelectedUserId()
+    {
+        $this->loadUserRolePermissions($this->userId);
+    }
+
     public function render()
     {
         $products = $this->getProducts()->get();
@@ -290,7 +304,7 @@ class AdminUsersTable extends Component
                 foreach ($user->getPermissionNames() as $permission) {
                     $productId = Str::replace($this->productsManage, '', $permission);
                     // Product Admin: Do not show permission from other products
-                    if ($authUserPermissionProductIds->isNotEmpty() && ! $authUserPermissionProductIds->contains($productId)) {
+                    if (! $this->authUser->hasRole($this->superAdmin) && ($authUserPermissionProductIds->isNotEmpty() && ! $authUserPermissionProductIds->contains($productId))) {
                         continue;
                     }
                     if ($product = Product::find($productId)) {
