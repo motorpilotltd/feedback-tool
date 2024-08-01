@@ -210,15 +210,19 @@ function setupData()
     test()->userBasic = User::factory()->create();
 
     // Super Admin User
-    test()->userSuperAdmin = User::factory()->create();
+    test()->userSuperAdmin = User::factory()->create(['name' => 'Isai Deckow']);
     test()->userSuperAdmin->assignRole(config('const.ROLE_SUPER_ADMIN'));
 
+    // Super Admin User
+    test()->userSuperAdmin2 = User::factory()->create(['name' => 'Edwardo Hartmann']);
+    test()->userSuperAdmin2->assignRole(config('const.ROLE_SUPER_ADMIN'));
+
     // Product Admin User
-    test()->userProductAdmin1 = User::factory()->create();
+    test()->userProductAdmin1 = User::factory()->create(['name' => 'Coty Champlin']);
     test()->userProductAdmin1->assignRole(config('const.ROLE_PRODUCT_ADMIN'));
     test()->userProductAdmin1->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product1->id]);
 
-    test()->userProductAdmin2 = User::factory()->create();
+    test()->userProductAdmin2 = User::factory()->create(['name' => 'Elise Smitham']);
     test()->userProductAdmin2->assignRole(config('const.ROLE_PRODUCT_ADMIN'));
     test()->userProductAdmin2->syncPermissions([config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product2->id]);
 
