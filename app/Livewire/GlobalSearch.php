@@ -89,7 +89,7 @@ class GlobalSearch extends Component
     {
         $permissions = $user->getPermissionNames();
         $productsManage = config('const.PERMISSION_PRODUCTS_MANAGE').'.';
-        $user->permissionProduct = new Collection();
+        $user->permissionProduct = new Collection;
         foreach ($permissions as $permission) {
             $productId = Str::replace($productsManage, '', $permission);
             if ($product = Product::find($productId)) {
