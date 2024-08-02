@@ -16,8 +16,8 @@
                                         2xs
                                         rounded
                                         color="{{ ($currentTagId === $tag->id) ? 'blue' : 'slate' }}"
-                                        label="{{ $tag->name . '(' . $tag->ideas_count . ')' }}"
-                                    />
+
+                                    >{{ $tag->name . '(' . $tag->ideas_count . ')' }}</x-button>
                                 @endif
                             @endforeach
                         </div>

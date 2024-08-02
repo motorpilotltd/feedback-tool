@@ -11,8 +11,7 @@
                 2xs
                 rounded
                 slate
-                label="{{ $tag->name }}"
-            />
+            >{{ $tag->name }}</x-button>
         </x-info-box>
     </div>
 

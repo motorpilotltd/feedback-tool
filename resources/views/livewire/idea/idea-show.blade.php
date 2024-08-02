@@ -50,8 +50,7 @@ $spamCount = $idea->spams()->count();
                                                 xs
                                                 rounded
                                                 slate
-                                                label="{{ $tag->name }}"
-                                            />
+                                            >{{ $tag->name }}</x-button>
                                         @endforeach
                                     </div>
                                 </div>
