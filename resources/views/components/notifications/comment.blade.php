@@ -1,6 +1,7 @@
 @props([
     'notification',
 ])
+
 <a
     href="{{ route('idea.show', $notification->data['idea_slug']) }}"
     @click.prevent="
@@ -10,7 +11,9 @@
     href="#"
     class="flex hover:bg-gray-100 transition duration-150 ease-in px-5 py-3"
 >
-    <img src="{{ $notification->data['user_avatar'] }}" class="rounded-xl w-10 h-10" alt="avatar">
+    <div class="flex-shrink-0 items-center mt-1">
+        <x-user-avatar sm :name="$notification->data['user_name']" :avatar="$notification->data['user_avatar']" />
+    </div>
     <div class="ml-4">
         <div class="line-clamp-4">
             <span class="font-semibold">{{ $notification->data['user_name'] }}</span>
