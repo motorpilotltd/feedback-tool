@@ -64,6 +64,7 @@ if (! function_exists('highlightMatchedSearch')) {
 
         // Iterate over each keyword and highlight it in the text
         foreach ($keywords as $word) {
+            $word = preg_quote($word, '/');
             // Use case-insensitive matching for highlighting
             $text = preg_replace("/($word)/i", '<span class="bg-yellow-200">$1</span>', $text);
         }
