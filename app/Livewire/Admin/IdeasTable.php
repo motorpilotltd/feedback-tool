@@ -8,16 +8,20 @@ use App\Models\Idea;
 use App\Models\Product;
 use App\Models\Status;
 use App\Services\Idea\IdeaFilterService;
-use App\Traits\Livewire\WithDispatchNotify;
 use App\Traits\Livewire\WithModelEditing;
 use App\Traits\Livewire\WithProductSelection;
 use App\Traits\Livewire\WithTableSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
+use WireUi\Traits\Actions;
 
 class IdeasTable extends Component
 {
-    use WithDispatchNotify, WithModelEditing, WithPagination, WithProductSelection, WithTableSorting;
+    use Actions,
+        WithModelEditing,
+        WithPagination,
+        WithProductSelection,
+        WithTableSorting;
 
     public $showCalculateModal = false;
 
@@ -176,7 +180,10 @@ class IdeasTable extends Component
         $this->editing->user_id = auth()->id();
         $this->editing->save();
 
-        $this->dispatchNotifySuccess(__('text.successfullysaved'));
+        $this->notification()->success(
+            $title = '',
+            $description = __('text.successfullysaved'),
+        );
         $this->showEditModal = false;
     }
 
@@ -189,7 +196,10 @@ class IdeasTable extends Component
         $this->editing->wsjf = $this->wsjf;
         $this->editing->save();
 
-        $this->dispatchNotifySuccess(__('text.successfullysaved'));
+        $this->notification()->success(
+            $title = '',
+            $description = __('text.successfullysaved'),
+        );
         $this->showCalculateModal = false;
     }
 
@@ -235,7 +245,10 @@ class IdeasTable extends Component
         $this->editing->category_id = $this->selectedCategory;
         $this->editing->save();
 
-        $this->dispatchNotifySuccess(__('text.successfullymovedidea'));
+        $this->notification()->success(
+            $title = '',
+            $description = __('text.successfullymovedidea'),
+        );
         $this->showMoveModal = false;
     }
 
