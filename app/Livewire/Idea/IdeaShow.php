@@ -91,6 +91,8 @@ class IdeaShow extends Component
                 return redirect()->route('product.show', $product);
             }
         }
+
+        return null;
     }
 
     /**
