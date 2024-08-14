@@ -18,10 +18,20 @@ if (! function_exists('convertLocalToUTC')) {
 if (! function_exists('getPreviousRouteName')) {
     function getPreviousRouteName()
     {
-        return app('router')
-            ->getRoutes()
-            ->match(app('request')->create(url()->previous()))
-            ->getName();
+        $previousUrl = url()->previous();
+        $previousHost = parse_url($previousUrl, PHP_URL_HOST);
+        $currentHost = parse_url(url('/'), PHP_URL_HOST);
+
+        // Only attempt to get the previous route name if the host is the same
+        if ($previousHost === $currentHost) {
+            return app('router')
+                ->getRoutes()
+                ->match(app('request')->create($previousUrl))
+                ->getName();
+        }
+
+        // Return null or a default value if it's an external URL
+        return null;
     }
 }
 
