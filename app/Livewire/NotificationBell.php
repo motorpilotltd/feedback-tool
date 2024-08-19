@@ -121,7 +121,7 @@ class NotificationBell extends Component
         }
 
         // or markAsRead to flag read_at instead of deleting from table
-        auth()->user()->unreadNotifications->delete();
+        auth()->user()->unreadNotifications->markAsRead();
         $this->getNotificationCount();
         $this->getNotifications();
     }
