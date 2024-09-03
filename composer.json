@@ -14,7 +14,7 @@
         "dyrynda/laravel-cascade-soft-deletes": "^4.4",
         "guzzlehttp/guzzle": "^7.5",
         "itsgoingd/clockwork": "^5.2",
-        "laravel/framework": "^11.21",
+        "laravel/framework": "^11.22",
         "laravel/jetstream": "^5.1",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.15",
