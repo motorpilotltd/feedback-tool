@@ -132,7 +132,7 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        Features::registration() => env('FORTIFY_REGISTER', true), // Fallback to true for compatibility.
         Features::resetPasswords(),
         // Features::emailVerification(),
         Features::updateProfileInformation(),
