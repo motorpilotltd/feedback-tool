@@ -12,11 +12,11 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class ProductsTable extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithFileUploads,
         WithMediaAttachments,
         WithPagination,

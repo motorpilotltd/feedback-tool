@@ -9,11 +9,11 @@ use App\Traits\Livewire\WithProductSelection;
 use App\Traits\Livewire\WithTableSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class CategoriesTable extends Component
 {
-    use Actions, WithModelEditing, WithPagination, WithProductSelection, WithTableSorting;
+    use WireUiActions, WithModelEditing, WithPagination, WithProductSelection, WithTableSorting;
 
     public $showDeleteModal = false;
 

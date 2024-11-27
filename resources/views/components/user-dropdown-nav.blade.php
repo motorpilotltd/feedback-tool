@@ -6,13 +6,13 @@
                     <x-user-avatar
                         :user="auth()->user()"
                     />
-                    <x-icon name="dots-vertical" class="w-5 h-5 w-" />
+                    <x-icon name="ellipsis-vertical" class="w-5 h-5 w-" />
                 </button>
             @else
                 <span class="inline-flex rounded-md">
                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition content-center">
                         {{ Auth::user()->name }}
-                        <x-icon name="dots-vertical" class="w-5 h-5 mt-2" />
+                        <x-icon name="ellipsis-vertical" class="w-5 h-5 mt-2" />
                     </button>
                 </span>
             @endif
@@ -52,7 +52,7 @@
 
         </x-dropdown.header>
         @can(config('const.PERMISSION_PRODUCTS_MANAGE'))
-            <x-dropdown.item icon="desktop-computer"  href="{{ route('admin.dashboard') }}">
+            <x-dropdown.item icon="computer-desktop"  href="{{ route('admin.dashboard') }}">
                 <div class="flex flex-col">
                 {{ __('Admin Dashboard') }}
             </div>
@@ -61,7 +61,7 @@
         <!-- Authentication -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <x-dropdown.item separator icon="logout"
+            <x-dropdown.item separator icon="arrow-right-on-rectangle"
                 href="{{ route('logout') }}"
                 onclick="event.preventDefault(); this.closest('form').submit();"
             >

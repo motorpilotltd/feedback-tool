@@ -55,13 +55,15 @@
                             <x-table.cell>{{ $row->created_at ? $row->created_at->diffForHumans() : '' }}</x-table.cell>
                             <x-table.cell>{{ $row->updated_at ? $row->updated_at->diffForHumans() : '' }}</x-table.cell>
                             <x-table.cell>
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     icon="pencil"
                                     wire:click="tagGroupFormModal({{ $row->id }})"
                                     outline
                                     orange
                                 />
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     icon="trash"
                                     wire:click="deleteDialog({{ $row->id }})"
                                     outline

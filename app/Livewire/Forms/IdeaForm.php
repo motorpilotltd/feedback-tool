@@ -16,11 +16,11 @@ use App\Traits\Livewire\WithDispatchNotify;
 use App\Traits\Livewire\WithMediaAttachments;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class IdeaForm extends Component
 {
-    use Actions, WithDispatchNotify, WithFileUploads, WithMediaAttachments;
+    use WireUiActions, WithDispatchNotify, WithFileUploads, WithMediaAttachments;
 
     public $product;
 

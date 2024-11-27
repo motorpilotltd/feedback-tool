@@ -18,6 +18,12 @@ class Index extends Component
 
     public $viewMode;
 
+    public $viewModeIcon = [
+        // Opposite as icon is for changing to the other view.
+        'grid' => 'bars-4',
+        'list' => 'squares-2x2',
+    ];
+
     protected $queryString = ['sortField', 'sortDirection'];
 
     public function mount()

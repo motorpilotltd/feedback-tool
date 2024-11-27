@@ -8,7 +8,7 @@
         <div class="w-full mb-4 flex flex-row space-x-2">
             <x-input
                 wire:model.live.debounce.500ms="search"
-                right-icon="search"
+                right-icon="magnifying-glass"
                 label=""
                 placeholder="Search for product..." />
 
@@ -18,7 +18,7 @@
                 x-on:mouseleave="tooltip = false"
                 class="cursor-pointer"
             >
-                <x-button.circle info :icon="'view-'.$viewMode" wire:click="toggleViewMode"/>
+                <x-mini-button rounded info :icon="$viewModeIcon[$viewMode]" wire:click="toggleViewMode"/>
                 <div x-show="tooltip"
                     class="text-sm text-white absolute bg-gray-800 rounded-lg p-2 transform translate-y-0.5 z-10 -translate-x-14"
                     x-cloak

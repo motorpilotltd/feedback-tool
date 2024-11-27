@@ -6,11 +6,11 @@ use App\Models\Comment as CommentModel;
 use App\Models\Idea;
 use App\Services\Comment\CommentSpamService;
 use Livewire\Component;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class Comment extends Component
 {
-    use Actions;
+    use WireUiActions;
 
     public $comment;
 
@@ -79,7 +79,7 @@ class Comment extends Component
         } else {
             if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon' => 'exclamation',
+                    'icon' => 'exclamation-triangle',
                     'title' => $hasMarkedSpam ? __('text.unmarkcommentspam') : __('text.markcommentspam'),
                     'description' => $hasMarkedSpam ? __('text.unmarksommentspamconfirm') : __('text.marksommentspamconfirm'),
                     'accept' => [
@@ -114,7 +114,7 @@ class Comment extends Component
         } else {
             if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon' => 'exclamation',
+                    'icon' => 'exclamation-triangle',
                     'title' => __('text.commentnotspam'),
                     'description' => __('text.commentremovespamconfirm'),
                     'accept' => [

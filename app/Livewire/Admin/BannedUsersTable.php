@@ -8,11 +8,11 @@ use Carbon\Carbon;
 use Illuminate\Pipeline\Pipeline;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class BannedUsersTable extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithPagination,
         WithTableSorting;
 

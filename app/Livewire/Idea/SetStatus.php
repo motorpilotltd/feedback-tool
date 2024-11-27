@@ -7,11 +7,11 @@ use App\Models\Idea;
 use App\Models\Status;
 use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class SetStatus extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithDispatchNotify;
 
     public $idea;

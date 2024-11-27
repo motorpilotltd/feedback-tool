@@ -28,7 +28,7 @@
                         </x-button>
                     @endif
                     <x-button
-                        icon="{{ $showFilters ? 'x' : 'filter' }}"
+                        icon="{{ $showFilters ? 'x-mark' : 'funnel' }}"
                         info
                         wire:click="$toggle('showFilters')"
                         label="{{ __('text.filter') }}"
@@ -167,17 +167,20 @@
                             </x-table.cell>
 
                             <x-table.cell class="text-center">
-                                {{-- <x-button.circle
+                                {{-- <x-mini-button
+                                    rounded
                                     wire:click="edit({{ $idea->id }})"
                                     icon="cog"
                                 /> --}}
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     wire:click="calculate({{ $idea->id }})"
                                     icon="calculator"
                                 />
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     wire:click="move({{ $idea->id }})"
-                                    icon="switch-horizontal"
+                                    icon="arrows-right-left"
                                 />
                             </x-table.cell>
                         </x-table.row>
