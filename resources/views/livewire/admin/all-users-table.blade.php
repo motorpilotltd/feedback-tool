@@ -4,7 +4,7 @@
             <x-input
                 id="searchUser"
                 wire:model.live.debounce.500ms="searchUser"
-                right-icon="search"
+                right-icon="magnifying-glass"
                 placeholder="{{ __('text.searchuserbynameemail') }}"
             />
 

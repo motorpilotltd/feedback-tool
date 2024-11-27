@@ -30,24 +30,24 @@
 
                 <div class="flex items-center justify-end mt-4">
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
-                                    x-show="! recovery"
-                                    x-on:click="
-                                        recovery = true;
-                                        $nextTick(() => { $refs.recovery_code.focus() })
-                                    ">
+                        autocomplete="off"
+                        x-show="! recovery"
+                        x-on:click="
+                            recovery = true;
+                            $nextTick(() => { $refs.recovery_code.focus() })">
                         {{ __('Use a recovery code') }}
                     </button>
 
                     <button type="button" class="text-sm text-gray-600 hover:text-gray-900 underline cursor-pointer"
-                                    x-show="recovery"
-                                    x-on:click="
-                                        recovery = false;
-                                        $nextTick(() => { $refs.code.focus() })
-                                    ">
+                        autocomplete="off"
+                        x-show="recovery"
+                        x-on:click="
+                            recovery = false;
+                            $nextTick(() => { $refs.code.focus() })">
                         {{ __('Use an authentication code') }}
                     </button>
 
-                    <x-button class="ml-4">
+                    <x-button info class="ml-4" type="submit">
                         {{ __('Login') }}
                     </x-button>
                 </div>

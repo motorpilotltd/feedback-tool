@@ -8,11 +8,11 @@ use App\Traits\Livewire\WithProductSelection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class TagsTable extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithPagination,
         WithProductSelection;
 

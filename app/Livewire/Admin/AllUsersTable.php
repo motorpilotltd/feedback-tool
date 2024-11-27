@@ -7,11 +7,11 @@ use App\Traits\Livewire\WithTableSorting;
 use Illuminate\Pipeline\Pipeline;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class AllUsersTable extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithPagination,
         WithTableSorting;
 

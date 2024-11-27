@@ -8,11 +8,11 @@ use App\Notifications\CommentAdded;
 use App\Traits\Livewire\WithMediaAttachments;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class CommentForm extends Component
 {
-    use Actions, WithFileUploads, WithMediaAttachments;
+    use WireUiActions, WithFileUploads, WithMediaAttachments;
 
     const ACTIONS = ['add', 'edit'];
 

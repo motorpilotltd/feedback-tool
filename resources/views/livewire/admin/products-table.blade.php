@@ -9,7 +9,7 @@
                 <x-input
                     id="search"
                     wire:model.live.debounce.500ms="search"
-                    right-icon="search"
+                    right-icon="magnifying-glass"
                     placeholder="{{ __('text.searchproduct') }}"
                 />
             </div>
@@ -80,13 +80,15 @@
                             </x-table.cell>
 
                             <x-table.cell class="text-center">
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     outline
                                     blue
                                     wire:click="edit({{ $product->id }})"
                                     icon="cog"
                                 />
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     outline
                                     red
                                     wire:click="deleteDialog({{ $product->id }})"

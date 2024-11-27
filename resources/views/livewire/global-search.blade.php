@@ -19,14 +19,14 @@
             id='global-search-keyword'
             wire:model.live.debounce.500ms="keywords"
             autocomplete="off"
-            icon="search"
+            icon="magnifying-glass"
             placeholder="Search anything..."
         >
             @if($keywords)
                 <x-slot name="append">
                     <div class="absolute inset-y-0 right-0 flex items-center p-0.5">
                         <x-icon
-                            name="x"
+                            name="x-mark"
                             class="w-4 h-4 m-2 text-red-base cursor-pointer hover:text-red-700"
                             solid
                             wire:click='clearKeywords'

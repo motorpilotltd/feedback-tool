@@ -6,11 +6,11 @@ use App\Models\Comment;
 use App\Models\Idea;
 use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class AttachFilePreview extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithDispatchNotify;
 
     public $attachments = [];

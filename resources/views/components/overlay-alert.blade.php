@@ -43,7 +43,7 @@
             <x-icon name="trash" class="w-6 h-6 text-green-600 shrink-0" />
         </template>
         <template x-if="type == 'warning'">
-            <x-icon name="exclamation" class="w-6 h-6 text-red-base shrink-0" />
+            <x-icon name="exclamation-triangle" class="w-6 h-6 text-red-base shrink-0" />
         </template>
         <div
             class='ml-2 text-gray-500 text-sm sm:text-base'
@@ -52,6 +52,6 @@
         </div>
     </div>
     <button @click="isOpen = false" class="text-gray-400 hover:text-gray-500">
-        <x-icon name="x" class="w-6 h-6 text-gray-500 shrink-0" />
+        <x-icon name="x-mark" class="w-6 h-6 text-gray-500 shrink-0" />
     </button>
 </div>

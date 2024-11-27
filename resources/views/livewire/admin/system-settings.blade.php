@@ -29,14 +29,14 @@
                             />
                             @break
                         @case('integer')
-                            <x-inputs.number
+                            <x-number
                                 :label="$label"
                                 wire:model="generalSettings.{{ $key }}"
                             />
                             @break
                         @default
                             @if (Str::position($key, 'secret') !== false || Str::position($key, 'password') !== false)
-                                <x-inputs.password
+                                <x-password
                                     :label="$label"
                                     cornerHint="{!! $cornerHint !!}"
                                     :disabled="$key == 'language' ? true : false"
@@ -93,14 +93,14 @@
                             />
                             @break
                         @case('integer')
-                            <x-inputs.number
+                            <x-number
                                 :label="$label"
                                 wire:model="azureadSettings.{{ $key }}"
                             />
                             @break
                         @default
                             @if (Str::position($key, 'secret') !== false || Str::position($key, 'password') !== false)
-                                <x-inputs.password
+                                <x-password
                                     :label="$label"
                                     wire:model="azureadSettings.{{ $key }}"
                                 />

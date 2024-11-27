@@ -14,7 +14,7 @@
                         href="{{ route('idea.show', $idea) }}"
                         target="_blank"
                     >
-                        <span><x-icon name="external-link" class="w-4 h-4 mr-1 mt-1" /></span>
+                        <span><x-icon name="arrow-top-right-on-square" class="w-4 h-4 mr-1 mt-1" /></span>
                         <span class="">{{ $idea->title }}</span>
                     </a>
                     <span class="text-sm text-gray-400">

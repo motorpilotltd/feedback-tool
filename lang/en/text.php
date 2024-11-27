@@ -39,6 +39,8 @@ return [
     'placeholder:password' => '********',
     'form:email' => 'Email',
     'form:password' => 'Password',
+    'form:newpassword' => 'New password',
+    'form:confirmnewpassword' => 'Confirm new password',
     'form:login' => 'Login',
     'form:rememberme' => 'Remember me',
     'form:forgotpassword' => 'Forgot your password?',

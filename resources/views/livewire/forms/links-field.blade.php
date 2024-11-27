@@ -2,7 +2,8 @@
     @if ($links)
         @foreach ($links as $index => $link)
             <div :key="{{ 'links_'. $index }}" class="relative p-2 bg-gray-100 rounded shadow">
-                <x-button.circle
+                <x-mini-button
+                    rounded
                     wire:click="removeLinkFields({{ $index }})"
                     xs
                     negative
