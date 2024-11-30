@@ -1,17 +1,15 @@
 @props(['id' => null, 'maxWidth' => null])
 
-<x-modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
-    <div class="px-6 py-4">
-        <div class="text-lg">
-            {{ $title }}
-        </div>
-
-        <div class="mt-4">
+<x-modal.card-custom :id="$id"  :title="$title" blur  {{ $attributes }}>
+    <x-modal.content>
+        <x-modal.row>
             {{ $content }}
-        </div>
-    </div>
+        </x-modal.row>
+    </x-modal.content>
 
-    <div class="px-6 py-4 bg-gray-100 text-right">
-        {{ $footer }}
-    </div>
-</x-modal>
+    <x-slot name="footer">
+        <x-modal.button-container>
+            {{ $footer }}
+        </x-modal.button-container>
+    </x-slot>
+</x-modal.card-custom>
