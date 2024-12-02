@@ -8,11 +8,11 @@ use App\Services\Idea\IdeaSpamService;
 use App\Services\Idea\IdeaVoteService;
 use App\Traits\Livewire\WithDispatchNotify;
 use Livewire\Component;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class IdeaShow extends Component
 {
-    use Actions, WithDispatchNotify;
+    use WireUiActions, WithDispatchNotify;
 
     public $idea;
 
@@ -108,7 +108,7 @@ class IdeaShow extends Component
         } else {
             if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon' => 'exclamation',
+                    'icon' => 'exclamation-triangle',
                     'title' => __('text.areyousure'),
                     'description' => $hasMarkedSpam ? __('text.unmarkideaspamconfirm') : __('text.markideaspamconfirm'),
                     'accept' => [
@@ -144,7 +144,7 @@ class IdeaShow extends Component
         } else {
             if (! $confirm) {
                 $this->dialog()->confirm([
-                    'icon' => 'exclamation',
+                    'icon' => 'exclamation-triangle',
                     'title' => __('text.ideanotspam'),
                     'description' => __('text.idearemovespamconfirm'),
                     'accept' => [

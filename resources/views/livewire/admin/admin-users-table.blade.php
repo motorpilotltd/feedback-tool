@@ -18,11 +18,11 @@
         @can(config('const.PERMISSION_SYSTEM_MANAGE'))
             {{-- Only super admins can see superadmin tab --}}
             <x-card title="Super Admin" class="flex flex-col space-y-4">
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-4">
                     <x-input
                         id="searchSuperUser"
                         wire:model.live.debounce.500ms="searchSuperUser"
-                        right-icon="search"
+                        right-icon="magnifying-glass"
                         placeholder="{{ __('text.searchuserbynameemail') }}"
                     />
                 </div>
@@ -72,7 +72,7 @@
                                         <x-button
                                             negative
                                             sm
-                                            icon="x"
+                                            icon="x-mark"
                                             label="{{ __('Revoke') }}"
                                             wire:click="revokeDialog({{ $admin->id }}, '{{ config('const.ROLE_SUPER_ADMIN') }}')"
                                         />
@@ -93,11 +93,11 @@
             </x-card>
         @endif
         <x-card title="Product Admin" class="flex flex-col space-y-4">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-4">
                 <x-input
                     id="searchUser"
                     wire:model.live.debounce.500ms="searchUser"
-                    right-icon="search"
+                    right-icon="magnifying-glass"
                     placeholder="{{ __('text.searchuserbynameemail') }}"
                 />
                 @if ($products->count() > 1)
@@ -163,7 +163,7 @@
                                                     <x-button
                                                         red
                                                         2xs
-                                                        icon="x"
+                                                        icon="x-mark"
                                                         primary
                                                         label="{{ __('Revoke') }}"
                                                         wire:click="revokeDialog({{ $admin->id }}, null, {{ json_encode($item) }})"
@@ -191,7 +191,7 @@
                                             <x-button
                                                 negative
                                                 sm
-                                                icon="x"
+                                                icon="x-mark"
                                                 label="{{ __('Revoke All') }}"
                                                 wire:click="revokeDialog({{ $admin->id }}, '{{ config('const.ROLE_PRODUCT_ADMIN') }}')"
                                             />

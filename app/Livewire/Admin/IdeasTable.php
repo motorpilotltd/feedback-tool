@@ -13,11 +13,11 @@ use App\Traits\Livewire\WithProductSelection;
 use App\Traits\Livewire\WithTableSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class IdeasTable extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithModelEditing,
         WithPagination,
         WithProductSelection,

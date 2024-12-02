@@ -2,12 +2,13 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
+            <x-authentication-card-logo />
+
             @if (session('error'))
                 <x-card color="border border-red-500 bg-red-100" shadow="shadow-sm" class="text-red-500">
                     {!! session('error') !!}
                 </x-card>
             @endif
-
 
             @if (session('status'))
             <x-card color="border border-green-500 bg-green-100" shadow="shadow-sm" class="text-green-500">

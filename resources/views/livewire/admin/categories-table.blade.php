@@ -11,7 +11,7 @@
                         id="search"
                         wire:model.live.debounce.500ms="search"
                         placeholder="{{ __('text.searchcategory') }}"
-                        right-icon="search"
+                        right-icon="magnifying-glass"
                     />
 
                 </div>
@@ -48,7 +48,7 @@
                             <x-table.cell>
                                 <div class="flex">
                                     <a href="{{ $category->link }}" class="group inline-flex space-x-2 truncate text-sm leading-5 text-blue-base">
-                                        <x-icon name="external-link" class="w-4 h-4 mt-1" />
+                                        <x-icon name="arrow-top-right-on-square" class="w-4 h-4 mt-1" />
                                         <p class="truncte group-hover:text-blue-hover transition ease-in-out duration-150">
                                             {{ Str::limit($category->name, 35, '...')  }}
                                         </p>
@@ -77,13 +77,15 @@
                             </x-table.cell>
 
                             <x-table.cell class="text-center">
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     icon="pencil"
                                     wire:click="editModal({{ $category->id }})"
                                     outline
                                     amber
                                 />
-                                <x-button.circle
+                                <x-mini-button
+                                    rounded
                                     icon="trash"
                                     wire:click="deleteModal({{ $category->id }})"
                                     outline

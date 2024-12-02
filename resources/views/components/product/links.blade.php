@@ -13,7 +13,7 @@
                             href="{{ $item['url'] }}"
                             target="_blank"
                         >
-                        <span><x-icon name="external-link" class="w-4 h-4 mr-1 mt-1" /></span>
+                        <span><x-icon name="arrow-top-right-on-square" class="w-4 h-4 mr-1 mt-1" /></span>
                         <span class="">{{ $item['label'] }}</span>
                         </a>
                     </li>

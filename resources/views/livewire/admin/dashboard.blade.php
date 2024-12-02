@@ -8,7 +8,7 @@
     <div class="w-1/3 mb-4">
         <x-input
             wire:model.live.debounce.500ms="search"
-            right-icon="search"
+            right-icon="magnifying-glass"
             label=""
             placeholder="Search for product..." />
     </div>

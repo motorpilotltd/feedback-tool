@@ -11,11 +11,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
-use WireUi\Traits\Actions;
+use WireUi\Traits\WireUiActions;
 
 class AdminUsersTable extends Component
 {
-    use Actions,
+    use WireUiActions,
         WithPagination,
         WithProductManage,
         WithTableSorting;

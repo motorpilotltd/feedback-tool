@@ -84,7 +84,7 @@
             <h5 class="text-md font-semibold mt-2 md:mt-0 text-blue-500">
                 <a href="{{ $idea->idea_link }}" class="idea-link flex flex-row" target="_blank">
                     {{ $idea->title }}
-                    <x-icon name="external-link" class="w-4 h-4 ml-2 hidden group-hover:block" />
+                    <x-icon name="arrow-top-right-on-square" class="w-4 h-4 ml-2 hidden group-hover:block" />
                 </a>
             </h5>
         </div>

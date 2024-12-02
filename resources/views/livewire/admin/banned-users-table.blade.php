@@ -4,7 +4,7 @@
             <x-input
                 id="searchUser"
                 wire:model.live.debounce.500ms="searchUser"
-                right-icon="search"
+                right-icon="magnifying-glass"
                 placeholder="{{ __('text.searchuserbynameemail') }}"
             />
 
@@ -14,7 +14,7 @@
                 warning
                 md
                 label="{{ __('text.suspenduser') }}"
-                icon="x"
+                icon="x-mark"
                 wire:click="suspendUserModal"
             />
         </div>

@@ -73,7 +73,7 @@ $spamCount = $idea->spams()->count();
                             <x-dropdown>
                                 <x-slot name="trigger">
                                     <x-button rounded xs>
-                                        <x-icon name="dots-horizontal" class="w-5 h-5" />
+                                        <x-icon name="ellipsis-horizontal" class="w-5 h-5" />
                                     </x-button>
                                 </x-slot>
                                 @can('update', $idea)
