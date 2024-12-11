@@ -48,7 +48,7 @@ it('does not show comments that\'s not belong to the idea', function () {
 
 it('can validate content on comment form for errors', function () {
 
-    $imageFile = UploadedFile::fake()->image('testimage', 2, 2);
+    $imageFile = UploadedFile::fake()->image('testimage.png', 2, 2);
 
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
         ->set('content', '')
@@ -60,7 +60,7 @@ it('can validate content on comment form for errors', function () {
 
 it('can validate attachments on comment form for errors', function () {
 
-    $textFile = UploadedFile::fake()->create('testfile', 5, 'text');
+    $textFile = UploadedFile::fake()->create('testfile.txt', 5, 'text/plain');
     $testContent = fake()->text(50);
 
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
@@ -73,7 +73,7 @@ it('can validate attachments on comment form for errors', function () {
 
 it('can validate content and attachments on comment form for errors', function () {
 
-    $textFile = UploadedFile::fake()->create('testfile', 5, 'text');
+    $textFile = UploadedFile::fake()->create('testfile.txt', 5, 'text/plain');
 
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
         ->set('content', '')
@@ -84,7 +84,7 @@ it('can validate content and attachments on comment form for errors', function (
 
 it('can validate content and attachments on comment form when no errors', function () {
 
-    $imageFile = UploadedFile::fake()->image('testimage', 2, 2);
+    $imageFile = UploadedFile::fake()->image('testimage.png', 2, 2);
     $testContent = fake()->text(50);
 
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
@@ -113,7 +113,7 @@ it('can show newly added comment as the latest', function () {
 
 it('can show newly added comment\'s attachment', function () {
     $testContent = fake()->text(50);
-    $imageFile = UploadedFile::fake()->image('testimage', 2, 2);
+    $imageFile = UploadedFile::fake()->image('testimage.png', 2, 2);
     login()->livewire(CommentForm::class, ['idea' => $this->idea1, 'action' => 'addComment'])
         ->set('content', $testContent)
         ->set('attachments', [$imageFile])
