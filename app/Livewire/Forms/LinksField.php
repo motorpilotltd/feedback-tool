@@ -12,7 +12,7 @@ class LinksField extends Component
 
     public $newLink = [
         'label' => '',
-        'url' => ''
+        'url' => '',
     ];
 
     protected $listeners = ['populate-links' => 'populateLinks'];
@@ -21,7 +21,7 @@ class LinksField extends Component
     {
         return [
             'label' => 'required|string',
-            'url' => 'required|url'
+            'url' => 'required|url',
         ];
     }
 
@@ -30,7 +30,7 @@ class LinksField extends Component
         return [
             'label.required' => __('error.fieldisrequired', ['field' => 'Link label']),
             'url.required' => __('error.fieldisrequired', ['field' => 'Link url']),
-            'url.url' => 'Link url must be a valid URL format'
+            'url.url' => 'Link url must be a valid URL format',
         ];
     }
 
