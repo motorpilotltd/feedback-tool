@@ -3,32 +3,52 @@
 namespace App\Livewire\Forms;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class LinksField extends Component
 {
     public Collection $links;
 
-    public $newLink = ['label' => '', 'url' => ''];
+    public $newLink = [
+        'label' => '',
+        'url' => ''
+    ];
 
     protected $listeners = ['populate-links' => 'populateLinks'];
 
-    // When wire model binding, $rules is required
-    protected function rules()
+    private function getValidationRules(): array
     {
         return [
-            'links.*.label' => 'required|string',
-            'links.*.url' => 'required|url',
+            'label' => 'required|string',
+            'url' => 'required|url'
         ];
     }
 
-    protected function messages()
+    private function getValidationMessages(): array
     {
         return [
-            'links.*.label.required' => __('error.fieldisrequired', ['field' => 'Link label']),
-            'links.*.url.required' => __('error.fieldisrequired', ['field' => 'Link url']),
-            'links.*.url.url' => 'Link url must be a valid URL format',
+            'label.required' => __('error.fieldisrequired', ['field' => 'Link label']),
+            'url.required' => __('error.fieldisrequired', ['field' => 'Link url']),
+            'url.url' => 'Link url must be a valid URL format'
         ];
+    }
+
+    private function validateLinks(): \Illuminate\Validation\Validator
+    {
+        $rules = collect($this->getValidationRules())
+            ->mapWithKeys(fn ($rule, $field) => ["links.*.$field" => $rule])
+            ->toArray();
+
+        $messages = collect($this->getValidationMessages())
+            ->mapWithKeys(fn ($message, $key) => ["links.*.$key" => $message])
+            ->toArray();
+
+        return Validator::make(
+            ['links' => $this->links->toArray()],
+            $rules,
+            $messages
+        );
     }
 
     public function mount(Collection $initialLinks)
@@ -41,10 +61,17 @@ class LinksField extends Component
         $this->links = collect($links);
     }
 
-    public function refreshLinksCollection()
+    public function updatedLinks()
     {
-        $this->validate();
-        $this->dispatch('links-field.links-updated', $this->links);
+        $validator = $this->validateLinks();
+
+        if ($validator->fails()) {
+            $this->setErrorBag($validator->errors());
+            $this->dispatch('links-field.validation-failed', errors: $validator->errors()->toArray());
+        } else {
+            $this->resetErrorBag();
+            $this->dispatch('links-field.links-updated', $this->links);
+        }
     }
 
     public function addLinkFields()

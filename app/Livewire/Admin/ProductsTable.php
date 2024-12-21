@@ -34,6 +34,8 @@ class ProductsTable extends Component
 
     public Collection $links;
 
+    public $linksHasErrors = false;
+
     public Product $editing; // Wire model binding to model data
 
     public $productLogo;
@@ -42,7 +44,10 @@ class ProductsTable extends Component
 
     protected $queryString = [];
 
-    protected $listeners = ['links-field.links-updated' => 'linksUpdated'];
+    protected $listeners = [
+        'links-field.links-updated' => 'linksUpdated',
+        'links-field.validation-failed' => 'handleLinksValidationFailure',
+    ];
 
     public function mount()
     {
@@ -68,14 +73,24 @@ class ProductsTable extends Component
             'settings.enableAwaitingConsideration' => '',
             'settings.enableSandboxMode' => '',
             'settings.serviceDeskLink' => 'url',
-            'links.*.label' => 'required|string',
-            'links.*.url' => 'required|url',
         ];
     }
 
     public function linksUpdated($links)
     {
+        $this->linksHasErrors = false;
         $this->links = collect($links);
+    }
+
+    public function handleLinksValidationFailure($errors)
+    {
+        $this->linksHasErrors = true;
+        // Optionally merge errors into parent's error bag
+        foreach ($errors as $key => $messages) {
+            foreach ($messages as $message) {
+                $this->addError($key, $message);
+            }
+        }
     }
 
     public function updatingSearch()
@@ -161,6 +176,16 @@ class ProductsTable extends Component
 
     public function save()
     {
+        // Prevent save if links have validation errors
+        if ($this->linksHasErrors) {
+            $this->notification()->error(
+                title: 'Validation Error',
+                description: 'Please fix the errors in the links section'
+            );
+
+            return;
+        }
+
         $this->validate();
         $this->editing->settings = $this->settings;
         $this->editing->links = $this->links->toArray();
