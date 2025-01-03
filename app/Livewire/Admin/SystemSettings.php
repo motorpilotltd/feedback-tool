@@ -68,11 +68,6 @@ class SystemSettings extends Component
         $settings->save();
     }
 
-    public function linksUpdated($links)
-    {
-        $this->links = collect($links);
-    }
-
     public function saveLinksSettings()
     {
         // Prevent save if links have validation errors
