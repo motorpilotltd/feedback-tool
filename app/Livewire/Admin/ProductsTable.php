@@ -52,6 +52,7 @@ class ProductsTable extends Component
     public function mount()
     {
         $this->editing = $this->makeEmptyProduct();
+        $this->linksHasErrors = false;
     }
 
     // When wire model binding, $rules is required
@@ -253,6 +254,7 @@ class ProductsTable extends Component
     {
         $this->newLogo = null;
         $this->productLogo = null;
+        $this->linksHasErrors = false;
         $this->dispatch('logoPreviewReset');
     }
 
