@@ -12,7 +12,7 @@ trait WithLinksField
 
     public function mountWithLinksField()
     {
-        $this->links = collect([]);
+        $this->links = $this->links ?? collect([]);
         $this->linksHasErrors = false;
     }
 

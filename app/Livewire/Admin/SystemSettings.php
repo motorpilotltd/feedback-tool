@@ -5,21 +5,30 @@ namespace App\Livewire\Admin;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use App\Settings\LinksSettings;
-use Illuminate\Support\Collection;
+use App\Traits\Livewire\WithLinksField;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use WireUi\Traits\WireUiActions;
 
 class SystemSettings extends Component
 {
+    use WireUiActions, WithLinksField;
+
     public $generalSettings;
 
     public $azureadSettings;
 
     public $linksSettings;
 
-    public Collection $links;
-
-    protected $listeners = ['links-field.links-updated' => 'linksUpdated'];
+    protected function getListeners()
+    {
+        return array_merge(
+            $this->getLinksListeners(),
+            [
+                // Add any other listeners specific to SystemSettings
+            ]
+        );
+    }
 
     public function mount()
     {
@@ -30,6 +39,7 @@ class SystemSettings extends Component
         $this->azureadSettings = $settings->toCollection();
 
         $this->linksSettings = $this->getLinksSettings()->toCollection();
+
         $this->links = collect($this->linksSettings->get('links'));
     }
 
@@ -65,6 +75,11 @@ class SystemSettings extends Component
 
     public function saveLinksSettings()
     {
+        // Prevent save if links have validation errors
+        if (! $this->validateLinksBeforeSave()) {
+            return;
+        }
+
         $settings = $this->getLinksSettings();
         $settings->title = $this->linksSettings->get('title');
         $settings->links = $this->links->toArray();

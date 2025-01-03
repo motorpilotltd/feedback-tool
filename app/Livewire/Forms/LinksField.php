@@ -58,6 +58,7 @@ class LinksField extends Component
 
     public function populateLinks($links)
     {
+        $this->resetErrorBag();
         $this->links = collect($links);
     }
 
