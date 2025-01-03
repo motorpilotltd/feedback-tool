@@ -1,4 +1,4 @@
-<div>
+<div wire:key="api-tokens-root">
     <!-- Generate API Token -->
     <x-form-section submit="createApiToken">
         <x-slot name="title">

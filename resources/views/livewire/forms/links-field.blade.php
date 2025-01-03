@@ -11,27 +11,25 @@
                     class="absolute -top-2 -right-2 mb-2"
                 />
                 <x-input
-                    wire:model="links.{{ $index }}.label"
+                    wire:model.live.debounce.500ms="links.{{ $index }}.label"
                     id="links_{{ $index }}_label"
                     name="links_{{ $index }}_label"
                     label="Title"
                     placeholder="Link's title..."
                     :error="$errors->first('links.'.$index.'.label')"
                     wire:key="links.{{ $index }}.label"
-                    wire:change="refreshLinksCollection('{{ $index }}')"
                 />
                 @error('links.'.$index.'.label')
                     <x-input.error>{{ $message }}</x-input.error>
                 @enderror
                 <x-input
-                    wire:model="links.{{ $index }}.url"
+                    wire:model.live.debounce.500ms="links.{{ $index }}.url"
                     id="links_{{ $index }}_url"
                     name="links_{{ $index }}_url"
                     label="URL"
                     placeholder="https://example.com/link"
                     :error="$errors->first('links.'.$index.'.url')"
                     wire:key="links.{{ $index }}.url"
-                    wire:change="refreshLinksCollection"
                 />
                 @error('links.'.$index.'.url')
                     <x-input.error>{{ $message }}</x-input.error>

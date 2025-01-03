@@ -5,9 +5,9 @@ namespace App\Livewire\Admin;
 use App\Livewire\Forms\LinksField;
 use App\Models\Product;
 use App\Services\Product\ProductFilterService;
+use App\Traits\Livewire\WithLinksField;
 use App\Traits\Livewire\WithMediaAttachments;
 use App\Traits\Livewire\WithTableSorting;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,6 +18,7 @@ class ProductsTable extends Component
 {
     use WireUiActions,
         WithFileUploads,
+        WithLinksField,
         WithMediaAttachments,
         WithPagination,
         WithTableSorting;
@@ -32,8 +33,6 @@ class ProductsTable extends Component
 
     public $settings;
 
-    public Collection $links;
-
     public Product $editing; // Wire model binding to model data
 
     public $productLogo;
@@ -42,7 +41,15 @@ class ProductsTable extends Component
 
     protected $queryString = [];
 
-    protected $listeners = ['links-field.links-updated' => 'linksUpdated'];
+    protected function getListeners()
+    {
+        return array_merge(
+            $this->getLinksListeners(),
+            [
+                // Add any other listeners specific to ProductsTable
+            ]
+        );
+    }
 
     public function mount()
     {
@@ -68,14 +75,7 @@ class ProductsTable extends Component
             'settings.enableAwaitingConsideration' => '',
             'settings.enableSandboxMode' => '',
             'settings.serviceDeskLink' => 'url',
-            'links.*.label' => 'required|string',
-            'links.*.url' => 'required|url',
         ];
-    }
-
-    public function linksUpdated($links)
-    {
-        $this->links = collect($links);
     }
 
     public function updatingSearch()
@@ -161,6 +161,11 @@ class ProductsTable extends Component
 
     public function save()
     {
+        // Prevent save if links have validation errors
+        if (! $this->validateLinksBeforeSave()) {
+            return;
+        }
+
         $this->validate();
         $this->editing->settings = $this->settings;
         $this->editing->links = $this->links->toArray();
@@ -228,6 +233,7 @@ class ProductsTable extends Component
     {
         $this->newLogo = null;
         $this->productLogo = null;
+        $this->linksHasErrors = false;
         $this->dispatch('logoPreviewReset');
     }
 
