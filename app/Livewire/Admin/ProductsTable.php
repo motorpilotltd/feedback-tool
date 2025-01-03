@@ -8,7 +8,6 @@ use App\Services\Product\ProductFilterService;
 use App\Traits\Livewire\WithLinksField;
 use App\Traits\Livewire\WithMediaAttachments;
 use App\Traits\Livewire\WithTableSorting;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -19,10 +18,10 @@ class ProductsTable extends Component
 {
     use WireUiActions,
         WithFileUploads,
+        WithLinksField,
         WithMediaAttachments,
         WithPagination,
-        WithTableSorting,
-        WithLinksField;
+        WithTableSorting;
 
     public $search = '';
 
@@ -51,8 +50,6 @@ class ProductsTable extends Component
             ]
         );
     }
-
-
 
     public function mount()
     {
@@ -165,7 +162,7 @@ class ProductsTable extends Component
     public function save()
     {
         // Prevent save if links have validation errors
-        if (!$this->validateLinksBeforeSave()) {
+        if (! $this->validateLinksBeforeSave()) {
             return;
         }
 

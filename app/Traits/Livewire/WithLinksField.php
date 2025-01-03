@@ -20,7 +20,7 @@ trait WithLinksField
     {
         return [
             'links-field.links-updated' => 'handleLinksUpdated',
-            'links-field.validation-failed' => 'handleLinksValidationFailure'
+            'links-field.validation-failed' => 'handleLinksValidationFailure',
         ];
     }
 
@@ -49,8 +49,10 @@ trait WithLinksField
                 title: 'Validation Error',
                 description: 'Please fix the errors in the links section'
             );
+
             return false;
         }
+
         return true;
     }
 }
