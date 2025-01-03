@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Livewire\Forms\LinksField;
 use App\Models\Product;
 use App\Services\Product\ProductFilterService;
+use App\Traits\Livewire\WithLinksField;
 use App\Traits\Livewire\WithMediaAttachments;
 use App\Traits\Livewire\WithTableSorting;
 use Illuminate\Support\Collection;
@@ -20,7 +21,8 @@ class ProductsTable extends Component
         WithFileUploads,
         WithMediaAttachments,
         WithPagination,
-        WithTableSorting;
+        WithTableSorting,
+        WithLinksField;
 
     public $search = '';
 
@@ -32,10 +34,6 @@ class ProductsTable extends Component
 
     public $settings;
 
-    public Collection $links;
-
-    public $linksHasErrors = false;
-
     public Product $editing; // Wire model binding to model data
 
     public $productLogo;
@@ -44,15 +42,21 @@ class ProductsTable extends Component
 
     protected $queryString = [];
 
-    protected $listeners = [
-        'links-field.links-updated' => 'linksUpdated',
-        'links-field.validation-failed' => 'handleLinksValidationFailure',
-    ];
+    protected function getListeners()
+    {
+        return array_merge(
+            $this->getLinksListeners(),
+            [
+                // Add any other listeners specific to ProductsTable
+            ]
+        );
+    }
+
+
 
     public function mount()
     {
         $this->editing = $this->makeEmptyProduct();
-        $this->linksHasErrors = false;
     }
 
     // When wire model binding, $rules is required
@@ -75,23 +79,6 @@ class ProductsTable extends Component
             'settings.enableSandboxMode' => '',
             'settings.serviceDeskLink' => 'url',
         ];
-    }
-
-    public function linksUpdated($links)
-    {
-        $this->linksHasErrors = false;
-        $this->links = collect($links);
-    }
-
-    public function handleLinksValidationFailure($errors)
-    {
-        $this->linksHasErrors = true;
-        // Optionally merge errors into parent's error bag
-        foreach ($errors as $key => $messages) {
-            foreach ($messages as $message) {
-                $this->addError($key, $message);
-            }
-        }
     }
 
     public function updatingSearch()
@@ -178,12 +165,7 @@ class ProductsTable extends Component
     public function save()
     {
         // Prevent save if links have validation errors
-        if ($this->linksHasErrors) {
-            $this->notification()->error(
-                title: 'Validation Error',
-                description: 'Please fix the errors in the links section'
-            );
-
+        if (!$this->validateLinksBeforeSave()) {
             return;
         }
 

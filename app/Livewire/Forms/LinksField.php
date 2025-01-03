@@ -70,7 +70,7 @@ class LinksField extends Component
             $this->dispatch('links-field.validation-failed', errors: $validator->errors()->toArray());
         } else {
             $this->resetErrorBag();
-            $this->dispatch('links-field.links-updated', $this->links);
+            $this->dispatch('links-field.links-updated', links: $this->links);
         }
     }
 
