@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce67f113966f63b10f2c62d266668e4a",
+    "content-hash": "287f5175ec7609f1b7bba1d79256ca03",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1668,16 +1668,16 @@
         },
         {
             "name": "laravel/fortify",
-            "version": "v1.25.2",
+            "version": "v1.25.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/fortify.git",
-                "reference": "a20e8033e7329b05820007c398f06065a38ae188"
+                "reference": "ee35e5b8ea25cc51f8323e27a839283becd44160"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/a20e8033e7329b05820007c398f06065a38ae188",
-                "reference": "a20e8033e7329b05820007c398f06065a38ae188",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/ee35e5b8ea25cc51f8323e27a839283becd44160",
+                "reference": "ee35e5b8ea25cc51f8323e27a839283becd44160",
                 "shasum": ""
             },
             "require": {
@@ -1729,20 +1729,20 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-            "time": "2025-01-10T20:33:47+00:00"
+            "time": "2025-01-17T15:17:57+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v11.38.2",
+            "version": "v11.39.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a"
+                "reference": "996c96955f78e8a2b26a24c490a1721cfb14574f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9d290aa90fcad44048bedca5219d2b872e98772a",
-                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/996c96955f78e8a2b26a24c490a1721cfb14574f",
+                "reference": "996c96955f78e8a2b26a24c490a1721cfb14574f",
                 "shasum": ""
             },
             "require": {
@@ -1943,7 +1943,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-01-15T00:06:46+00:00"
+            "time": "2025-01-21T15:02:43+00:00"
         },
         {
             "name": "laravel/jetstream",
@@ -2198,16 +2198,16 @@
         },
         {
             "name": "laravel/socialite",
-            "version": "v5.16.1",
+            "version": "v5.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/socialite.git",
-                "reference": "4e5be83c0b3ecf81b2ffa47092e917d1f79dce71"
+                "reference": "77be8be7ee5099aed8ca7cfddc1bf6f9ab3fc159"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/socialite/zipball/4e5be83c0b3ecf81b2ffa47092e917d1f79dce71",
-                "reference": "4e5be83c0b3ecf81b2ffa47092e917d1f79dce71",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/77be8be7ee5099aed8ca7cfddc1bf6f9ab3fc159",
+                "reference": "77be8be7ee5099aed8ca7cfddc1bf6f9ab3fc159",
                 "shasum": ""
             },
             "require": {
@@ -2266,7 +2266,7 @@
                 "issues": "https://github.com/laravel/socialite/issues",
                 "source": "https://github.com/laravel/socialite"
             },
-            "time": "2024-12-11T16:43:51+00:00"
+            "time": "2025-01-17T15:17:00+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -5085,16 +5085,16 @@
         },
         {
             "name": "spatie/image",
-            "version": "3.7.5",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "8a4f258e01f080218b2e13b42981ad220e919c40"
+                "reference": "06cf293f66c833704935ba18e16c784d7e8433a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/8a4f258e01f080218b2e13b42981ad220e919c40",
-                "reference": "8a4f258e01f080218b2e13b42981ad220e919c40",
+                "url": "https://api.github.com/repos/spatie/image/zipball/06cf293f66c833704935ba18e16c784d7e8433a7",
+                "reference": "06cf293f66c833704935ba18e16c784d7e8433a7",
                 "shasum": ""
             },
             "require": {
@@ -5142,7 +5142,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/image/tree/3.7.5"
+                "source": "https://github.com/spatie/image/tree/3.8.0"
             },
             "funding": [
                 {
@@ -5154,7 +5154,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-13T13:19:27+00:00"
+            "time": "2025-01-17T10:19:44+00:00"
         },
         {
             "name": "spatie/image-optimizer",
@@ -5322,16 +5322,16 @@
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.18.0",
+            "version": "1.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "8332205b90d17164913244f4a8e13ab7e6761d29"
+                "reference": "d41c44a7eab604c3eb0cad93210612d4c1429c20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/8332205b90d17164913244f4a8e13ab7e6761d29",
-                "reference": "8332205b90d17164913244f4a8e13ab7e6761d29",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/d41c44a7eab604c3eb0cad93210612d4c1429c20",
+                "reference": "d41c44a7eab604c3eb0cad93210612d4c1429c20",
                 "shasum": ""
             },
             "require": {
@@ -5370,7 +5370,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.18.0"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.18.2"
             },
             "funding": [
                 {
@@ -5378,7 +5378,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-30T13:13:39+00:00"
+            "time": "2025-01-20T14:14:17+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -9307,16 +9307,16 @@
         },
         {
             "name": "overtrue/phplint",
-            "version": "9.5.5",
+            "version": "9.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overtrue/phplint.git",
-                "reference": "c074e6a944ead268ad1fbecfef67e978c99ddc09"
+                "reference": "3fdc395a816d1401091062c7a3bfb31252aed6c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overtrue/phplint/zipball/c074e6a944ead268ad1fbecfef67e978c99ddc09",
-                "reference": "c074e6a944ead268ad1fbecfef67e978c99ddc09",
+                "url": "https://api.github.com/repos/overtrue/phplint/zipball/3fdc395a816d1401091062c7a3bfb31252aed6c5",
+                "reference": "3fdc395a816d1401091062c7a3bfb31252aed6c5",
                 "shasum": ""
             },
             "require": {
@@ -9324,14 +9324,14 @@
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": "^8.2",
-                "symfony/cache": "^7.0",
-                "symfony/console": "^7.0",
-                "symfony/event-dispatcher": "^7.0",
-                "symfony/finder": "^7.0",
-                "symfony/options-resolver": "^7.0",
-                "symfony/process": "^7.0",
-                "symfony/yaml": "^7.0"
+                "php": "^8.1",
+                "symfony/cache": "^6.4 || ^7.0",
+                "symfony/console": "^6.4 || ^7.0",
+                "symfony/event-dispatcher": "^6.4 || ^7.0",
+                "symfony/finder": "^6.4 || ^7.0",
+                "symfony/options-resolver": "^6.4 || ^7.0",
+                "symfony/process": "^6.4 || ^7.0",
+                "symfony/yaml": "^6.4 || ^7.0"
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.4",
@@ -9388,7 +9388,7 @@
             ],
             "support": {
                 "issues": "https://github.com/overtrue/phplint/issues",
-                "source": "https://github.com/overtrue/phplint/tree/9.5.5"
+                "source": "https://github.com/overtrue/phplint/tree/9.5.6"
             },
             "funding": [
                 {
@@ -9396,7 +9396,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-08T05:45:05+00:00"
+            "time": "2025-01-15T05:41:15+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -12261,5 +12261,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
