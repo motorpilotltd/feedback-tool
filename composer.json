@@ -16,7 +16,7 @@
         "laravel/framework": "^11.40",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
-        "laravel/socialite": "^5.16",
+        "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "socialiteproviders/microsoft-azure": "^5.2",
