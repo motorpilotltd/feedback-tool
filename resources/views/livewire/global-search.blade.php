@@ -12,7 +12,6 @@
                 document.getElementById('global-search-keyword').focus()
             }, 300);
         });"
-    "
 >
     <form wire:submit.prevent='goToSearchFullPage'>
         <x-input
