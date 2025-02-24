@@ -13,7 +13,7 @@
         "diglactic/laravel-breadcrumbs": "^9.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.4",
         "guzzlehttp/guzzle": "^7.9",
-        "laravel/framework": "^11.43",
+        "laravel/framework": "^11.44",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.18",
