@@ -14,7 +14,29 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(RouteServiceProvider::HOME);
+
+        $middleware->trustHosts();
+
+        $middleware->web([
+            \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
+            \App\Http\Middleware\PreventBannedUsers::class,
+            \App\Http\Middleware\CheckAppSettings::class,
+        ]);
+
+        $middleware->statefulApi();
+        $middleware->throttleApi();
+        $middleware->api(\App\Http\Middleware\PreventBannedUsers::class);
+
+        $middleware->replace(\Illuminate\Http\Middleware\TrustProxies::class, \App\Http\Middleware\TrustProxies::class);
+
+        $middleware->alias([
+            'authFile' => \App\Http\Middleware\AuthenticateFile::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
