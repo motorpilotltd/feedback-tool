@@ -4,6 +4,7 @@ use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
@@ -22,6 +23,12 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->trustHosts();
 
+        $middleware->trustProxies(
+            at: '*',
+            headers: Request::HEADER_X_FORWARDED_FOR |
+                Request::HEADER_X_FORWARDED_PROTO
+        );
+
         $middleware->web([
             \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
             \App\Http\Middleware\PreventBannedUsers::class,
@@ -31,8 +38,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->statefulApi();
         $middleware->throttleApi();
         $middleware->api(\App\Http\Middleware\PreventBannedUsers::class);
-
-        $middleware->replace(\Illuminate\Http\Middleware\TrustProxies::class, \App\Http\Middleware\TrustProxies::class);
 
         $middleware->alias([
             'authFile' => \App\Http\Middleware\AuthenticateFile::class,
