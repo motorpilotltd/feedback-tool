@@ -5,16 +5,31 @@ namespace App\Providers;
 use App\Settings\AzureADSettings;
 use App\Settings\GeneralSettings;
 use Exception;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The path to the "home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect users after login.
+     *
+     * @var string
+     */
+    public const HOME = '/';
+
     /**
      * Register any application services.
      */
@@ -136,5 +151,27 @@ class AppServiceProvider extends ServiceProvider
             // Concatenate all rows with newlines
             return $values->implode("\n");
         });
+
+        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
+            $event->extendSocialite('azure', \SocialiteProviders\Azure\Provider::class);
+        });
+
+        $this->bootAuth();
+        $this->bootRoute();
+    }
+
+    public function bootAuth(): void
+    {
+        Gate::after(function ($user, $ability) {
+            return $user->hasRole(config('const.ROLE_SUPER_ADMIN')) ? true : null;
+        });
+    }
+
+    public function bootRoute(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+        });
+
     }
 }
