@@ -128,7 +128,7 @@ sail npm run dev
 
 To build assets following changes to JS/CSS.
 ```bash
-sail npm build
+sail npm run build
 ```
 At present we store built assets in the repo to avoid the need for a build step during deployment. This *may* change in the future.
 
