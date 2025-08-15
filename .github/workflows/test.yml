@@ -8,8 +8,8 @@ jobs:
         operating-system:
           - ubuntu-latest
         php-version:
-          - '8.2'
           - '8.3'
+          - '8.4'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     services:
       mysql:

@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3|^8.4",
         "cviebrock/eloquent-sluggable": "^11.0",
         "diglactic/laravel-breadcrumbs": "^9.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.5",
