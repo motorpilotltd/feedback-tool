@@ -8,21 +8,21 @@ trait WithAuthRedirects
     {
         $this->setIntendedUrl();
 
-        return redirect()->route('login');
+        return to_route('login');
     }
 
     public function redirectToRegister()
     {
         $this->setIntendedUrl();
 
-        return redirect()->route('register');
+        return to_route('register');
     }
 
     public function redirectToAzureLogin()
     {
         $this->setIntendedUrl();
 
-        return redirect()->route('auth.microsoft');
+        return to_route('auth.microsoft');
     }
 
     private function setIntendedUrl()

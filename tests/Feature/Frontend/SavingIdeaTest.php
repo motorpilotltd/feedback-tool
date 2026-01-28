@@ -117,5 +117,5 @@ it('can redirect to idea page after saving', function () {
         ->set('category', $this->category1->id)
         ->set('content', fake()->text(50))
         ->call('saveIdea')
-        ->assertRedirect(route('idea.show', Idea::first()));
+        ->assertRedirectToRoute('idea.show', Idea::first());
 });

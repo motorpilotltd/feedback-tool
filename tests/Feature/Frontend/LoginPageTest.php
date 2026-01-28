@@ -28,7 +28,7 @@ it('redirects/not redirect to Azure AD login when aad_only', function ($isEnable
     $request = $this->get(route('login'));
     if ($isEnable) {
         $request->assertStatus(302);
-        $request->assertRedirect(route('auth.microsoft'));
+        $request->assertRedirectToRoute('auth.microsoft');
     } else {
         $request->assertStatus(200);
     }

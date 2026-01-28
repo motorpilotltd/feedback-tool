@@ -13,7 +13,7 @@ it('has /user/viewprofile/ page available when there\'s a current user logged in
 it('redirects to login when visiting /user/viewprofile page without logging in', function () {
     $response = $this->get(route('user.viewprofile', ['user' => $this->userBasic->id]));
     $response->assertStatus(302)
-        ->assertRedirect(route('login'));
+        ->assertRedirectToRoute('login');
 });
 
 it('shows the user details in the /user/viewprofile/ page with hidden email if not admin/not profile owner', function () {

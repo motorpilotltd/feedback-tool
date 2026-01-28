@@ -88,7 +88,7 @@ class IdeaShow extends Component
                 // Display notification when page reloaded
                 $this->sessionNotifySuccessDelete(__('text.ideadeletedsuccess'));
 
-                return redirect()->route('product.show', $product);
+                return to_route('product.show', $product);
             }
         }
 

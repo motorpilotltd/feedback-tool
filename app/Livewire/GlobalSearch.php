@@ -123,7 +123,7 @@ class GlobalSearch extends Component
     {
         if (! empty($this->keywords)) {
             // Assuming you have a named route for the search page
-            return redirect()->route('frontend.search.index', ['keywords' => $this->keywords]);
+            return to_route('frontend.search.index', ['keywords' => $this->keywords]);
         }
 
         return false;
