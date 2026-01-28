@@ -10,6 +10,7 @@ jobs:
         php-version:
           - '8.3'
           - '8.4'
+          - '8.5'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     services:
       mysql:
@@ -24,7 +25,7 @@ jobs:
     steps:
       # Install local deps if this action is being run locally
       - name: Install local dependencies
-        if: ${{ env.ACT }}
+        if: env.ACT
         run: |
           sudo apt-get update
           sudo apt-get -yqq install mysql-client
@@ -60,4 +61,4 @@ jobs:
           DB_PORT: 3306
           DB_USERNAME: root
           DB_DATABASE: test
-          DB_PASSWORD: null
+          DB_PASSWORD: ''
