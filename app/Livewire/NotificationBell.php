@@ -75,14 +75,14 @@ class NotificationBell extends Component
         if (! $idea) {
             $this->sessionNotify('warning', __('text.idea_not_exist'));
 
-            return redirect()->route('product.index');
+            return to_route('product.index');
         }
 
         $comment = Comment::find($notification->data['comment_id']);
         if (! $comment) {
             $this->sessionNotify('warning', __('The comment no longer exists!'));
 
-            return redirect()->route('idea.show', [
+            return to_route('idea.show', [
                 'idea' => $notification->data['idea_slug'],
             ]);
         }
@@ -94,7 +94,7 @@ class NotificationBell extends Component
 
         session()->flash('scrollToComment', $comment->id);
 
-        return redirect()->route('idea.show', [
+        return to_route('idea.show', [
             'idea' => $notification->data['idea_slug'],
             'page' => $page,
         ]);
@@ -106,10 +106,10 @@ class NotificationBell extends Component
         if (! $idea) {
             $this->sessionNotify('warning', __('text.idea_not_exist'));
 
-            return redirect()->route('product.index');
+            return to_route('product.index');
         }
 
-        return redirect()->route('idea.show', [
+        return to_route('idea.show', [
             'idea' => $notification->data['idea_slug'],
         ]);
     }

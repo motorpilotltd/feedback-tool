@@ -23,7 +23,7 @@ class PreventBannedUsers
 
             $request->session()->regenerateToken();
 
-            return redirect()->route('login')->with('error', __('text.user:banned'));
+            return to_route('login')->with('error', __('text.user:banned'));
         }
 
         return $next($request);

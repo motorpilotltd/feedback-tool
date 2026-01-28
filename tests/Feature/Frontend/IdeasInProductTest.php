@@ -34,7 +34,7 @@ it('redirects to suggest idea page when clicking "Post a new idea" button', func
         ->assertViewHas('searchTitle', $this->searchString)
         ->call('suggestingIdea', $this->searchString)
         ->assertOk()
-        ->assertRedirect(route('product.suggest.idea', $this->product1));
+        ->assertRedirectToRoute('product.suggest.idea', $this->product1);
 });
 
 it('does not show the idea that doesn\'t belong to the current product', function () {

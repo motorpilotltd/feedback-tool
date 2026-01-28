@@ -81,7 +81,7 @@ class IdeaCardsContainer extends Component
         $title = htmlspecialchars_decode($title); // re-decode
         session()->flash('suggestIdeaTitle', $title);
 
-        return redirect()->route('product.suggest.idea', [$this->product]);
+        return to_route('product.suggest.idea', [$this->product]);
     }
 
     public function paginationView()

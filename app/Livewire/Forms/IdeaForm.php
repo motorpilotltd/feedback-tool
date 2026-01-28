@@ -160,7 +160,7 @@ class IdeaForm extends Component
         if (! auth()->check()) {
             $this->sessionNotify('warning', __('text.mustlogin'));
 
-            return redirect()->route('login');
+            return to_route('login');
         }
         if ($this->idea->exists && auth()->user()->cannot('update', $this->idea)) {
             $this->notification()->warning(
@@ -244,7 +244,7 @@ class IdeaForm extends Component
         }
         $this->sessionNotifySuccess($isNew ? __('text.createideasuccess') : __('text.ideaupdatesuccess'));
 
-        return redirect()->route('idea.show', $idea);
+        return to_route('idea.show', $idea);
     }
 
     public function render()
