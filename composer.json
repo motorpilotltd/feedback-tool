@@ -9,21 +9,20 @@
     "license": "MIT",
     "require": {
         "php": "^8.3|^8.4",
-        "cviebrock/eloquent-sluggable": "^11.0",
-        "diglactic/laravel-breadcrumbs": "^9.0",
+        "cviebrock/eloquent-sluggable": "^12.0",
+        "diglactic/laravel-breadcrumbs": "^10.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.5",
-        "guzzlehttp/guzzle": "^7.10",
-        "laravel/framework": "^11.46",
+        "laravel/framework": "^12.45",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.2",
         "laravel/socialite": "^5.23",
-        "laravel/tinker": "^2.9",
+        "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "socialiteproviders/microsoft-azure": "^5.2",
         "spatie/laravel-medialibrary": "^11.14",
         "spatie/laravel-permission": "^6.21",
         "spatie/laravel-settings": "^3.4",
-        "staudenmeir/belongs-to-through": "^2.16",
+        "staudenmeir/belongs-to-through": "^2.17",
         "wireui/wireui": "*"
     },
     "require-dev": {
@@ -31,16 +30,16 @@
         "fakerphp/faker": "^1.23",
         "itsgoingd/clockwork": "^5.3",
         "laravel/pint": "^1.16",
-        "laravel/sail": "^1.26",
+        "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
+        "nunomaduro/collision": "^8.6",
         "overtrue/phplint": "^9.3",
-        "pestphp/pest": "^2.10",
-        "pestphp/pest-plugin-faker": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "pestphp/pest-plugin-livewire": "^2.0",
-        "spatie/laravel-ignition": "^2.4",
-        "symfony/console": "7.3.*"
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-faker": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-livewire": "^3.0",
+        "spatie/laravel-ignition": "^2.9",
+        "laravel/pail": "^1.2.2"
     },
     "autoload": {
         "psr-4": {
@@ -70,6 +69,25 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install",
+            "npm run build"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     },
     "extra": {
