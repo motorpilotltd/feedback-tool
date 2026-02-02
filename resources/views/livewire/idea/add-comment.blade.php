@@ -10,8 +10,8 @@
             firstComment.scrollIntoView({ behavior: 'smooth' })
         }
     })
-    @if (session('scrollToComment'))
-        const commenToScroll = document.querySelector('#comment-{{ session('scrollToComment') }}')
+    @session('scrollToComment')
+        const commenToScroll = document.querySelector('#comment-{{ $value }}')
         commenToScroll.scrollIntoView({ behavior: 'smooth' })
         commenToScroll.classList.add('border')
         commenToScroll.classList.add('border-green-base')
@@ -19,7 +19,7 @@
             commenToScroll.classList.remove('border')
             commenToScroll.classList.remove('border-green-base')
         }, 5000)
-    @endif
+    @endsession
     "
 
     {{-- Scroll to the latest comment added --}}

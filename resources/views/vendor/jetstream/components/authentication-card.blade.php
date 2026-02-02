@@ -7,9 +7,9 @@
         {{ $slot }}
     </div>
 
-    @if(isset($other))
+    @isset($other)
         <div class="w-full sm:max-w-md py-4 overflow-hidden sm:rounded-lg flex flex-col items-center">
             {{ $other }}
         </div>
-    @endif
+    @endisset
 </div>

@@ -29,13 +29,13 @@
             <div class="sticky top-0 z-10">
                 @livewire('navigation-menu')
                 <!-- Page Heading -->
-                @if (isset($header))
+                @isset($header)
                     <header class="bg-white shadow">
                         <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
                     </header>
-                @endif
+                @endisset
             </div>
 
             <!-- Page Content -->

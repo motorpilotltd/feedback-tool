@@ -24,17 +24,17 @@
         <x-slot name="logo">
             <x-authentication-card-logo />
 
-            @if (session('error'))
+            @session('error')
                 <x-card color="border border-red-500 bg-red-100" shadow="shadow-sm" class="text-red-500">
-                    {!! session('error') !!}
+                    {!! $value !!}
                 </x-card>
-            @endif
+            @endsession
 
-            @if (session('status'))
+            @session('status')
             <x-card color="border border-green-500 bg-green-100" shadow="shadow-sm" class="text-green-500">
-                {!! session('status') !!}
+                {!! $value !!}
             </x-card>
-            @endif
+            @endsession
 
         </x-slot>
 

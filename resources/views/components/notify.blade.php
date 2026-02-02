@@ -1,9 +1,9 @@
 <!-- Alert overlay notification -->
-@if (session('notify'))
+@session('notify')
 <x-overlay-alert
     :redirect="true"
-    messageToDisplay="{{ (session('notify')['message']) }}"
-    type="{{ (session('notify')['type']) }}"
+    messageToDisplay="{{ ($value['message']) }}"
+    type="{{ ($value['type']) }}"
 />
-@endif
+@endsession
 <x-overlay-alert />

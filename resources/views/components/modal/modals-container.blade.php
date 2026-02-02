@@ -6,9 +6,9 @@
 
 <div>
 @auth
-    @if (isset($idea))
+    @isset($idea)
         <livewire:modal.edit-comment :idea="$idea->id" />
-    @endif
+    @endisset
     <livewire:modal.mark-comment-spam />
     <livewire:modal.comment-not-spam />
 @endauth
