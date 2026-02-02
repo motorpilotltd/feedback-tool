@@ -1,4 +1,24 @@
 @inject('aadSettings', 'App\Settings\AzureADSettings')
+@push('styles')
+<style>
+    /* Hide WireUI validation styling until field is touched */
+    #login-form > div:not(.validation-enabled) [with-validation-colors][form-wrapper],
+    #login-form > div:not(.validation-enabled) [with-validation-colors][form-wrapper] *,
+    #login-form > div:not(.validation-enabled) [with-validation-colors][form-wrapper] label {
+        --tw-ring-opacity: 0 !important;
+        --tw-ring-color: transparent !important;
+        background-color: transparent !important;
+    }
+    #login-form > div:not(.validation-enabled) [with-validation-colors][form-wrapper] input,
+    #login-form > div:not(.validation-enabled) [with-validation-colors][form-wrapper] input:invalid {
+        border-color: rgb(209 213 219) !important; /* gray-300 */
+        --tw-ring-opacity: 0 !important;
+        --tw-ring-color: transparent !important;
+        box-shadow: none !important;
+        background-color: white !important;
+    }
+</style>
+@endpush
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
@@ -20,9 +40,9 @@
 
         <x-validation-errors class="mb-4" />
 
-        <form id="login-form" method="POST" action="{{ route('login') }}" class="py-4">
+        <form id="login-form" method="POST" action="{{ route('login') }}" class="py-4" x-data="{ emailTouched: false, passwordTouched: false }">
             @csrf
-            <div>
+            <div :class="{ 'validation-enabled': emailTouched }">
                 <x-input
                     label="{{ __('text.form:email') }}"
                     id="email"
@@ -31,12 +51,13 @@
                     name="email"
                     placeholder="{{ __('text.placeholder:email') }}"
                     :value="old('email')"
+                    x-on:blur="emailTouched = true"
                     required
                     autofocus
                 />
             </div>
 
-            <div class="mt-4">
+            <div :class="{ 'validation-enabled': passwordTouched }" class="mt-4">
                 <x-input
                     label="{{ __('text.form:password') }}"
                     id="password"
@@ -44,6 +65,7 @@
                     type="password"
                     name="password"
                     placeholder="{{ __('text.placeholder:password') }}"
+                    x-on:blur="passwordTouched = true"
                     required
                     autocomplete="current-password"
                 />
