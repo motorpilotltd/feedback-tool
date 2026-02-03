@@ -6,7 +6,6 @@ use App\Models\Idea;
 use App\Models\Product;
 use App\Models\User;
 
-use function Pest\Faker\fake;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {

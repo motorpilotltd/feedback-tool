@@ -5,7 +5,6 @@ use App\Livewire\Idea\Card as IdeaCard;
 use App\Livewire\Idea\VotesCountButton;
 use App\Models\Idea;
 
-use function Pest\Faker\fake;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {

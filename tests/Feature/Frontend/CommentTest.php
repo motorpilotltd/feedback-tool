@@ -9,7 +9,6 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-use function Pest\Faker\fake;
 use function Pest\Livewire\livewire;
 
 beforeEach(function () {

@@ -26,7 +26,7 @@
         "wireui/wireui": "*"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.16",
+        "barryvdh/laravel-debugbar": "^4.0",
         "fakerphp/faker": "^1.23",
         "itsgoingd/clockwork": "^5.3",
         "laravel/pint": "^1.16",
@@ -34,10 +34,9 @@
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
         "overtrue/phplint": "^9.3",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-faker": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
-        "pestphp/pest-plugin-livewire": "^3.0",
+        "pestphp/pest-plugin-faker": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "pestphp/pest-plugin-livewire": "^4.0",
         "spatie/laravel-ignition": "^2.9",
         "laravel/pail": "^1.2.2"
     },

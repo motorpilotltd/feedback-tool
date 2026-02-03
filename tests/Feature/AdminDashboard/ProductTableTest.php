@@ -4,8 +4,6 @@ use App\Livewire\Admin\ProductsTable;
 use App\Models\Product;
 use Illuminate\Http\UploadedFile;
 
-use function Pest\Faker\fake;
-
 beforeEach(function () {
     setupData();
 });
