@@ -46,7 +46,7 @@
             </div>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <h3 class="text-center text-lg font-medium text-gray-900">{{ __('text.updatingcomment') }}</h3>
-                <livewire:forms.comment-form wire:key='$commentId' :idea='$idea->id' :action='$action'>
+                <livewire:forms.comment-form wire:key='$commentId' :idea='$idea->id' :action='$action' />
             </div>
 
         </div>
