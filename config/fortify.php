@@ -131,8 +131,8 @@ return [
     |
     */
 
-    'features' => [
-        Features::registration() => env('FORTIFY_REGISTER', true), // Fallback to true for compatibility.
+    'features' => array_values(array_filter([
+        env('FORTIFY_REGISTER', true) ? Features::registration() : null,
         Features::resetPasswords(),
         // Features::emailVerification(),
         Features::updateProfileInformation(),
@@ -140,6 +140,6 @@ return [
         Features::twoFactorAuthentication([
             'confirmPassword' => true,
         ]),
-    ],
+    ])),
 
 ];

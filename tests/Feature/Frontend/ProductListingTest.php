@@ -33,7 +33,7 @@ beforeEach(function () {
 it('can show product index livewire', function () {
     login()->get(route('product.index'))
         ->assertSee(__('product.select_a_product'))
-        ->assertSeeLivewire(ProductIndex::class);
+        ->assertSeeLivewire('product.index');
 });
 
 it('can show no items found when there are no product', function () {
