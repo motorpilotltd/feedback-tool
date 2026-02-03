@@ -24,8 +24,6 @@ use Database\Seeders\RoleAndPermissionSeeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
-use function Pest\Faker\fake;
-
 uses(
     Tests\TestCase::class,
     // Illuminate\Foundation\Testing\RefreshDatabase::class,

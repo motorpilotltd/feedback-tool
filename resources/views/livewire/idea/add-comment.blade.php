@@ -4,11 +4,13 @@
     $wire.on('commentWasAdded', () => {
         isOpen = false
     })
-    Livewire.hook('message.processed', (message, component) => {
-        if (['gotoPage', 'previousPage', 'nextPage'].includes(message.updateQueue[0].method )) {
-            const firstComment = document.querySelector('.comment-container:first-child')
-            firstComment.scrollIntoView({ behavior: 'smooth' })
-        }
+    Livewire.interceptMessage(({ message, onFinish }) => {
+        onFinish(() => {
+            if (message.calls.some(call => ['gotoPage', 'previousPage', 'nextPage'].includes(call.method))) {
+                const firstComment = document.querySelector('.comment-container:first-child')
+                if (firstComment) firstComment.scrollIntoView({ behavior: 'smooth' })
+            }
+        })
     })
     @session('scrollToComment')
         const commenToScroll = document.querySelector('#comment-{{ $value }}')
