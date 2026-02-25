@@ -41,6 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'authFile' => \App\Http\Middleware\AuthenticateFile::class,
+            'ensureProductNotArchived' => \App\Http\Middleware\EnsureProductNotArchived::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,

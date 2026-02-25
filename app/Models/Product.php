@@ -122,11 +122,17 @@ class Product extends Model implements HasMedia
                     'hideProductFromBreadcrumbs' => $value['hideProductFromBreadcrumbs'] ?? false,
                     'enableAwaitingConsideration' => $value['enableAwaitingConsideration'] ?? false,
                     'enableSandboxMode' => $value['enableSandboxMode'] ?? false,
+                    'isArchived' => $value['isArchived'] ?? false,
                 ];
 
                 return $newValue;
             }
         );
+    }
+
+    public function isArchived(): bool
+    {
+        return (bool) ($this->settings['isArchived'] ?? false);
     }
 
     public function permission(): Attribute

@@ -61,6 +61,7 @@ class Index extends Component
     {
         return (new ProductFilterService)->filter($this->search)
             ->where('settings->hideFromProductList', false)
+            ->where(fn ($q) => $q->where('settings->isArchived', false)->orWhereNull('settings->isArchived'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate()
             ->withQueryString();

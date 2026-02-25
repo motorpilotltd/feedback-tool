@@ -22,8 +22,19 @@ class ProductFactory extends Factory
                 'enableAwaitingConsideration' => false,
                 'enableSandboxMode' => false,
                 'serviceDeskLink' => '',
+                'isArchived' => false,
             ],
         ];
+    }
+
+    public function archived(): static
+    {
+        return $this->state(function (array $attributes) {
+            $settings = $attributes['settings'] ?? [];
+            $settings['isArchived'] = true;
+
+            return ['settings' => $settings];
+        });
     }
 
     public function existing()
