@@ -36,19 +36,19 @@ use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', [ProductIndexController::class, 'index'])->name('product.index');
 
-Route::prefix('product')->group(function () {
+Route::prefix('product')->middleware(['ensureProductNotArchived'])->group(function () {
     Route::get('/{product:slug}', [ProductIndexController::class, 'show'])->name('product.show');
     Route::get('{product:slug}/suggest-idea', [ProductSuggestIdeaController::class, 'show'])->middleware(['auth'])->name('product.suggest.idea');
     Route::get('{product:slug}/progress', [ProductProgressController::class, 'show'])->name('product.progress');
     Route::get('{product}/{tag}', [ProductTagController::class, 'show'])->name('product.tag');
 });
 
-Route::prefix('idea')->group(function () {
+Route::prefix('idea')->middleware(['ensureProductNotArchived'])->group(function () {
     Route::get('{idea:slug}', [IdeaController::class, 'show'])->name('idea.show');
     Route::get('{idea:slug}/edit', [IdeaController::class, 'edit'])->can('update', 'idea')->name('idea.edit');
 });
 
-Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/category/{category:slug}', [CategoryController::class, 'show'])->middleware(['ensureProductNotArchived'])->name('category.show');
 
 // Both product/super admin can access
 $productPermission = config('const.PERMISSION_PRODUCTS_MANAGE');

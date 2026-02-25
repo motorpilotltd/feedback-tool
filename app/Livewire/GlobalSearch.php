@@ -33,7 +33,8 @@ class GlobalSearch extends Component
     {
         if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $query = (new ProductFilterService)->filter($this->keywords)
-                ->where('settings->hideFromProductList', false);
+                ->where('settings->hideFromProductList', false)
+                ->where(fn ($q) => $q->where('settings->isArchived', false)->orWhereNull('settings->isArchived'));
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'product_page')->withQueryString();
             }
@@ -49,7 +50,8 @@ class GlobalSearch extends Component
         if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $query = (new CategoryFilterService)->filter($this->keywords)
                 ->join('products', 'products.id', '=', 'categories.product_id')
-                ->where('products.settings->hideFromProductList', false);
+                ->where('products.settings->hideFromProductList', false)
+                ->where(fn ($q) => $q->where('products.settings->isArchived', false)->orWhereNull('products.settings->isArchived'));
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'category_page')->withQueryString();
             }
@@ -108,7 +110,8 @@ class GlobalSearch extends Component
             $query = (new IdeaFilterService)->filter($filtersDto)
                 ->join('categories', 'categories.id', '=', 'ideas.category_id')
                 ->join('products', 'products.id', '=', 'categories.product_id')
-                ->where('products.settings->hideFromProductList', false);
+                ->where('products.settings->hideFromProductList', false)
+                ->where(fn ($q) => $q->where('products.settings->isArchived', false)->orWhereNull('products.settings->isArchived'));
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'idea_page')->withQueryString();
             }

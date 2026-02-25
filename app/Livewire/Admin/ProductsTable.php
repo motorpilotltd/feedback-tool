@@ -74,6 +74,7 @@ class ProductsTable extends Component
             'settings.hideProductFromBreadcrumbs' => '',
             'settings.enableAwaitingConsideration' => '',
             'settings.enableSandboxMode' => '',
+            'settings.isArchived' => '',
             'settings.serviceDeskLink' => 'url',
         ];
     }
@@ -91,6 +92,7 @@ class ProductsTable extends Component
             'hideProductFromBreadcrumbs' => false,
             'enableAwaitingConsideration' => false,
             'enableSandboxMode' => false,
+            'isArchived' => false,
         ];
         $this->links = collect([]);
 

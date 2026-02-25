@@ -56,6 +56,11 @@
                                         labelLimit="50"
                                     />
                                 @endif
+                                @if ($product->settings['isArchived'] ?? false)
+                                    <span class="ml-2 inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
+                                        {{ __('text.archived') }}
+                                    </span>
+                                @endif
 
                             </x-table.cell>
 
@@ -291,6 +296,17 @@
                     :error="$errors->first('settings.enableSandboxMode')"
                 >
                     <x-input.switch wire:model="settings.enableSandboxMode" id="enableSandboxMode"/>
+                </x-input.group>
+            </x-modal.row>
+
+            <x-modal.row>
+                <x-input.group
+                    for="isArchived"
+                    label="{{ __('text.archiveproduct') }}"
+                    helpText="{!! __('text.archiveproducthelp') !!}"
+                    :error="$errors->first('settings.isArchived')"
+                >
+                    <x-input.switch wire:model="settings.isArchived" id="isArchived"/>
                 </x-input.group>
             </x-modal.row>
 
