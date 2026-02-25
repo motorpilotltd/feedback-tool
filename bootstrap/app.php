@@ -32,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web([
             \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
             \App\Http\Middleware\PreventBannedUsers::class,
+            \App\Http\Middleware\EnsurePasswordChanged::class,
             \App\Http\Middleware\CheckAppSettings::class,
         ]);
 

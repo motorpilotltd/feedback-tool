@@ -33,7 +33,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email', 'password', 'provider_user_id', 'provider_token', 'provider_platform',
+        'name', 'email', 'password', 'must_change_password', 'provider_user_id', 'provider_token', 'provider_platform',
     ];
 
     /**
@@ -69,6 +69,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'banned_at' => 'datetime',
+            'must_change_password' => 'boolean',
         ];
     }
 

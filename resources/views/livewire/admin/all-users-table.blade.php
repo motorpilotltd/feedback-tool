@@ -9,6 +9,14 @@
             />
 
         </div>
+        <div>
+            <x-button
+                blue
+                label="{{ __('text.new') }}"
+                wire:click="openCreateModal"
+                icon="plus"
+            />
+        </div>
     </div>
     <div class="flex-col space-y-4 shadow-outline">
         <x-table wire:loading.class.delay="opacity-30" wire:target='searchSuperUser'>
@@ -57,4 +65,60 @@
             {{ $users->links() }}
         </div>
     </div>
+
+    <x-modal.card-custom title="{{ __('text.addnewuser') }}" blur wire:model="showModal">
+        <x-modal.content>
+            <x-modal.row>
+                <x-input
+                    wire:model="name"
+                    id="name"
+                    type="text"
+                    label="{{ __('text.name') }}"
+                    placeholder="{{ __('text.placeholder:fullname') }}"
+                    class="w-full"
+                />
+            </x-modal.row>
+
+            <x-modal.row>
+                <x-input
+                    wire:model="email"
+                    id="email"
+                    type="email"
+                    label="{{ __('text.form:email') }}"
+                    placeholder="{{ __('text.placeholder:email') }}"
+                    class="w-full"
+                />
+            </x-modal.row>
+
+            <x-modal.row>
+                <x-input.group
+                    for="password"
+                    label="{{ __('text.form:password') }}"
+                    helpText="{{ __('text.passwordhelptext') }}"
+                >
+                    <x-input
+                        wire:model="password"
+                        id="password"
+                        type="password"
+                        placeholder="{{ __('text.placeholder:password') }}"
+                        class="w-full"
+                    />
+                </x-input.group>
+            </x-modal.row>
+        </x-modal.content>
+        <x-slot name="footer">
+            <x-modal.button-container>
+                <x-button
+                    primary
+                    label="{{ __('text.save') }}"
+                    wire:click="save"
+                />
+                <x-button
+                    flat
+                    label="{{ __('text.cancel') }}"
+                    wire:click="$set('showModal', false)"
+                />
+            </x-modal.button-container>
+        </x-slot>
+    </x-modal.card-custom>
 </div>
