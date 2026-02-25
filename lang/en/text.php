@@ -237,4 +237,8 @@ return [
     'couldnotfind' => 'Couldn\'t find anything for that keyword...',
     'or' => 'or',
     'logintoview' => 'Login to view',
+    'addnewuser' => 'Add New User',
+    'usercreatedsuccess' => 'User created successfully!',
+    'passwordhelptext' => 'Leave blank to auto-generate and email a password to the user.',
+    'mustchangepassword' => 'You must change your password before continuing.',
 ];

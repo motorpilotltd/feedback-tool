@@ -14,6 +14,8 @@ class AccountCreated extends Notification
 
     public $user;
 
+    public $password;
+
     public $generalSettings;
 
     /**
@@ -21,9 +23,10 @@ class AccountCreated extends Notification
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, ?string $password = null)
     {
         $this->user = $user;
+        $this->password = $password;
         $this->generalSettings = resolve(GeneralSettings::class);
     }
 
@@ -54,6 +57,7 @@ class AccountCreated extends Notification
             ->subject(config('app.name', 'Feedback App').': '.$this->user->email.' account created')
             ->markdown('emails.account-created', [
                 'user' => $this->user,
+                'password' => $this->password,
             ]);
     }
 

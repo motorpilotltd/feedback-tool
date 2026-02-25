@@ -39,6 +39,7 @@
             height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <!-- End Google Tag Manager (noscript) -->
         @endif
+        <x-banner />
         <x-dialog z-index="z-50" blur="md" align="center" />
         <x-notifications position="top-right" z-index="z-50"/>
         <header class="flex flex-col md:flex-row items-center justify-between px-8 py-1 bg-white shadow-md mb-4 sticky top-0 z-10">
