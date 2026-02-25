@@ -31,7 +31,7 @@ class GlobalSearch extends Component
 
     public function getProductsProperty()
     {
-        if ($this->keywords) {
+        if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $query = (new ProductFilterService)->filter($this->keywords);
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'product_page')->withQueryString();
@@ -45,8 +45,7 @@ class GlobalSearch extends Component
 
     public function getCategoriesProperty()
     {
-        if ($this->keywords) {
-
+        if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $query = (new CategoryFilterService)->filter($this->keywords);
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'category_page')->withQueryString();
@@ -60,7 +59,7 @@ class GlobalSearch extends Component
 
     public function getProductAdminsProperty()
     {
-        if ($this->keywords) {
+        if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $filtersDto = UserFilterDto::fromArray([
                 'role' => config('const.ROLE_PRODUCT_ADMIN'),
                 'searchFields' => ['name', 'email'],
@@ -100,7 +99,7 @@ class GlobalSearch extends Component
 
     public function getIdeasProperty()
     {
-        if ($this->keywords) {
+        if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $filtersDto = IdeaFilterDto::fromArray(['title' => $this->keywords]);
 
             $query = (new IdeaFilterService)->filter($filtersDto);
@@ -127,6 +126,14 @@ class GlobalSearch extends Component
         }
 
         return false;
+    }
+
+    public function updatedKeywords()
+    {
+        $this->resetErrorBag();
+        $this->validate([
+            'keywords' => 'required|min:3',
+        ]);
     }
 
     public function render()

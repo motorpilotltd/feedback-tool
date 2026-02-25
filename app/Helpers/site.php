@@ -71,12 +71,20 @@ if (! function_exists('highlightMatchedSearch')) {
         $keyword = trim($keyword);
         // Split the keyword into individual words
         $keywords = explode(' ', $keyword);
+        usort($keywords, function ($a, $b) {
+            return strlen($b) <=> strlen($a);
+        });
 
-        // Iterate over each keyword and highlight it in the text
-        foreach ($keywords as $word) {
+        // Iterate over each keyword and drop placeholder into the text.
+        foreach ($keywords as $index => $word) {
             $word = preg_quote($word, '/');
             // Use case-insensitive matching for highlighting
-            $text = preg_replace("/($word)/i", '<span class="bg-yellow-200">$1</span>', $text);
+            $text = preg_replace("/($word)/i", "^^^{$index}^^^", $text);
+        }
+
+        // Iterate again to replace the placeholders with the highlighted text.
+        foreach ($keywords as $index => $word) {
+            $text = str_ireplace("^^^{$index}^^^", '<span class="bg-yellow-200">'.$word.'</span>', $text);
         }
 
         return $text;
