@@ -32,7 +32,8 @@ class GlobalSearch extends Component
     public function getProductsProperty()
     {
         if ($this->keywords && $this->getErrorBag()->count() === 0) {
-            $query = (new ProductFilterService)->filter($this->keywords);
+            $query = (new ProductFilterService)->filter($this->keywords)
+                ->where('settings->hideFromProductList', false);
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'product_page')->withQueryString();
             }
@@ -46,7 +47,9 @@ class GlobalSearch extends Component
     public function getCategoriesProperty()
     {
         if ($this->keywords && $this->getErrorBag()->count() === 0) {
-            $query = (new CategoryFilterService)->filter($this->keywords);
+            $query = (new CategoryFilterService)->filter($this->keywords)
+                ->join('products', 'products.id', '=', 'categories.product_id')
+                ->where('products.settings->hideFromProductList', false);
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'category_page')->withQueryString();
             }
@@ -102,7 +105,10 @@ class GlobalSearch extends Component
         if ($this->keywords && $this->getErrorBag()->count() === 0) {
             $filtersDto = IdeaFilterDto::fromArray(['title' => $this->keywords]);
 
-            $query = (new IdeaFilterService)->filter($filtersDto);
+            $query = (new IdeaFilterService)->filter($filtersDto)
+                ->join('categories', 'categories.id', '=', 'ideas.category_id')
+                ->join('products', 'products.id', '=', 'categories.product_id')
+                ->where('products.settings->hideFromProductList', false);
             if ($this->isFullPage) {
                 return $query->paginate(20, ['*'], 'idea_page')->withQueryString();
             }
