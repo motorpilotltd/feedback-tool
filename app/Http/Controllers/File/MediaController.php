@@ -4,6 +4,7 @@ namespace App\Http\Controllers\File;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
@@ -14,7 +15,7 @@ class MediaController extends Controller
     /**
      * Handle the incoming request to either display or download a media file.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Request $request, string $action, Media $media)
     {

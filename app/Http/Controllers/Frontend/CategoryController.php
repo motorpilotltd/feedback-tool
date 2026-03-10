@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
@@ -12,7 +13,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,7 +23,7 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -32,7 +33,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -53,7 +54,7 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Category $category)
     {
@@ -63,7 +64,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Category $category)
     {
@@ -73,7 +74,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Category $category)
     {

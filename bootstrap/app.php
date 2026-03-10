@@ -1,14 +1,24 @@
 <?php
 
+use App\Http\Middleware\AuthenticateFile;
+use App\Http\Middleware\CheckAppSettings;
+use App\Http\Middleware\EnsurePasswordChanged;
+use App\Http\Middleware\EnsureProductNotArchived;
+use App\Http\Middleware\PreventBannedUsers;
 use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Laravel\Jetstream\Http\Middleware\AuthenticateSession;
+use SocialiteProviders\Manager\ServiceProvider;
+use Spatie\Permission\Middleware\PermissionMiddleware;
+use Spatie\Permission\Middleware\RoleMiddleware;
+use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
-        \SocialiteProviders\Manager\ServiceProvider::class,
+        ServiceProvider::class,
     ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -30,22 +40,22 @@ return Application::configure(basePath: dirname(__DIR__))
         );
 
         $middleware->web([
-            \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
-            \App\Http\Middleware\PreventBannedUsers::class,
-            \App\Http\Middleware\EnsurePasswordChanged::class,
-            \App\Http\Middleware\CheckAppSettings::class,
+            AuthenticateSession::class,
+            PreventBannedUsers::class,
+            EnsurePasswordChanged::class,
+            CheckAppSettings::class,
         ]);
 
         $middleware->statefulApi();
         $middleware->throttleApi();
-        $middleware->api(\App\Http\Middleware\PreventBannedUsers::class);
+        $middleware->api(PreventBannedUsers::class);
 
         $middleware->alias([
-            'authFile' => \App\Http\Middleware\AuthenticateFile::class,
-            'ensureProductNotArchived' => \App\Http\Middleware\EnsureProductNotArchived::class,
-            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
-            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
-            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+            'authFile' => AuthenticateFile::class,
+            'ensureProductNotArchived' => EnsureProductNotArchived::class,
+            'permission' => PermissionMiddleware::class,
+            'role' => RoleMiddleware::class,
+            'role_or_permission' => RoleOrPermissionMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

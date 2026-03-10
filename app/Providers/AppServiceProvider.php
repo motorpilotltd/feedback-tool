@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use SocialiteProviders\Azure\Provider;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -152,8 +154,8 @@ class AppServiceProvider extends ServiceProvider
             return $values->implode("\n");
         });
 
-        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
-            $event->extendSocialite('azure', \SocialiteProviders\Azure\Provider::class);
+        Event::listen(function (SocialiteWasCalled $event) {
+            $event->extendSocialite('azure', Provider::class);
         });
 
         $this->bootAuth();

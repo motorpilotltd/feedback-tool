@@ -15,7 +15,7 @@ class UserFilterService
      * Filter users based on various criteria.
      *
      * @param  UserFilterDto  $filter  The filters to be applied
-     * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
+     * @return Builder The filtered query builder.
      */
     public function filter(UserFilterDto $filter): Builder
     {

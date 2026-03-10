@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Filters\Common\SearchField;
 use App\Models\Product;
 use App\Models\User;
 use App\Traits\Livewire\WithProductManage;
@@ -290,7 +291,7 @@ class AdminUsersTable extends Component
                 ],
             ])
             ->through([
-                \App\Filters\Common\SearchField::class,
+                SearchField::class,
             ])
             ->thenReturn();
 
@@ -330,7 +331,7 @@ class AdminUsersTable extends Component
                     ],
                 ])
                 ->through([
-                    \App\Filters\Common\SearchField::class,
+                    SearchField::class,
                 ])
                 ->thenReturn();
 

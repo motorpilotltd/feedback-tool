@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Filters\Common\SearchField;
 use App\Models\Team;
 use App\Models\User;
 use App\Notifications\AccountCreated;
@@ -110,7 +111,7 @@ class AllUsersTable extends Component
                 ],
             ])
             ->through([
-                \App\Filters\Common\SearchField::class,
+                SearchField::class,
             ])
             ->thenReturn();
 

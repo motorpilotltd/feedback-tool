@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\TagGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TagGroup>
+ * @extends Factory<TagGroup>
  */
 class TagGroupFactory extends Factory
 {
