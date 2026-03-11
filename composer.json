@@ -17,7 +17,7 @@
         "laravel/sanctum": "^4.3",
         "laravel/socialite": "^5.24",
         "laravel/tinker": "^2.10.1",
-        "livewire/livewire": "^4.1",
+        "livewire/livewire": "^4.2",
         "socialiteproviders/microsoft-azure": "^5.2",
         "spatie/laravel-medialibrary": "^11.21",
         "spatie/laravel-permission": "^6.24",
@@ -26,7 +26,7 @@
         "wireui/wireui": "*"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^4.0",
+        "barryvdh/laravel-debugbar": "^4.1",
         "fakerphp/faker": "^1.23",
         "itsgoingd/clockwork": "^5.3",
         "laravel/pint": "^1.16",
