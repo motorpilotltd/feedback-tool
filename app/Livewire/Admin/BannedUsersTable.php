@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Filters\Common\SearchField;
 use App\Models\User;
 use App\Traits\Livewire\WithTableSorting;
 use Carbon\Carbon;
@@ -95,7 +96,7 @@ class BannedUsersTable extends Component
                 ],
             ])
             ->through([
-                \App\Filters\Common\SearchField::class,
+                SearchField::class,
             ])
             ->thenReturn();
 

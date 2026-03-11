@@ -3,6 +3,12 @@
 namespace App\Services\Idea;
 
 use App\DataTransferObject\IdeaFilterDto;
+use App\Filters\Common\SearchField;
+use App\Filters\Idea\Category;
+use App\Filters\Idea\OtherFilter;
+use App\Filters\Idea\Product;
+use App\Filters\Idea\Status;
+use App\Filters\Idea\Tag;
 use App\Models\Idea;
 use App\Models\Vote;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +20,7 @@ class IdeaFilterService
      * Filter ideas based on various criteria.
      *
      * @param  IdeaFilterDto  $filter  The filters to be applied
-     * @return \Illuminate\Database\Eloquent\Builder The filtered query builder.
+     * @return Builder The filtered query builder.
      */
     public function filter(IdeaFilterDto $filter): Builder
     {
@@ -32,12 +38,12 @@ class IdeaFilterService
                 'other_filter' => $filter->otherFilter ?: 'default',
             ])
             ->through([
-                \App\Filters\Idea\Product::class,
-                \App\Filters\Idea\Status::class,
-                \App\Filters\Idea\Category::class,
-                \App\Filters\Idea\Tag::class,
-                \App\Filters\Common\SearchField::class,
-                \App\Filters\Idea\OtherFilter::class,
+                Product::class,
+                Status::class,
+                Category::class,
+                Tag::class,
+                SearchField::class,
+                OtherFilter::class,
             ])
             ->thenReturn();
 

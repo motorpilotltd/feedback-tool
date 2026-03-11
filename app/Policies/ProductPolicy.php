@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Traits\WithCustomPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
 {
@@ -14,7 +15,7 @@ class ProductPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user): bool
     {
@@ -24,7 +25,7 @@ class ProductPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, Product $product): bool
     {
@@ -34,7 +35,7 @@ class ProductPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user): bool
     {
@@ -44,7 +45,7 @@ class ProductPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, Product $product): bool
     {
@@ -55,7 +56,7 @@ class ProductPolicy
     /**
      * Determine whether the user can specify different author
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function specifyAuthor(User $user, Product $product)
     {
@@ -70,7 +71,7 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, Product $product): bool
     {
@@ -80,7 +81,7 @@ class ProductPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function restore(User $user, Product $product): bool
     {
@@ -90,7 +91,7 @@ class ProductPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function forceDelete(User $user, Product $product): bool
     {
