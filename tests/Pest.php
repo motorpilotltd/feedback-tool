@@ -23,9 +23,10 @@ use App\Settings\GeneralSettings;
 use Database\Seeders\RoleAndPermissionSeeder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Tests\TestCase;
 
 uses(
-    Tests\TestCase::class,
+    TestCase::class,
     // Illuminate\Foundation\Testing\RefreshDatabase::class,
 )->in('Feature');
 

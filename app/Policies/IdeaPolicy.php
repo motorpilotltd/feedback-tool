@@ -6,6 +6,7 @@ use App\Models\Idea;
 use App\Models\User;
 use App\Traits\WithCustomPolicy;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class IdeaPolicy
 {
@@ -14,7 +15,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(User $user): bool
     {
@@ -24,7 +25,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(User $user, Idea $idea): bool
     {
@@ -34,7 +35,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user): bool
     {
@@ -44,7 +45,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, Idea $idea): bool
     {
@@ -54,7 +55,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function delete(User $user, Idea $idea): bool
     {
@@ -72,7 +73,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function restore(User $user, Idea $idea): bool
     {
@@ -82,7 +83,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can manage the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function manage(User $user, Idea $idea)
     {
@@ -99,7 +100,7 @@ class IdeaPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function forceDelete(User $user, Idea $idea): bool
     {
