@@ -14,7 +14,7 @@ class LogLogin
      */
     public function handle(Request $request, Closure $next): LoginResponse
     {
-        Log::info('This user is logging in: '.$request->email);
+        Log::info('This user is logging in: '.$request->input('email'));
 
         return $next($request);
     }

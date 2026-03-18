@@ -42,7 +42,7 @@ class CheckAppSettings
                 'register',
                 'register.*',
             ]);
-            if ($request->routeIs('login') && $request->get('login') === 'show') {
+            if ($request->routeIs('login') && $request->input('login') === 'show') {
                 return $next($request);
             } else {
                 if (! $request->routeIs($exclude) && $forcelogin) {
