@@ -11,18 +11,4 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Status extends Model
 {
     use HasFactory, SoftDeletes;
-
-    /**
-     * Return the sluggable configuration array for this model.
-     */
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name',
-                'separator' => '_',
-            ],
-        ];
-
-    }
 }

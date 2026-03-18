@@ -5,8 +5,7 @@ namespace App\Models;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use App\Traits\HasSlug;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Exception;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;
@@ -27,8 +26,7 @@ class Product extends Model implements HasMedia
         CascadeSoftDeletes,
         HasFactory,
         HasMediaCollectionsTrait,
-        Sluggable,
-        SluggableScopeHelpers,
+        HasSlug,
         SoftDeletes,
         WithPerPage;
 
@@ -142,16 +140,9 @@ class Product extends Model implements HasMedia
         );
     }
 
-    /**
-     * Return the sluggable configuration array for this model.
-     */
-    public function sluggable(): array
+    public function slugSourceField(): string
     {
-        return [
-            'slug' => [
-                'source' => 'name',
-            ],
-        ];
+        return 'name';
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Traits\GenerateModelLivewireKeyTrait;
 use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
-use Cviebrock\EloquentSluggable\Sluggable;
+use App\Traits\HasSlug;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -27,7 +27,7 @@ class Idea extends Model implements HasMedia
         GenerateModelLivewireKeyTrait,
         HasFactory,
         HasMediaCollectionsTrait,
-        Sluggable,
+        HasSlug,
         SoftDeletes,
         WithPerPage;
 
@@ -119,15 +119,8 @@ class Idea extends Model implements HasMedia
         );
     }
 
-    /**
-     * Return the sluggable configuration array for this model.
-     */
-    public function sluggable(): array
+    public function slugSourceField(): string
     {
-        return [
-            'slug' => [
-                'source' => 'title',
-            ],
-        ];
+        return 'title';
     }
 }
