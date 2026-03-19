@@ -32,15 +32,15 @@ class Filters extends Component
     {
         if (! request()->routeIs('category.show')) {
             $this->categories = $categories;
-            $this->selectedCategory = request()->category ?: '';
+            $this->selectedCategory = request()->input('category') ?: '';
         }
         $this->statuses = Status::when(
             ! $product->settings['enableAwaitingConsideration'],
             fn (Builder $query) => $query->where('slug', '!=', config('const.STATUS_NEW'))
         )
             ->get();
-        $this->selectedStatuses = request()->status ? explode('-', request()->status) : [];
-        $this->selectedFilter = request()->otherfilter ? request()->otherfilter : '';
+        $this->selectedStatuses = request()->input('status') ? explode('-', request()->input('status')) : [];
+        $this->selectedFilter = request()->input('otherfilter') ? request()->input('otherfilter') : '';
 
         // Add 'my idea' filter to filter logged in user's idea(s)
         if (! auth()->guest()) {

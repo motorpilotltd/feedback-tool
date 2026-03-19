@@ -6,12 +6,14 @@ use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[Unguarded]
 class Tag extends Model
 {
     use AvoidDuplicateConstraintSoftDelete,
@@ -20,8 +22,6 @@ class Tag extends Model
         Sluggable,
         SluggableScopeHelpers,
         SoftDeletes;
-
-    protected $guarded = [];
 
     protected $cascadeDeletes = [];
 

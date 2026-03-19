@@ -16,7 +16,7 @@ class AuthenticateFile
     public function handle(Request $request, Closure $next): Response
     {
         // Check if the media is a profile photo (you need to implement this logic)
-        if (in_array($request->media->model_type, [Product::class])) {
+        if (in_array($request->input('media')->model_type, [Product::class])) {
             // If it's a profile photo, bypass authentication
             return $next($request);
         }

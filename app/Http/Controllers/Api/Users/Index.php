@@ -20,10 +20,10 @@ class Index extends Controller
                 $query->where('id', $request->user()->id);
             })
             ->when(
-                $request->search,
+                $request->input('search'),
                 fn (Builder $query) => $query
-                    ->where('name', 'like', "%{$request->search}%")
-                    ->orWhere('email', 'like', "%{$request->search}%")
+                    ->where('name', 'like', "%{$request->input('search')}%")
+                    ->orWhere('email', 'like', "%{$request->input('search')}%")
             )
             ->when(
                 $request->exists('selected'),

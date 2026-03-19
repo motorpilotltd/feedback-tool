@@ -11,7 +11,7 @@ class Dashboard extends Component
 
     public function mount()
     {
-        $this->search = request()->search ?: '';
+        $this->search = request()->input('search') ?: '';
     }
 
     public function getProductsProperty()

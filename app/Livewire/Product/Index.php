@@ -29,7 +29,7 @@ class Index extends Component
     public function mount()
     {
         $this->viewMode = session('view_mode', 'grid');
-        $this->search = request()->search ?: '';
+        $this->search = request()->input('search') ?: '';
     }
 
     public function updatingSearch()
