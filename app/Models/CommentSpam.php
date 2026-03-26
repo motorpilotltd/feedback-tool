@@ -12,5 +12,4 @@ use Illuminate\Database\Eloquent\Model;
 class CommentSpam extends Model
 {
     use HasFactory;
-
 }

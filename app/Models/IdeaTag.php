@@ -12,5 +12,4 @@ use Illuminate\Database\Eloquent\Model;
 class IdeaTag extends Model
 {
     use HasFactory;
-
 }
