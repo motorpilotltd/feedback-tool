@@ -8,6 +8,11 @@ return [
             'database' => env('DB_DATABASE', ':memory:'),
             'prefix' => '',
             'foreign_key_constraints' => true,
+            'url' => env('DB_URL'),
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
+            'transaction_mode' => 'DEFERRED',
         ],
     ],
 
