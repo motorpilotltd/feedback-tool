@@ -7,6 +7,7 @@ use App\Traits\HasMediaCollectionsTrait;
 use App\Traits\WithPerPage;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,7 @@ use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Znck\Eloquent\Traits\BelongsToThrough;
 
+#[Unguarded]
 class Idea extends Model implements HasMedia
 {
     use BelongsToThrough,
@@ -30,8 +32,6 @@ class Idea extends Model implements HasMedia
         WithPerPage;
 
     protected $cascadeDeletes = ['comments', 'votes', 'tags'];
-
-    protected $guarded = [];
 
     protected $withCount = ['comments', 'votes'];
 

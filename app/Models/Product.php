@@ -9,6 +9,7 @@ use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Exception;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Models\Permission;
 
+#[Unguarded]
 class Product extends Model implements HasMedia
 {
     use AvoidDuplicateConstraintSoftDelete,
@@ -29,8 +31,6 @@ class Product extends Model implements HasMedia
         SluggableScopeHelpers,
         SoftDeletes,
         WithPerPage;
-
-    public $guarded = [];
 
     public function getDuplicateAvoidColumns(): array
     {

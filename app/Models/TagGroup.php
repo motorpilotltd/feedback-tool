@@ -5,12 +5,14 @@ namespace App\Models;
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[Unguarded]
 class TagGroup extends Model
 {
     use AvoidDuplicateConstraintSoftDelete,
@@ -18,8 +20,6 @@ class TagGroup extends Model
         HasFactory,
         Sluggable,
         SoftDeletes;
-
-    protected $guarded = [];
 
     protected $cascadeDeletes = ['tags'];
 
