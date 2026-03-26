@@ -17,6 +17,9 @@ export default defineConfig({
     },
     // For Laravel Sail on Windows Subsystem for Linux 2 (WSL2).
     server: {
+        watch: {
+            ignored: ['**/storage/framework/views/**'],
+        },
         hmr: {
             host: 'localhost',
         },
