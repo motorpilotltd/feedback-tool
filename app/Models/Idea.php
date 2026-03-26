@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\GenerateModelLivewireKeyTrait;
 use App\Traits\HasMediaCollectionsTrait;
-use App\Traits\WithPerPage;
 use App\Traits\HasSlug;
+use App\Traits\WithPerPage;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Casts\Attribute;

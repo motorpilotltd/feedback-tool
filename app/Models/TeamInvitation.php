@@ -10,7 +10,6 @@ use Laravel\Jetstream\TeamInvitation as JetstreamTeamInvitation;
 #[Fillable(['email', 'role'])]
 class TeamInvitation extends JetstreamTeamInvitation
 {
-
     /**
      * Get the team that the invitation belongs to.
      */

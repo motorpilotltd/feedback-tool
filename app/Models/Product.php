@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
 use App\Traits\HasMediaCollectionsTrait;
-use App\Traits\WithPerPage;
 use App\Traits\HasSlug;
+use App\Traits\WithPerPage;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Exception;
 use Illuminate\Database\Eloquent\Attributes\Unguarded;

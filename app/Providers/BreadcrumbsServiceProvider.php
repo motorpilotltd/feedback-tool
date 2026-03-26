@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Breadcrumbs\BreadcrumbsManager;
+use App\Facades\Breadcrumbs;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +14,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
         $this->app->singleton(BreadcrumbsManager::class);
 
         $loader = AliasLoader::getInstance();
-        $loader->alias('Breadcrumbs', \App\Facades\Breadcrumbs::class);
+        $loader->alias('Breadcrumbs', Breadcrumbs::class);
     }
 
     public function boot(): void
