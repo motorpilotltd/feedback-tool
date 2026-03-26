@@ -3,23 +3,23 @@
 namespace App\Models;
 
 use App\Traits\AvoidDuplicateConstraintSoftDelete;
-use Cviebrock\EloquentSluggable\Sluggable;
+use App\Traits\HasSlug;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+#[Unguarded]
 class TagGroup extends Model
 {
     use AvoidDuplicateConstraintSoftDelete,
         CascadeSoftDeletes,
         HasFactory,
-        Sluggable,
+        HasSlug,
         SoftDeletes;
-
-    protected $guarded = [];
 
     protected $cascadeDeletes = ['tags'];
 
@@ -45,15 +45,8 @@ class TagGroup extends Model
         ];
     }
 
-    /**
-     * Return the sluggable configuration array for this model.
-     */
-    public function sluggable(): array
+    public function slugSourceField(): string
     {
-        return [
-            'slug' => [
-                'source' => 'name',
-            ],
-        ];
+        return 'name';
     }
 }

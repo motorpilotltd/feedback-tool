@@ -3,14 +3,14 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 
+use App\Breadcrumbs\BreadcrumbTrail;
+use App\Facades\Breadcrumbs;
 use App\Models\Category;
 use App\Models\Idea;
-use App\Models\Product;
-use App\Models\Tag;
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
 //  with `$trail`. This is nice for IDE type checking and completion.
-use Diglactic\Breadcrumbs\Breadcrumbs;
-use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 
 // Home

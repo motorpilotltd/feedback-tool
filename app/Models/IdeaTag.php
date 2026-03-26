@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Table;
+use Illuminate\Database\Eloquent\Attributes\Unguarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+#[Table('idea_tag')]
+#[Unguarded]
 class IdeaTag extends Model
 {
     use HasFactory;
-
-    public $table = 'idea_tag';
-
-    protected $guarded = [];
 }

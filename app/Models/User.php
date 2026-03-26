@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\WithPerPage;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
+#[Fillable(['name', 'email', 'password', 'must_change_password', 'provider_user_id', 'provider_token', 'provider_platform'])]
 class User extends Authenticatable
 {
     use HasApiTokens,
@@ -26,15 +28,6 @@ class User extends Authenticatable
         Notifiable,
         TwoFactorAuthenticatable,
         WithPerPage;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-        'name', 'email', 'password', 'must_change_password', 'provider_user_id', 'provider_token', 'provider_platform',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.

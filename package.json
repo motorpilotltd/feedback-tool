@@ -17,5 +17,6 @@
         "vite": "^7.1.11",
         "concurrently": "^9.0.1"
     },
-    "type": "module"
+    "type": "module",
+    "$schema": "https://www.schemastore.org/package.json"
 }
