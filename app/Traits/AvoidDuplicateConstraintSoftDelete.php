@@ -8,7 +8,7 @@ trait AvoidDuplicateConstraintSoftDelete
 {
     public static function bootAvoidDuplicateConstraintSoftDelete()
     {
-        static::observe(app(UniqueSoftDeleteObserver::class));
+        static::whenBooted(fn () => static::observe(app(UniqueSoftDeleteObserver::class)));
     }
 
     public function getDuplicateAvoidColumns(): array
