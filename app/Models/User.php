@@ -12,9 +12,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
+#[Fillable(['name', 'email', 'password', 'must_change_password', 'provider_user_id', 'provider_token', 'provider_platform'])]
 class User extends Authenticatable
 {
     use HasApiTokens,
@@ -26,15 +28,6 @@ class User extends Authenticatable
         Notifiable,
         TwoFactorAuthenticatable,
         WithPerPage;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-        'name', 'email', 'password', 'must_change_password', 'provider_user_id', 'provider_token', 'provider_platform',
-    ];
 
     /**
      * The attributes that should be hidden for serialization.
