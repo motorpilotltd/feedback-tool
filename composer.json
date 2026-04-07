@@ -13,7 +13,7 @@
         "laravel/framework": "^13.4",
         "laravel/jetstream": "^5.5",
         "laravel/sanctum": "^4.3",
-        "laravel/socialite": "^5.25",
+        "laravel/socialite": "^5.26",
         "laravel/tinker": "^3.0",
         "livewire/livewire": "^4.2",
         "socialiteproviders/microsoft-azure": "^5.2",
@@ -24,7 +24,7 @@
         "wireui/wireui": "*"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^4.1",
+        "barryvdh/laravel-debugbar": "^4.2",
         "fakerphp/faker": "^1.23",
         "itsgoingd/clockwork": "^5.3",
         "laravel/pint": "^1.27",
