@@ -27,7 +27,9 @@ class User extends Authenticatable
         HasTeams,
         Notifiable,
         TwoFactorAuthenticatable,
-        WithPerPage;
+        WithPerPage {
+            HasTeams::teams insteadof HasRoles;
+        }
 
     /**
      * The attributes that should be hidden for serialization.
