@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.3|^8.4|^8.5",
         "dyrynda/laravel-cascade-soft-deletes": "^4.6",
-        "laravel/framework": "^13.7",
+        "laravel/framework": "^13.8",
         "laravel/jetstream": "^5.5",
         "laravel/sanctum": "^4.3",
         "laravel/socialite": "^5.26",
