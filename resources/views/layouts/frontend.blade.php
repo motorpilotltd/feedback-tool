@@ -55,7 +55,7 @@
                         @endif
                         @auth
                             <livewire:show-links-dropdown />
-                            <div class="flex flex-row items-center divide-x divide-dashed hover:divide-solid">
+                            <div class="flex flex-row items-center">
                                 <!-- Notification bell -->
 
                                 <livewire:notification-bell />

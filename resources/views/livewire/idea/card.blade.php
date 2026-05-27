@@ -7,7 +7,7 @@
             clicked.closest('.idea-card').querySelector('.idea-link').click()
         }
     "
-    class="idea-card group @if (!$isViewOnly) duration-150 rounded-xl @else border rounded-md @endif transition ease-in bg-white flex cursor-pointer hover:shadow-md "
+    class="idea-card group @if (!$isViewOnly) duration-150 rounded-xl @else border border-gray-200 rounded-md @endif transition ease-in bg-white flex cursor-pointer hover:shadow-md "
 >
     @if (!$isViewOnly)
         <livewire:idea.votes-count-button

@@ -66,7 +66,7 @@
                     <div>{{ $comment->created_at->diffForHumans() }}</div>
                     @if ($comment->user && $comment->user->id === $parentIdea->author->id)
                         <div>&bull;</div>
-                        <div class="rounded-full border bg-gray-100 px-3 py-1">OP</div>
+                        <div class="rounded-full border border-gray-200 bg-gray-100 px-3 py-1">OP</div>
 
                     @endif
 
