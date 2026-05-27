@@ -9,18 +9,12 @@ class StatusesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
+     * Keyed on the status slug via updateOrCreate, so the seeder is idempotent
+     * and re-running it never re-numbers rows that ideas already reference.
      */
     public function run(): void
     {
-        // define('STATUS_ALL', 'all');
-        // define('STATUS_NEW', 'new');
-        // define('STATUS_CONSIDERED', 'considered');
-        // define('STATUS_DECLINED', 'declined');
-        // define('STATUS_PLANNED', 'planned');
-        // define('STATUS_STARTED', 'started');
-        // define('STATUS_COMPLETED', 'completed');
-        // define('STATUS_SUPPORTCALL', 'supportcall');
-
         // Refer to WireUI badges section for color
         // https://livewire-wireui.com/docs/badges
         // slug, name, color
@@ -33,16 +27,12 @@ class StatusesSeeder extends Seeder
             [config('const.STATUS_COMPLETED'), 'Completed', 'emerald'],
             [config('const.STATUS_SUPPORTCALL'), 'Redirected to Service Desk - CLOSED', 'rose'],
         ];
-        // Truncate first
 
-        Status::truncate();
-
-        foreach ($statuses as $status) {
-            Status::factory()->create([
-                'name' => $status[1],
-                'slug' => $status[0],
-                'color' => $status[2],
-            ]);
+        foreach ($statuses as [$slug, $name, $color]) {
+            Status::updateOrCreate(
+                ['slug' => $slug],
+                ['name' => $name, 'color' => $color],
+            );
         }
     }
 }

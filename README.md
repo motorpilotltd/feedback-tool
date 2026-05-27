@@ -155,4 +155,26 @@ Assets are built and committed when required to avoid end users having to build 
 npm run build
 ```
 
-On a fresh install the database tables can be created and seeded as per the [instructions for running locally using Sail and Docker](#database-migration-and-seeding). Don't forget to immediately change the admin password following installation!
+## Caching and queues
+
+Deployed environments use the `database` cache store and `database` queue connection — no Redis resource is required. The `cache`, `cache_locks`, `jobs` and `job_batches` tables are created by migrations, so a standard `php artisan migrate` provisions them.
+
+## Database seeding on deployed environments
+
+The seeder is split so it is safe to run anywhere:
+
+- `migrate --seed` (or `db:seed`) always seeds the reference data the app needs to function — statuses, roles, permissions and the initial admin account. None of this uses Faker, so it runs on environments where Composer installed with `--no-dev`.
+- Sample/demo data (`DemoDataSeeder`) only runs when `APP_ENV=local`.
+
+The seeders are idempotent, so re-running them will not duplicate or reset data.
+
+## Initial admin account
+
+On a fresh install the database tables can be created and seeded as per the [instructions for running locally using Sail and Docker](#database-migration-and-seeding).
+
+Seeding creates the admin account using `APP_ADMIN_EMAIL`:
+
+- If `ADMIN_INITIAL_PASSWORD` is set, that password is used and nothing is printed.
+- If it is left blank, a unique strong password is generated and **printed once** in the seed output — capture it from the deploy/console log immediately.
+
+Either way the admin is forced to change the password on first login. Self-service registration is disabled by default (`FORTIFY_REGISTER=false`); set it to `true` only if you want an open sign-up page.
