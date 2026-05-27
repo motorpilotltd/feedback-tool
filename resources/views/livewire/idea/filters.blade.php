@@ -27,11 +27,11 @@
 
         <div
             x-data="{ isOpen: false }"
-            class="status-filter-container w-full md:w-1/3 inline-block relative"
+            class="status-filter-container w-full md:w-1/3 md:ml-auto inline-block relative"
         >
 
             <button
-                class="md:absolute @if(!empty($selectedStatuses)) ring-2 ring-blue-base @endif border border-gray-300 shadow-sm flex flex-row items-center  focus:border-2 focus:border-primary-500 justify-between appearance-none bg-white px-4 py-1.5 rounded-md leading-3 space-x-3 hover:shadow-card w-full"
+                class="@if(!empty($selectedStatuses)) ring-2 ring-blue-base @endif border border-gray-300 shadow-sm flex flex-row items-center  focus:border-2 focus:border-primary-500 justify-between appearance-none bg-white px-4 py-1.5 rounded-md leading-3 space-x-3 hover:shadow-card w-full"
                 @click="isOpen = !isOpen"
             >
                 <span class="text-base">Status</span>
