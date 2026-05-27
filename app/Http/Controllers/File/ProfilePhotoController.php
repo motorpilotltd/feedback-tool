@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\File;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * Handles displaying profile photos.
@@ -15,21 +16,16 @@ class ProfilePhotoController extends Controller
     /**
      * Handle the incoming request to display a profile photo.
      */
-    public function show(Request $request, string $filename): Response
+    public function show(Request $request, string $filename): StreamedResponse
     {
-        // Construct the file path
-        $path = 'public/profile-photos/'.$filename;
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+        $path = 'profile-photos/'.$filename;
 
-        // Check if the file exists
-        if (! Storage::exists($path)) {
+        if (! $disk->exists($path)) {
             abort(404);
         }
 
-        // Get the file's content
-        $file = Storage::get($path);
-        $type = Storage::mimeType($path);
-
-        // Return the file as a response
-        return response($file)->header('Content-Type', $type);
+        return $disk->response($path);
     }
 }
