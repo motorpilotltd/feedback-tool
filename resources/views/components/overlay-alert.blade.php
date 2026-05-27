@@ -33,7 +33,7 @@
     x-transition:leave-start="opacity-100 transform translate-x-0"
     x-transition:leave-end="opacity-0 transform translate-x-8"
     @keydown.escape.window="isOpen = false"
-    class="flex z-20 justify-between max-w-sm sm:max-w-md w-full fixed top-16 right-0 bg-white rounded-xl shadow-lg border px-4 py-5 mx-2 sm:mx-6 my-8"
+    class="flex z-20 justify-between max-w-sm sm:max-w-md w-full fixed top-16 right-0 bg-white rounded-xl shadow-lg border border-gray-200 px-4 py-5 mx-2 sm:mx-6 my-8"
 >
     <div class="flex items-center">
         <template x-if="type == 'success'">
