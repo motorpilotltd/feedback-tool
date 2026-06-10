@@ -173,8 +173,20 @@ class IdeaForm extends Component
 
         // Form validation
         $data = $this->validate();
-        // New user author option
-        $newUser = $this->newUser;
+
+        // Authoring on behalf of someone else is a product-manage capability
+        // (ProductPolicy::specifyAuthor, which also gates the UI). Without it,
+        // ignore any client-supplied authorId / new-user fields so a normal
+        // user cannot spoof authorship or trigger account creation.
+        $canSpecifyAuthor = $this->product?->exists
+            && auth()->user()->can('specifyAuthor', $this->product);
+
+        if ($canSpecifyAuthor) {
+            $newUser = $this->newUser;
+        } else {
+            $newUser = ['name' => '', 'email' => ''];
+            $this->authorId = $this->idea->exists ? $this->idea->author_id : $this->authUser->id;
+        }
 
         // Note: We probably don't want to send email/notification if product is in sandbox mode
         $diffAuthor = null;
