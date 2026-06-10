@@ -5,18 +5,17 @@ namespace App\Notifications;
 use App\Models\User;
 use App\Settings\GeneralSettings;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AccountCreated extends Notification
+class AccountCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public $user;
 
     public $password;
-
-    public $generalSettings;
 
     /**
      * Create a new notification instance.
@@ -27,7 +26,6 @@ class AccountCreated extends Notification
     {
         $this->user = $user;
         $this->password = $password;
-        $this->generalSettings = resolve(GeneralSettings::class);
     }
 
     /**
@@ -47,10 +45,14 @@ class AccountCreated extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
+        // Resolved here (not in the constructor) so it isn't serialized into the
+        // queued job payload and reflects the settings at send time.
+        $generalSettings = resolve(GeneralSettings::class);
+
         // Send emails to divert test email if enabled
-        if ($this->generalSettings->enable_divert_email && ! empty($this->generalSettings->divert_email)) {
+        if ($generalSettings->enable_divert_email && ! empty($generalSettings->divert_email)) {
             // Modify the notifiable's email address
-            $notifiable->email = $this->generalSettings->divert_email;
+            $notifiable->email = $generalSettings->divert_email;
         }
 
         return (new MailMessage)
