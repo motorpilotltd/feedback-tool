@@ -95,6 +95,10 @@ if (! function_exists('highlightMatchedSearch')) {
 
         // Iterate over each keyword and drop placeholder into the text.
         foreach ($keywords as $index => $word) {
+            if ($word === '') {
+                // An empty pattern matches between every character; skip it.
+                continue;
+            }
             $quoted = preg_quote(e($word), '/');
             // Use case-insensitive matching for highlighting
             $text = preg_replace("/({$quoted})/i", "^^^{$index}^^^", $text);
@@ -102,6 +106,9 @@ if (! function_exists('highlightMatchedSearch')) {
 
         // Iterate again to replace the placeholders with the highlighted text.
         foreach ($keywords as $index => $word) {
+            if ($word === '') {
+                continue;
+            }
             $text = str_ireplace("^^^{$index}^^^", '<span class="bg-yellow-200">'.e($word).'</span>', $text);
         }
 
