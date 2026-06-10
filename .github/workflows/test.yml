@@ -6,6 +6,7 @@ permissions:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         operating-system:
           - ubuntu-latest
@@ -13,13 +14,16 @@ jobs:
           - '8.3'
           - '8.4'
           - '8.5'
-    name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
+        database:
+          - sqlite
+          - mysql
+    name: php ${{ matrix.php-version }} / ${{ matrix.database }} on ${{ matrix.operating-system }}
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: feedback_tool_testing
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -56,11 +60,16 @@ jobs:
         run: composer install --no-ansi --no-interaction --no-progress --prefer-dist
       - name: Generate application key
         run: php artisan key:generate
-      - name: Run tests
+      # Laravel loads the squashed schema dump via the `mysql` client binary.
+      - name: Ensure MySQL client is available
+        if: matrix.database == 'mysql'
+        run: sudo apt-get update && sudo apt-get -yqq install mysql-client
+      # The suite runs against both SQLite (default, fast, in-memory) and MySQL
+      # (mirrors production). phpunit.xml forces SQLite; phpunit.mysql.xml forces
+      # MySQL against a dedicated testing database.
+      - name: Run tests (SQLite)
+        if: matrix.database == 'sqlite'
         run: vendor/bin/pest
-        env:
-          DB_CONNECTION: mysql
-          DB_PORT: 3306
-          DB_USERNAME: root
-          DB_DATABASE: test
-          DB_PASSWORD: ''
+      - name: Run tests (MySQL)
+        if: matrix.database == 'mysql'
+        run: vendor/bin/pest -c phpunit.mysql.xml

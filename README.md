@@ -136,6 +136,31 @@ At present we store built assets in the repo to avoid the need for a build step 
 
 As indicated earlier it *is* possible to clone the repository to the Windows file system and launch the app using Sail. Whilst this can make it easier for development using a Windows IDE it can dramatically affect the performance when running the app. With the repository cloned to the Linux file system it can still be possible to develop using a Windows IDE, e.g. VS Code has the remote-wsl extension to open folders within WSL.
 
+# Testing
+
+The suite runs against two databases so behaviour is verified on both the fast
+in-memory engine and the one used in production:
+
+- **SQLite** (default) — `composer test` (uses `phpunit.xml`, in-memory).
+- **MySQL** — `composer test:mysql` (uses `phpunit.mysql.xml`).
+
+CI runs both for every supported PHP version. SQLite silently tolerates SQL that
+MySQL rejects (e.g. ambiguous columns), so the MySQL run is what catches
+production-only issues.
+
+The MySQL config forces a dedicated `feedback_tool_testing` database — your dev
+database is never touched — and inherits the connection password from the
+environment. Locally, create the database once and provide the password your
+MySQL root uses (the CI MySQL root has no password, so the committed config
+leaves it blank):
+
+```bash
+mysql -uroot -p -e "CREATE DATABASE IF NOT EXISTS feedback_tool_testing"
+```
+
+Then add `DB_PASSWORD=<your-local-root-password>` to `.env.testing` (git
+ignored), or pass it inline, e.g. PowerShell: `$env:DB_PASSWORD='mysql'; composer test:mysql`.
+
 # Deployment/Production
 
 You may wish to consider [Laravel Forge](https://forge.laravel.com/) or [Laravel Vapor](https://vapor.laravel.com/) for deployment.
