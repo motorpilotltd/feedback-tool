@@ -139,7 +139,7 @@ class IdeaForm extends Component
                     $fail(__('error.invalidcategoryvalue'));
                 }
             }],
-            'content' => 'required:min:4',
+            'content' => 'required|min:4',
             'attachments.*' => 'image|max:2024',
             'newUser.name' => 'required_if:authorOption,0|min:4|max:255',
             'newUser.email' => 'max:255|required_if:authorOption,0|email|unique:users,email,'.$this->authUser->id,
