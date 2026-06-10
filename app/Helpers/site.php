@@ -53,15 +53,29 @@ if (! function_exists('loginAsUser')) {
 if (! function_exists('hideEmailAddress')) {
     function hideEmailAddress($email)
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            [$first, $last] = explode('@', $email);
-            $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first) - 3), $first);
-            $last = explode('.', $last);
-            $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0']) - 1), $last['0']);
-            $hideEmailAddress = $first.'@'.$last_domain.'.'.$last['1'];
-
-            return $hideEmailAddress;
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return '';
         }
+
+        [$local, $domain] = explode('@', $email, 2);
+
+        // Reveal up to the first 3 characters of the local part, but always
+        // leave at least one masked. (The previous implementation passed a
+        // negative count to str_repeat and crashed on local parts < 3 chars.)
+        $visible = min(3, max(1, mb_strlen($local) - 1));
+        $maskedLocal = mb_substr($local, 0, $visible).str_repeat('*', max(1, mb_strlen($local) - $visible));
+
+        // Mask the domain name but keep the full TLD remainder intact, so
+        // multi-label suffixes such as .co.uk are not truncated.
+        $dotPos = mb_strrpos($domain, '.');
+        if ($dotPos === false) {
+            $maskedDomain = mb_substr($domain, 0, 1).str_repeat('*', max(1, mb_strlen($domain) - 1));
+        } else {
+            $name = mb_substr($domain, 0, $dotPos);
+            $maskedDomain = mb_substr($name, 0, 1).str_repeat('*', max(1, mb_strlen($name) - 1)).mb_substr($domain, $dotPos);
+        }
+
+        return $maskedLocal.'@'.$maskedDomain;
     }
 }
 
