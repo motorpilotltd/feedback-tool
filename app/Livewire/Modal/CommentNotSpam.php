@@ -23,7 +23,7 @@ class CommentNotSpam extends Component
 
     public function commentNotSpam()
     {
-        if (auth()->guest()) {
+        if (auth()->guest() || auth()->user()->cannot('manage', $this->comment->idea)) {
             $this->dispatchNotifyWarning(__('error.actionnotpermitted'));
         } else {
             $this->comment->spams()->sync([]);

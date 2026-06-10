@@ -107,7 +107,7 @@ class Comment extends Component
 
     public function commentNotSpamConfirm(CommentModel $comment, bool $confirm = false)
     {
-        if (auth()->guest()) {
+        if (auth()->guest() || auth()->user()->cannot('manage', $this->parentIdea)) {
             $this->notification()->warning(
                 $description = __('error.actionnotpermitted'),
             );
@@ -139,6 +139,14 @@ class Comment extends Component
 
     public function pinningComment(int $commentId, bool $isPinned)
     {
+        if (auth()->guest() || auth()->user()->cannot('pinIdeaComment', $this->parentIdea)) {
+            $this->notification()->warning(
+                $description = __('error.actionnotpermitted'),
+            );
+
+            return;
+        }
+
         $idea = $this->parentIdea;
         $prevPinned = $idea->sticky_comment_id;
         $idea->sticky_comment_id = ! $isPinned ? $commentId : 0;
