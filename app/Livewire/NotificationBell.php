@@ -6,7 +6,6 @@ use App\Models\Comment;
 use App\Models\Idea;
 use App\Traits\Livewire\WithDispatchNotify;
 use Illuminate\Http\Response;
-use Illuminate\Notifications\DatabaseNotification;
 use Livewire\Component;
 
 class NotificationBell extends Component
@@ -55,7 +54,9 @@ class NotificationBell extends Component
             abort(Response::HTTP_FORBIDDEN);
         }
 
-        $notification = DatabaseNotification::findOrFail($notificationId);
+        // Scope to the current user's own notifications so a user cannot delete
+        // another user's notification by guessing its id.
+        $notification = auth()->user()->notifications()->findOrFail($notificationId);
         // or markAsRead to flag read_at instead of deleting from table
         $notification->delete(); // Or delete completely
 
