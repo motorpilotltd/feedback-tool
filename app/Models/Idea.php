@@ -85,7 +85,7 @@ class Idea extends Model implements HasMedia
 
     public function votes(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'votes');
+        return $this->belongsToMany(User::class, 'votes')->withTimestamps();
     }
 
     public function product()
