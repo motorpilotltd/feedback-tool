@@ -63,6 +63,8 @@ class AllUsersTable extends Component
 
     public function save()
     {
+        abort_unless(auth()->user()?->hasRole(config('const.ROLE_SUPER_ADMIN')), 403);
+
         $this->validate();
 
         $plainPassword = $this->password;
