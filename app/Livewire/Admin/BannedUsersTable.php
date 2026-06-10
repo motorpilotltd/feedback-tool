@@ -42,6 +42,8 @@ class BannedUsersTable extends Component
 
     public function suspendUser()
     {
+        abort_unless(auth()->user()?->hasRole(config('const.ROLE_SUPER_ADMIN')), 403);
+
         $user = User::find($this->userId);
         $user->banned_at = Carbon::now();
         $user->save();
@@ -53,6 +55,8 @@ class BannedUsersTable extends Component
 
     public function unsuspendUserDialog(User $user, $confirm = false)
     {
+        abort_unless(auth()->user()?->hasRole(config('const.ROLE_SUPER_ADMIN')), 403);
+
         if (! $confirm) {
             $this->dialog()->confirm([
                 'title' => __('text.areyousure'),

@@ -10,13 +10,15 @@
                 <livewire:admin.admin-users-table/>
             </x-tabs.tab>
 
-            <x-tabs.tab name="Suspend" tabLink="suspend">
-                <livewire:admin.banned-users-table/>
-            </x-tabs.tab>
+            @if (auth()->user()->hasRole(config('const.ROLE_SUPER_ADMIN')))
+                <x-tabs.tab name="Suspend" tabLink="suspend">
+                    <livewire:admin.banned-users-table/>
+                </x-tabs.tab>
 
-            <x-tabs.tab name="All Users" tabLink="allusers">
-                <livewire:admin.all-users-table/>
-            </x-tabs.tab>
+                <x-tabs.tab name="All Users" tabLink="allusers">
+                    <livewire:admin.all-users-table/>
+                </x-tabs.tab>
+            @endif
         </x-tabs.container>
     </x-admin.container>
 </x-app-layout>
