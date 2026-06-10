@@ -29,6 +29,13 @@ class UniqueSoftDeleteObserver
 
     public function deleted(Model $model): void
     {
+        // The deleted event also fires after forceDelete(), when the row no
+        // longer exists; saving here would re-insert (resurrect) it. Only
+        // mangle the unique columns on a soft delete.
+        if (method_exists($model, 'isForceDeleting') && $model->isForceDeleting()) {
+            return;
+        }
+
         foreach ($model->getDuplicateAvoidColumns() as $column) {
             $newValue = time().self::DELIMITER.$model->{$column};
             $model->{$column} = $newValue;
