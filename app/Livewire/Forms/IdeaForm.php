@@ -14,6 +14,7 @@ use App\Services\Idea\IdeaService;
 use App\Services\Idea\IdeaVoteService;
 use App\Traits\Livewire\WithDispatchNotify;
 use App\Traits\Livewire\WithMediaAttachments;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use WireUi\Traits\WireUiActions;
@@ -188,72 +189,62 @@ class IdeaForm extends Component
             $this->authorId = $this->idea->exists ? $this->idea->author_id : $this->authUser->id;
         }
 
-        // Note: We probably don't want to send email/notification if product is in sandbox mode
-        $diffAuthor = null;
-        if (! empty($newUser['name']) && ! empty($newUser['email'])) {
-            $diffAuthor = User::create([
-                'name' => $newUser['name'],
-                'email' => $newUser['email'],
-            ]);
-            $this->authorId = $diffAuthor->id;
-            // Send an email
+        $isNew = ! $this->idea->exists;
+
+        // Wrap every write so a partial failure cannot leave an orphaned user or
+        // an idea without its vote/tags. Side effects that cannot be rolled back
+        // (email, file storage) run after the transaction commits.
+        [$idea, $diffAuthor] = DB::transaction(function () use ($ideaVoteService, $ideaService, $newUser, $data, $isNew) {
+            $diffAuthor = null;
+            if (! empty($newUser['name']) && ! empty($newUser['email'])) {
+                $diffAuthor = User::create([
+                    'name' => $newUser['name'],
+                    'email' => $newUser['email'],
+                ]);
+                $this->authorId = $diffAuthor->id;
+            }
+
+            $data['status'] = $this->product->settings['enableAwaitingConsideration'] ? config('const.STATUS_NEW') : config('const.STATUS_CONSIDERED');
+            $data['authorId'] = $this->authorId;
+            $data['addedBy'] = $this->authUser->id;
+            $ideaDto = IdeaDto::fromArray($data);
+
+            if ($isNew) {
+                $idea = $ideaService->store($ideaDto);
+                // Vote user to its own idea
+                $ideaVoteService->toggleVote($idea, auth()->user());
+            } else {
+                $idea = $ideaService->update($this->idea, $ideaDto);
+            }
+
+            $ideaService->syncTags($idea, $this->selectedTags);
+
+            return [$idea, $diffAuthor];
+        });
+
+        // Notify the newly created author that their account was made.
+        if ($diffAuthor) {
             $diffAuthor->notify(new AccountCreated($diffAuthor));
         }
 
-        // Create an idea
-        $isNew = false;
-        $storeAttachment = false;
-
-        $data['status'] = $this->product->settings['enableAwaitingConsideration'] ? config('const.STATUS_NEW') : config('const.STATUS_CONSIDERED');
-        $data['authorId'] = $this->authorId;
-        $data['addedBy'] = $this->authUser->id;
-        // Define the Idea DTO object
-        $ideaDto = IdeaDto::fromArray($data);
-
-        if (! $this->idea->exists) {
-            $idea = $ideaService->store($ideaDto);
-            // Initiate storing attachment
-            $storeAttachment = true;
-
-            // Vote user to its own idea
-            $ideaVoteService->toggleVote($idea, auth()->user());
-
-            // Send email/notification to user that an idea was added on their behalf
+        if ($isNew) {
+            // Notify the author when the idea was added on their behalf.
             if ($this->authorId !== $this->authUser->id) {
-                $diffAuthor = $diffAuthor ?? User::find($this->authorId);
-                $diffAuthor->notify(new IdeaAdded($idea, true));
+                ($diffAuthor ?? User::find($this->authorId))->notify(new IdeaAdded($idea, true));
             }
 
-            // Notify product admins that idea was added to product
-            if ($productAdmins = User::permission(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$this->product->id)->get()) {
-                $productAdmins->each(function ($user) use ($idea) {
+            // Notify product admins (other than the submitter).
+            User::permission(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$this->product->id)
+                ->get()
+                ->each(function ($user) use ($idea) {
                     if ($user->id !== auth()->id()) {
                         $user->notify(new IdeaAdded($idea));
                     }
                 });
-            }
-
-            $isNew = true;
-        } else {
-            // Do not allow non-author to edit the idea
-            $idea = $this->idea;
-            if (auth()->user()->cannot('update', $this->idea)) {
-                $this->notification()->warning(
-                    $description = __('error.editideanotallowed'),
-                );
-            } else {
-                $idea = $ideaService->update($this->idea, $ideaDto);
-                $storeAttachment = true;
-            }
         }
 
-        // Sync idea Tags
-        $ideaService->syncTags($idea, $this->selectedTags);
+        $this->storeIdeaAttachments($idea);
 
-        // Store idea attachments
-        if ($storeAttachment) {
-            $this->storeIdeaAttachments($idea);
-        }
         $this->sessionNotifySuccess($isNew ? __('text.createideasuccess') : __('text.ideaupdatesuccess'));
 
         return to_route('idea.show', $idea);
