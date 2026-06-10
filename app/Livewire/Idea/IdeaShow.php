@@ -139,7 +139,7 @@ class IdeaShow extends Component
      */
     public function ideaNotSpam(IdeaSpamService $ideaSpamService, bool $confirm = false): void
     {
-        if (auth()->guest()) {
+        if (auth()->guest() || auth()->user()->cannot('manage', $this->idea)) {
             $this->dispatchNotifyWarning(__('error.actionnotpermitted'));
         } else {
             if (! $confirm) {
