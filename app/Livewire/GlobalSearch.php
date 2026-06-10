@@ -10,7 +10,6 @@ use App\Services\Category\CategoryFilterService;
 use App\Services\Idea\IdeaFilterService;
 use App\Services\Product\ProductFilterService;
 use App\Services\User\UserFilterService;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -91,15 +90,13 @@ class GlobalSearch extends Component
 
     public function appendUserProductPermissions(User &$user)
     {
-        $permissions = $user->getPermissionNames();
         $productsManage = config('const.PERMISSION_PRODUCTS_MANAGE').'.';
-        $user->permissionProduct = new Collection;
-        foreach ($permissions as $permission) {
-            $productId = Str::replace($productsManage, '', $permission);
-            if ($product = Product::find($productId)) {
-                $user->permissionProduct->push($product->name);
-            }
-        }
+        $productIds = $user->getPermissionNames()
+            ->filter(fn ($permission) => Str::startsWith($permission, $productsManage))
+            ->map(fn ($permission) => (int) Str::replace($productsManage, '', $permission));
+
+        // One query instead of a Product::find() per permission.
+        $user->permissionProduct = Product::whereIn('id', $productIds)->pluck('name');
     }
 
     public function getIdeasProperty()
