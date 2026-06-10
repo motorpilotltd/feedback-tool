@@ -8,6 +8,7 @@ use App\Services\Product\ProductFilterService;
 use App\Traits\Livewire\WithLinksField;
 use App\Traits\Livewire\WithMediaAttachments;
 use App\Traits\Livewire\WithTableSorting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -141,7 +142,10 @@ class ProductsTable extends Component
                 ],
             ]);
         } else {
-            $product->delete();
+            // Deleting a product cascade-soft-deletes its categories, ideas,
+            // comments, votes and tags — many rows across several tables. Wrap
+            // it so a failure partway cannot leave a half-deleted product.
+            DB::transaction(fn () => $product->delete());
             $this->notification()->success(
                 $description = __('text.successfullydeleted'),
             );
