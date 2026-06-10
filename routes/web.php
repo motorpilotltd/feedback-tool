@@ -100,6 +100,7 @@ Route::get('/user/myprofile', [UserController::class, 'show'])
     ->name('user.myprofile');
 
 Route::post('/user/loginas', [UserLoginAsController::class, 'index'])
+    ->middleware(['auth'])
     ->name('user.loginas');
 
 // Search page

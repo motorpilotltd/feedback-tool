@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
- * Handles the management of tags in the admin panel.
+ * Switches an impersonation session back to the original admin account.
  */
 class UserLoginAsController extends Controller
 {
@@ -16,8 +16,13 @@ class UserLoginAsController extends Controller
      */
     public function index(Request $request): RedirectResponse
     {
+        // Only reachable while impersonating: admin_user is set by loginAsUser().
         $adminUser = $request->session()->get('admin_user');
+        abort_unless($adminUser, 403);
+
         $user = User::find($adminUser->id);
+        abort_unless($user, 403);
+
         $redirect = loginAsUser($user, true);
 
         return redirect()->to($redirect)->with('notify', [
