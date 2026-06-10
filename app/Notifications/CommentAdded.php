@@ -6,16 +6,15 @@ use App\Models\Comment;
 use App\Settings\GeneralSettings;
 use App\Traits\WithCustomNotification;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CommentAdded extends Notification
+class CommentAdded extends Notification implements ShouldQueue
 {
     use Queueable, WithCustomNotification;
 
     public $comment;
-
-    public $generalSettings;
 
     /**
      * Create a new notification instance.
@@ -26,7 +25,6 @@ class CommentAdded extends Notification
     {
         $this->comment = $comment;
         $this->customType = 'comment';
-        $this->generalSettings = resolve(GeneralSettings::class);
     }
 
     /**
@@ -46,10 +44,14 @@ class CommentAdded extends Notification
      */
     public function toMail($notifiable): MailMessage
     {
+        // Resolved here (not in the constructor) so it isn't serialized into the
+        // queued job payload and reflects the settings at send time.
+        $generalSettings = resolve(GeneralSettings::class);
+
         // Send emails to divert test email if enabled
-        if ($this->generalSettings->enable_divert_email && ! empty($this->generalSettings->divert_email)) {
+        if ($generalSettings->enable_divert_email && ! empty($generalSettings->divert_email)) {
             // Modify the notifiable's email address
-            $notifiable->email = $this->generalSettings->divert_email;
+            $notifiable->email = $generalSettings->divert_email;
         }
 
         return (new MailMessage)
