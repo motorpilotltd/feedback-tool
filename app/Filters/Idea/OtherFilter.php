@@ -28,7 +28,9 @@ class OtherFilter extends BaseFilter
                 $builder->orderByDesc('ideas.created_at');
                 break;
             case 'myidea':
-                $builder->where('ideas.author_id', auth()->user()->id);
+                // Guests have no "my ideas"; auth()->id() ?? 0 yields an empty
+                // result instead of dereferencing a null user.
+                $builder->where('ideas.author_id', auth()->id() ?? 0);
                 $builder->orderByDesc('ideas.created_at');
                 break;
             case 'createdAt':
