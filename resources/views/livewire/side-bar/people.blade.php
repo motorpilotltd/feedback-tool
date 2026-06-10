@@ -7,7 +7,7 @@
                         <x-user-avatar xs :user="$person" />
                         <div class="text-sm font-medium">
                             {!! __('general.user_name_link', [
-                                'name' => Str::limit($person->name, 25, '...'),
+                                'name' => e(Str::limit($person->name, 25, '...')),
                                 'link' => route('user.viewprofile', ['user' => $person->id])
                             ]) !!}
                             @if (!auth()->guest() && $person->id === auth()->user()->id)

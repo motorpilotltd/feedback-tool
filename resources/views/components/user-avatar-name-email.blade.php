@@ -15,10 +15,10 @@
         </div>
         <div class="ml-4">
         <div class="text-sm font-medium  @if($deleted) text-gray-500 @else text-gray-900 @endif">
-            {!! $user->name ?? __('text.userdeleted') !!}
+            {{ $user->name ?? __('text.userdeleted') }}
         </div>
         <div class="text-sm text-gray-500">
-            {!! $user->email ?? null !!}
+            {{ $user->email ?? null }}
         </div>
     </div>
 </div>

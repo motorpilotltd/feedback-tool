@@ -57,7 +57,7 @@
                     <div class="@if (!empty($comment->is_status_update)) text-blue-base @endif font-bold">
                         {!!
                             __('general.user_name_link', [
-                                'name' => $comment->user->name ?? __('text.userdeleted'),
+                                'name' => e($comment->user->name ?? __('text.userdeleted')),
                                 'link' => route('user.viewprofile', ['user' => $comment->user->id])
                             ])
                         !!}

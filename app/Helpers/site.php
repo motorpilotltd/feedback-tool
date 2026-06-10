@@ -68,6 +68,10 @@ if (! function_exists('hideEmailAddress')) {
 if (! function_exists('highlightMatchedSearch')) {
     function highlightMatchedSearch($text, $keyword)
     {
+        // $text and $keyword are user-controlled and the result is echoed with
+        // {!! !!}, so escape everything up front; only the highlight <span>
+        // wrapper added below is trusted HTML.
+        $text = e($text);
         $keyword = trim($keyword);
         // Split the keyword into individual words
         $keywords = explode(' ', $keyword);
@@ -77,14 +81,14 @@ if (! function_exists('highlightMatchedSearch')) {
 
         // Iterate over each keyword and drop placeholder into the text.
         foreach ($keywords as $index => $word) {
-            $word = preg_quote($word, '/');
+            $quoted = preg_quote(e($word), '/');
             // Use case-insensitive matching for highlighting
-            $text = preg_replace("/($word)/i", "^^^{$index}^^^", $text);
+            $text = preg_replace("/({$quoted})/i", "^^^{$index}^^^", $text);
         }
 
         // Iterate again to replace the placeholders with the highlighted text.
         foreach ($keywords as $index => $word) {
-            $text = str_ireplace("^^^{$index}^^^", '<span class="bg-yellow-200">'.$word.'</span>', $text);
+            $text = str_ireplace("^^^{$index}^^^", '<span class="bg-yellow-200">'.e($word).'</span>', $text);
         }
 
         return $text;

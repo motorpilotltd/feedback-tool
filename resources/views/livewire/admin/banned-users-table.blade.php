@@ -39,7 +39,7 @@
                                 <x-user-avatar sm :user="$user" />
                                 <span class="pt-1">
                                     {!! __('general.user_name_link', [
-                                        'name' => $user->name,
+                                        'name' => e($user->name),
                                         'link' => route('user.viewprofile', ['user' => $user->id])
                                     ]) !!}
                                     @if ($user->id === auth()->user()->id)
