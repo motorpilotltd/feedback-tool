@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     public function commentSpams(): BelongsToMany
     {
-        return $this->belongsToMany(Idea::class, 'comment_spam');
+        return $this->belongsToMany(Comment::class, 'comment_spam');
     }
 
     public function votes(): BelongsToMany
