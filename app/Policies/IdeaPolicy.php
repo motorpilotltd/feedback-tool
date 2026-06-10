@@ -63,7 +63,7 @@ class IdeaPolicy
             return true;
         }
 
-        $user->load('permissions');
+        $user->loadMissing('permissions');
 
         return $user->id === (int) $idea->author_id
             || $user->hasPermissionTo(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$idea->productId)
@@ -91,7 +91,7 @@ class IdeaPolicy
             return true;
         }
 
-        $user->load('permissions');
+        $user->loadMissing('permissions');
 
         return $user->hasPermissionTo(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$idea->productId)
             || $user->hasRole(config('const.ROLE_SUPER_ADMIN'));
