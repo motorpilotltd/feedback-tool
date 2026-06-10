@@ -7,12 +7,12 @@
     @if (!empty($asLink))
         {!!
             __('general.added_by_link', [
-                'nameLink' => __('general.user_name_link', ['link' => $asLink, 'name' => $name]),
+                'nameLink' => __('general.user_name_link', ['link' => $asLink, 'name' => e($name)]),
                 'date' => $date,
             ])
         !!}
     @else
-        {!! __('general.added_by', ['name' => $name, 'date' => $date]) !!}
+        {!! __('general.added_by', ['name' => e($name), 'date' => $date]) !!}
     @endif
 
 </div>

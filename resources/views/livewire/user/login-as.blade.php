@@ -16,7 +16,7 @@
             <x-button
                 red
                 wire:click="loginUser('{{$user->id}}')"
-                label="{!! __('text.loginas:user', ['user' => $user->name]) !!}"
+                label="{!! __('text.loginas:user', ['user' => e($user->name)]) !!}"
                 wire:loading.attr="disabled"
             />
         </div>

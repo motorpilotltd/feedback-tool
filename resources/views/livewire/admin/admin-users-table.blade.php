@@ -45,7 +45,7 @@
                                         <x-user-avatar sm :user="$admin" />
                                         <span class="pt-1" title="{{ $admin->name }}">
                                             {!! __('general.user_name_link', [
-                                                'name' => Str::limit($admin->name, 25, '...'),
+                                                'name' => e(Str::limit($admin->name, 25, '...')),
                                                 'link' => route('user.viewprofile', ['user' => $admin->id])
                                             ]) !!}
                                             @if ($admin->id === auth()->user()->id)
@@ -133,7 +133,7 @@
                                     <x-user-avatar sm :user="$admin" />
                                     <span class="pt-1">
                                         {!! __('general.user_name_link', [
-                                            'name' => $admin->name,
+                                            'name' => e($admin->name),
                                             'link' => route('user.viewprofile', ['user' => $admin->id])
                                         ]) !!}
                                         @if ($admin->id === auth()->user()->id)
