@@ -29,7 +29,6 @@ class IdeaShow extends Component
     protected $listeners = [
         'refreshIdeaShow' => '$refresh',
         'commentWasDeleted' => '$refresh',
-        'setAttachments',
     ];
 
     public function mount(IdeaVoteService $ideaVoteService, Idea $idea)
