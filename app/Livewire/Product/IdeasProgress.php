@@ -18,17 +18,23 @@ class IdeasProgress extends Component
 
     public function getStatusesProperty()
     {
-        $ideas = $this->product->ideas;
-
         $statuses = Status::when(
             ! $this->product->settings['enableAwaitingConsideration'],
             fn (Builder $query) => $query->where('slug', '!=', config('const.STATUS_NEW'))
         )
             ->get();
 
-        $statuses->each(function ($status) use ($ideas) {
-            $lists = $ideas->where('status', $status->slug);
-            $status->ideas = $lists->sortBy(['created_at', 'desc'])->take(10);
+        $statuses->each(function ($status) {
+            // Query the 10 most recent ideas for this status directly, rather
+            // than loading every idea for the product into memory and slicing in
+            // PHP. (The previous sortBy(['created_at', 'desc']) passed 'desc' as
+            // a second sort column, not a direction, so it actually sorted
+            // oldest-first; newest-first is the intended order.)
+            $status->ideas = $this->product->ideas()
+                ->where('ideas.status', $status->slug)
+                ->latest('ideas.created_at')
+                ->take(10)
+                ->get();
 
             return $status;
         });
