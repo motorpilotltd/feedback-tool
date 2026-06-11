@@ -60,7 +60,7 @@ class SetStatus extends Component
     public function setStatus()
     {
         if (! auth()->check() || ! auth()->user()->can('manage', $this->idea)) {
-            $this->notification()->success(
+            $this->notification()->error(
                 $description = __('general.actionnotallowed')
             );
 
