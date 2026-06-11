@@ -20,7 +20,7 @@ class IdeaFilterDto
             categorySlug: $filters['categorySlug'] ?? '',
             tagId: $filters['tagId'] ?? 0,
             statuses: $filters['statuses'] ?? [],
-            title: $filters['title'],
+            title: $filters['title'] ?? '',
             otherFilter: $filters['otherFilter'] ?? ''
         );
     }
