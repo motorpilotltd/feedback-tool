@@ -65,6 +65,7 @@ class Product extends Model implements HasMedia
                 });
 
             } catch (Exception $e) {
+                report($e);
             }
         });
 

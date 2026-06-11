@@ -90,6 +90,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
         } catch (Exception $e) {
+            report($e);
         }
 
         // Laravel strict for development
