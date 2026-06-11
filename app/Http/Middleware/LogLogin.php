@@ -14,8 +14,12 @@ class LogLogin
      */
     public function handle(Request $request, Closure $next): LoginResponse
     {
-        Log::info('This user is logging in: '.$request->email);
+        // Logged after authentication using the user id, not the submitted email,
+        // to keep personal data out of the application logs.
+        $response = $next($request);
 
-        return $next($request);
+        Log::info('User logged in', ['user_id' => auth()->id()]);
+
+        return $response;
     }
 }
