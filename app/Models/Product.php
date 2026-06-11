@@ -54,6 +54,13 @@ class Product extends Model implements HasMedia
     protected static function booted(): void
     {
         static::deleting(function ($product) {
+            // NOTE: deleting fires on soft delete too. Removing the spatie
+            // permission here means a restored product has no
+            // products.manage.{id} permission, so every policy check on it
+            // throws PermissionDoesNotExist. If a restore feature is added (see
+            // App\Policies\ProductPolicy::restore), move this to the
+            // forceDeleted event and recreate the permission on restore.
+            //
             // Delete product permission
             try {
                 if ($permission = Permission::findByName(config('const.PERMISSION_PRODUCTS_MANAGE').'.'.$product->id)) {

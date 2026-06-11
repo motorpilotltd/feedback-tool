@@ -77,7 +77,10 @@ class IdeaPolicy
      */
     public function restore(User $user, Idea $idea): bool
     {
-        //
+        // TODO: restore is not implemented. Before enabling it, fix the
+        // soft-delete asymmetry in Idea::booted() — soft-deleting hard-deletes
+        // media and cascade-deletes comments/votes/tags, so a restored idea
+        // would come back empty.
     }
 
     /**

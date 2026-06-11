@@ -40,7 +40,14 @@ class Idea extends Model implements HasMedia
      */
     protected static function booted(): void
     {
-        // Deleting associated media to the idea
+        // Deleting associated media to the idea.
+        //
+        // NOTE: deleting fires on soft delete too, and $cascadeDeletes
+        // hard-deletes comments/votes/tags (none are soft-deletable). A
+        // soft-deleted idea therefore loses its children permanently, so
+        // restoring it would return an empty idea. If a restore feature is
+        // added (see App\Policies\IdeaPolicy::restore), move this destructive
+        // cleanup to the forceDeleted event so soft delete stays reversible.
         static::deleting(function ($idea) {
             $idea->getMedia('attachments')->each(function ($media) {
                 $media->delete();

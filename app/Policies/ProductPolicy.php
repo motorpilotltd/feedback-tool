@@ -85,7 +85,10 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product): bool
     {
-        //
+        // TODO: restore is not implemented. Before enabling it, fix the
+        // soft-delete asymmetry in Product::booted() — soft-deleting removes
+        // the product's spatie permission, so policy checks on a restored
+        // product throw PermissionDoesNotExist.
     }
 
     /**
