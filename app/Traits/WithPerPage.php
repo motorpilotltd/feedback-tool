@@ -17,12 +17,4 @@ trait WithPerPage
 
         return $pagination ?? $this->perPageMax;
     }
-
-    /**
-     * Set the maximum items per page
-     */
-    public function setPerPageMax(int $perPageMax): void
-    {
-        $this->perPageMax = $perPageMax;
-    }
 }

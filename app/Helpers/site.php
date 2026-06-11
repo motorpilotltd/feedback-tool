@@ -4,7 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
-if (! function_exists('convertLocalToUTC')) {
+if (! function_exists('getPreviousQueryString')) {
     function getPreviousQueryString()
     {
         $prevUrl = parse_url(URL::previous());

@@ -62,12 +62,6 @@ class CommentsContainer extends Component
             ->withQueryString();
     }
 
-    #[Computed]
-    public function testVar()
-    {
-        return 'foo';
-    }
-
     public function paginationView()
     {
         return 'vendor.livewire.tailwind';
