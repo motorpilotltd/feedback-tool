@@ -14,6 +14,7 @@
     <env name="BCRYPT_ROUNDS" value="4"/>
     <env name="BROADCAST_CONNECTION" value="null"/>
     <env name="CACHE_STORE" value="array"/>
+    <env name="FORTIFY_REGISTER" value="true" force="true"/>
     <!--
       Runs the suite against MySQL (mirrors production, which SQLite does not).
       DB_DATABASE is forced to a dedicated testing database so a dev database is
