@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AuthenticateEasyAuth;
 use App\Http\Middleware\AuthenticateFile;
 use App\Http\Middleware\CheckAppSettings;
 use App\Http\Middleware\EnsurePasswordChanged;
@@ -43,6 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->web([
             AuthenticateSession::class,
+            AuthenticateEasyAuth::class,
             PreventBannedUsers::class,
             EnsurePasswordChanged::class,
             CheckAppSettings::class,
