@@ -28,9 +28,7 @@ class BreadcrumbTrail
 
     public function parent(string $name, mixed ...$params): self
     {
-        if (! isset($this->callbacks[$name])) {
-            throw new RuntimeException("Breadcrumb definition not found: {$name}");
-        }
+        throw_unless(isset($this->callbacks[$name]), new RuntimeException("Breadcrumb definition not found: {$name}"));
 
         ($this->callbacks[$name])($this, ...$params);
 
@@ -42,9 +40,7 @@ class BreadcrumbTrail
         $this->callbacks = $callbacks;
         $this->breadcrumbs = new Collection;
 
-        if (! isset($this->callbacks[$name])) {
-            throw new RuntimeException("Breadcrumb definition not found: {$name}");
-        }
+        throw_unless(isset($this->callbacks[$name]), new RuntimeException("Breadcrumb definition not found: {$name}"));
 
         ($this->callbacks[$name])($this, ...$params);
 

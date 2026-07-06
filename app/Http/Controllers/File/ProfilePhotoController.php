@@ -22,9 +22,7 @@ class ProfilePhotoController extends Controller
         $disk = Storage::disk('public');
         $path = 'profile-photos/'.$filename;
 
-        if (! $disk->exists($path)) {
-            abort(404);
-        }
+        abort_unless($disk->exists($path), 404);
 
         return $disk->response($path);
     }

@@ -69,10 +69,8 @@ class AdminUsersTable extends Component
         // admin/users route is gated by products-manage (shared with product
         // admins), so without this check a product admin could tamper the
         // request to escalate themselves — or strip an existing super-admin.
-        if (! $this->authUser->hasRole($this->superAdmin)
-            && (in_array($this->superAdmin, $this->roles, true) || $user?->hasRole($this->superAdmin))) {
-            abort(403);
-        }
+        abort_if(! $this->authUser->hasRole($this->superAdmin)
+            && (in_array($this->superAdmin, $this->roles, true) || $user?->hasRole($this->superAdmin)), 403);
 
         $messageNote = [];
         $message = [];
@@ -206,10 +204,8 @@ class AdminUsersTable extends Component
     {
         // A product admin must not be able to revoke the super-admin role, nor
         // remove roles/permissions from a super-admin account.
-        if (! $this->authUser->hasRole($this->superAdmin)
-            && ($role === $this->superAdmin || $user->hasRole($this->superAdmin))) {
-            abort(403);
-        }
+        abort_if(! $this->authUser->hasRole($this->superAdmin)
+            && ($role === $this->superAdmin || $user->hasRole($this->superAdmin)), 403);
 
         if (Str::isJson($permission)) {
             $permission = json_decode($permission, true);
