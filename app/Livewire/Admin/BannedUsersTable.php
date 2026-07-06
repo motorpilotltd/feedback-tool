@@ -5,7 +5,7 @@ namespace App\Livewire\Admin;
 use App\Filters\Common\SearchField;
 use App\Models\User;
 use App\Traits\Livewire\WithTableSorting;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Pipeline\Pipeline;
 use Livewire\Component;
 use Livewire\WithPagination;
