@@ -12,7 +12,7 @@ it('does not let a user delete another user\'s notification', function () {
 
     $notification = $userB->notifications()->create([
         'id' => (string) Str::uuid(),
-        'type' => 'App\\Notifications\\IdeaAdded',
+        'type' => \App\Notifications\IdeaAdded::class,
         'data' => ['idea_id' => 1],
     ]);
 
