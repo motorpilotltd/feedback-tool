@@ -2,6 +2,7 @@
 
 use App\Livewire\NotificationBell;
 use App\Models\User;
+use App\Notifications\IdeaAdded;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
@@ -12,7 +13,7 @@ it('does not let a user delete another user\'s notification', function () {
 
     $notification = $userB->notifications()->create([
         'id' => (string) Str::uuid(),
-        'type' => 'App\\Notifications\\IdeaAdded',
+        'type' => IdeaAdded::class,
         'data' => ['idea_id' => 1],
     ]);
 

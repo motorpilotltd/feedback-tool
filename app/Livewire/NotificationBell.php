@@ -50,9 +50,7 @@ class NotificationBell extends Component
 
     public function markAsRead($notificationId)
     {
-        if (auth()->guest()) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        abort_if(auth()->guest(), Response::HTTP_FORBIDDEN);
 
         // Scope to the current user's own notifications so a user cannot delete
         // another user's notification by guessing its id.
@@ -117,9 +115,7 @@ class NotificationBell extends Component
 
     public function markAllAsRead()
     {
-        if (auth()->guest()) {
-            abort(Response::HTTP_FORBIDDEN);
-        }
+        abort_if(auth()->guest(), Response::HTTP_FORBIDDEN);
 
         // or markAsRead to flag read_at instead of deleting from table
         auth()->user()->unreadNotifications->markAsRead();

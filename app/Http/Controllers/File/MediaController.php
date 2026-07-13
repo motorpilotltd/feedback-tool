@@ -19,9 +19,7 @@ class MediaController extends Controller
      */
     public function show(Request $request, string $action, Media $media)
     {
-        if (! in_array($action, ['display', 'download'])) {
-            abort(404);
-        }
+        abort_unless(in_array($action, ['display', 'download']), 404);
 
         return $action == 'display' ? $media->toInlineResponse($request) : $media->toResponse($request);
     }
