@@ -3,7 +3,6 @@
 use App\Livewire\NotificationBell;
 use App\Models\User;
 use App\Notifications\IdeaAdded;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Str;
 
@@ -18,11 +17,11 @@ it('does not let a user delete another user\'s notification', function () {
     ]);
 
     // Scoped to the actor's own notifications, so another user's id is not found
-    // (a 404 in the real HTTP flow) and cannot be deleted.
-    expect(fn () => login($userA)
+    // (a 404, as in the real HTTP flow) and cannot be deleted.
+    login($userA)
         ->livewire(NotificationBell::class)
         ->call('markAsRead', $notification->id)
-    )->toThrow(ModelNotFoundException::class);
+        ->assertStatus(404);
 
     expect(DatabaseNotification::find($notification->id))->not->toBeNull();
 });
