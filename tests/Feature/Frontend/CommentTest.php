@@ -16,14 +16,15 @@ beforeEach(function () {
     $this->comment1 = Comment::create([
         'user_id' => User::factory()->create()->id,
         'idea_id' => $this->idea1->id,
-        'content' => fake()->text(20),
+        // Fixed, distinct strings: faker text can collide with other page content.
+        'content' => 'Comment that belongs to idea one.',
         'created_at' => Carbon::now()->subDays(2),
     ]);
 
     $this->comment2 = Comment::create([
         'user_id' => User::factory()->create()->id,
         'idea_id' => $this->idea2->id,
-        'content' => fake()->text(20),
+        'content' => 'Comment that belongs to idea two.',
     ]);
 });
 

@@ -96,8 +96,9 @@ it('can show product\'s category links in the sidebar', function () {
     $p1 = Product::factory()->create(['name' => 'Product 1']);
     $p2 = Product::factory()->create(['name' => 'Product 2']);
 
-    $c1 = Category::factory()->create(['product_id' => $p1]);
-    $c2 = Category::factory()->create(['product_id' => $p2]);
+    // Fixed, distinct names: a faker word can be a prefix of another category's name.
+    $c1 = Category::factory()->create(['product_id' => $p1, 'name' => 'Category Alpha']);
+    $c2 = Category::factory()->create(['product_id' => $p2, 'name' => 'Category Bravo']);
 
     $status = Status::factory()->create([
         'name' => 'Awaiting Consideration',
