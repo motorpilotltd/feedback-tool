@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d6496b0de940906dd8c1e0c1adf4199",
+    "content-hash": "b4637c0f3958e770f930021b426244d6",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -11054,72 +11054,6 @@
             ],
             "time": "2026-04-10T17:20:19+00:00",
             "published-time": "2026-04-10T17:20:32+00:00"
-        },
-        {
-            "name": "pestphp/pest-plugin-faker",
-            "version": "v4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pestphp/pest-plugin-faker.git",
-                "reference": "afb07eeca115cc19a2f5e20a4ec113ee6e26d4ec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest-plugin-faker/zipball/afb07eeca115cc19a2f5e20a4ec113ee6e26d4ec",
-                "reference": "afb07eeca115cc19a2f5e20a4ec113ee6e26d4ec",
-                "shasum": ""
-            },
-            "require": {
-                "fakerphp/faker": "^1.24.1",
-                "pestphp/pest": "^4.0.0",
-                "php": "^8.3.0"
-            },
-            "require-dev": {
-                "pestphp/pest-dev-tools": "^4.0.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/Faker.php"
-                ],
-                "psr-4": {
-                    "Pest\\Faker\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "The Pest Faker Plugin",
-            "keywords": [
-                "faker",
-                "framework",
-                "pest",
-                "php",
-                "plugin",
-                "test",
-                "testing",
-                "unit"
-            ],
-            "support": {
-                "source": "https://github.com/pestphp/pest-plugin-faker/tree/v4.0.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/nunomaduro",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2025-08-20T10:22:28+00:00",
-            "published-time": "2025-08-20T10:33:13+00:00"
         },
         {
             "name": "pestphp/pest-plugin-laravel",
