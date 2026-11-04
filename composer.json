@@ -99,7 +99,7 @@
         "optimize-autoloader": true,
         "policy": {
             "cooldown": {
-                "period": "3 days"
+                "period": "1 day"
             }
         },
         "preferred-install": "dist",
